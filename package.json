@@ -1,0 +1,66 @@
+{
+  "name": "drops-is-webclient",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@apollo/client": "^3.3.3",
+    "@fullpage/react-fullpage": "latest",
+    "@material-ui/core": "latest",
+    "@material-ui/icons": "latest",
+    "@material-ui/styles": "latest",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.21.0",
+    "bignumber": "^1.1.0",
+    "bootstrap": "^4.5.3",
+    "classnames": "^2.2.6",
+    "connected-react-router": "^6.8.0",
+    "cross-env": "^7.0.2",
+    "express": "^4.17.1",
+    "express-favicon": "^2.0.1",
+    "graphql": "^15.4.0",
+    "immutable": "^4.0.0-rc.12",
+    "node-sass": "^4.14.1",
+    "react": "^16.13.1",
+    "react-bootstrap": "latest",
+    "react-dom": "^16.13.1",
+    "react-loading": "^2.0.3",
+    "react-redux": "latest",
+    "react-router": "latest",
+    "react-router-dom": "latest",
+    "react-scripts": "3.4.3",
+    "react-toastify": "^6.0.9",
+    "redux": "latest",
+    "redux-actions": "^2.6.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-saga": "^1.1.3",
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^5.2.0",
+    "use-wallet": "^0.8.0",
+    "web3": "^1.3.0"
+  },
+  "scripts": {
+    "start": "cross-env REACT_APP_BUILD_MODE=\"development\" react-scripts start",
+    "start-prod": "cross-env REACT_APP_BUILD_MODE=\"production\" react-scripts start",
+    "stage": "cross-env REACT_APP_BUILD_MODE=\"development\" react-scripts build",
+    "build": "cross-env REACT_APP_BUILD_MODE=\"production\" react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

@@ -1,0 +1,239 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
+import styled from "styled-components";
+
+const Footer = () => {
+  return (
+    <FooterWrapper>
+      <div className="footer-content">
+        <div className="footer-content-left">
+          <div className="footer-content-section social">
+            <img className="footer-content-section-title" src="/static/images/logo/logo-white.png" width="109" height="23" alt="" />
+            <div className="footer-content-social">
+              <img src="/static/images/social/twitter.png" alt="" /> <span>Twitter</span>
+            </div>
+            <div className="footer-content-social">
+              <img src="/static/images/social/telegram.png" alt="" /> <span>Telegram</span>
+            </div>
+            <div className="footer-content-social">
+              <img src="/static/images/social/discord.png" alt="" /> <span>Discord</span>
+            </div>
+            <div className="footer-content-social">
+              <img src="/static/images/social/medium.png" alt="" /> <span>Medium </span>
+            </div>
+          </div>
+          <div className="footer-content-section get-in-touch">
+            <div className="footer-content-section-title" >Get in touch</div>
+            <p>hello@example.com</p>
+            <p>Address lorem ipsum dolo sit amet pratas<br />lhadala malah penak tenan</p>
+          </div>
+        </div>
+        <div className="footer-content-right">
+          <div className="footer-content-section info">
+            <img className="footer-content-section-title" src="/static/images/logo/logo-white.png" width="109" height="23" alt="" />
+            <div className="footer-content-section-title" >Info</div>
+            <Link className="footer-content-link">Home</Link>
+            <Link className="footer-content-link">Stake & earn</Link>
+            <Link className="footer-content-link">Drop</Link>
+            <Link className="footer-content-link">My Wallet</Link>
+          </div>
+          <div className="footer-content-section legal">
+            <div className="footer-content-section-title" >Legal</div>
+            <Link className="footer-content-link">Terms of Use</Link>
+            <Link className="footer-content-link">Privacy policy</Link>
+          </div>
+        </div>
+      </div>
+      <div className="footer-copyright">
+        <Link className="footer-copyright-text">Privacy policy</Link>
+        <span className="footer-copyright-text">© 2021. DROPS</span>
+        <Link className="footer-copyright-text">Term of use</Link>
+      </div>
+    </FooterWrapper>
+  );
+};
+
+const FooterWrapper = styled.div`
+  .footer-content {
+    padding: 92px 135px 114px 135px;
+    background: #282B49;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #fff;
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column-reverse;
+      padding: 60px 20px;
+    }
+
+    &-left {
+      width: 45%;
+      display: flex;
+      flex-direction: row;
+
+      @media screen and (max-width: 768px) {
+        flex-direction: column-reverse;
+        width: 100%;
+      }
+    }
+
+    &-right {
+      width: 45%;
+      display: flex;
+      flex-direction: row;
+      
+      @media screen and (max-width: 768px) {
+        width: 100%;
+      }
+    }
+
+    &-section {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+
+      @media screen and (max-width: 768px) {
+        align-items: center;
+      }
+
+      &.social {
+        @media screen and (max-width: 768px) {
+          flex-direction: row;
+          justify-content: center;
+          margin-top: 40px;
+        }
+
+        .footer-content-section-title {
+          @media screen and (max-width: 768px) {
+            display: none;
+          }
+        }
+      }
+
+      &-title {
+        margin-bottom: 21px;
+        font-family: "Montserrat";
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 22px;
+
+        @media screen and (max-width: 768px) {
+          font-size: 14px;
+          line-height: 17px;
+        }
+      }
+
+      &.get-in-touch {
+        @media screen and (max-width: 768px) {
+          margin-top: 30px;
+          text-align: center;
+        }
+      }
+
+      &.info {
+        img {
+          display: none;
+
+          @media screen and (max-width: 768px) {
+            display: block;
+          }
+        }
+
+        div {
+          @media screen and (max-width: 768px) {
+            display: none;
+          }
+        }
+      }
+
+      &.legal {
+        @media screen and (max-width: 768px) {
+          display: none;
+        }
+      }
+
+      p {
+        font-family: "Montserrat";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        color: #D0D0D0;
+
+        @media screen and (max-width: 768px) {
+          font-size: 12px;
+          line-height: 15px;
+        }
+      }
+    }
+
+    &-link {
+      font-family: "Montserrat";
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+      color: #D0D0D0;
+      text-decoration: none;
+      padding-bottom: 28px;
+
+      @media screen and (max-width: 768px) {
+        font-size: 14px;
+        line-height: 17px;
+      }
+    }
+
+    &-social {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+
+      @media screen and (max-width: 768px) {
+        margin: 10px;
+      }
+
+      span {
+        padding-left: 10px;
+        font-family: "Montserrat";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+
+        @media screen and (max-width: 768px) {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .footer-copyright {
+    background: #1C1E35;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
+    
+    &-text {
+      font-family: "Montserrat";
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 24px;
+      letter-spacing: 0.5px;
+      color: #FFFFFF;
+      opacity: 0.4;
+      text-decoration: none;
+
+      @media screen and (max-width: 768px) {
+        font-size: 10px;
+        line-height: 24px;
+      }
+    }
+  }
+`;
+export default Footer;
