@@ -63,11 +63,11 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <div className="logo-wrapper">
-        <img className="icon-btn" src="/static/images/icons/burger.png" alt="burger" />
+        {/* <img className="icon-btn" src="/static/images/icons/burger.png" alt="burger" /> */}
         <img className="logo" src="/static/images/logo/logo.png" alt="logo"/>
-        <img className="icon-btn" src="/static/images/icons/wallet.png" alt="wallet" />
+        {/* <img className="icon-btn" src="/static/images/icons/wallet.png" alt="wallet" /> */}
       </div>
-      <div className="menu-wrapper">
+      {/* <div className="menu-wrapper">
         <ul className="menu-nav">
           <li className="menu-nav-item">
             <NavLink to="" className="menu-nav-link">HOME</NavLink>
@@ -86,7 +86,7 @@ const Header = () => {
           <div>dPoints: 1000</div>
         </div>
         <div className="wallet-info">MY WALLET</div>
-      </div>
+      </div> */}
     </HeaderWrapper>
   );
 };

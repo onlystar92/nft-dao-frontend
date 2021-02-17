@@ -43,7 +43,7 @@ const LandingPage = ({ history }) => {
           <img className="m-10" src="/static/images/tokens/polka.png" alt="" height="24" />
         </div>
       </Section>
-      <Section className="section-4">
+      {/* <Section className="section-4">
         <h2 className="font-color-dark font-size-lg">UPCOMING DROPS</h2>
         <div className="section-4-content">
           {dataUpcomingDrops.map((d, index) => <UpcomingDrops className="section-4-item" key={`upcoming-drops-${index}`} data={d} />)}
@@ -51,7 +51,7 @@ const LandingPage = ({ history }) => {
         <div className="text-center">
           <Button className="m-10" onClick={() => { }} type="light">VIEW ALL</Button>
         </div>
-      </Section>
+      </Section> */}
       <Section className="section-5">
         <h2 className="font-color-dark font-size-lg text-center">MORE UTILITY FOR YOUR NFT</h2>
         <div className="section-5-content">
