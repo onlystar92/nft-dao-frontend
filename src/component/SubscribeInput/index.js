@@ -1,14 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-import Button from "../Button";
-
 import cn from "classnames";
 
 const SubscribeInput = ({ type, onClick, children, className }) => (
   <SubscribeInputWrapper className={cn(className, type, "font-button")}>
     <input className="subscribe-input" type="text" placeholder="Enter your email" />
-    <ButtonWrapper className="subscribe-button font-button" onClick={() => { }} onClick={(e) => onClick()}>
+    <ButtonWrapper className="subscribe-button font-button" onClick={(e) => onClick()}>
       Stake & Earn
     </ButtonWrapper>
   </SubscribeInputWrapper>

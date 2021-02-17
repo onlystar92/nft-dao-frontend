@@ -1,12 +1,10 @@
 import React, { Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
 
-import Footer from "../component/Footer";
 import Loader from "../component/Loader";
-import Layout from "../layout/Layout";
 import LandingPage from "../pages/LandingPage";
 
-import { menuRoutes } from "./index";
+// import { menuRoutes } from "./index";
 
 const Routes = () => {
   return (

@@ -20,7 +20,7 @@ const Footer = () => {
               <a href="https://discord.gg/FqZKAs6pmD" target="_blank" rel="noopener noreferrer"><img width="26" height="26" src="/static/images/social/discord.png" alt="" /> <span>Discord</span></a>
             </div>
             <div className="footer-content-social">
-              <a href="https://github.com/dropsnft" target="_blank" rel="noopener noreferrer"><img width="26" height="26" src="/static/images/social/linkedin.png" alt="" /> <span>Github</span></a>
+              <a href="https://github.com/dropsnft" target="_blank" rel="noopener noreferrer"><img width="26" height="26" src="/static/images/social/github.png" alt="" /> <span>Github</span></a>
             </div>
           </div>
           <div className="footer-content-section get-in-touch">
@@ -33,22 +33,22 @@ const Footer = () => {
           <div className="footer-content-section info">
             <img className="footer-content-section-title" src="/static/images/logo/logo-white.png" width="109" height="23" alt="" />
             <div className="footer-content-section-title" >Info</div>
-            <Link className="footer-content-link">Home</Link>
-            <Link className="footer-content-link">Stake & earn</Link>
-            <Link className="footer-content-link">Drop</Link>
-            <Link className="footer-content-link">My Wallet</Link>
+            <Link to="/" className="footer-content-link">Home</Link>
+            <Link to="/" className="footer-content-link">Stake & earn</Link>
+            <Link to="/" className="footer-content-link">Drop</Link>
+            <Link to="/" className="footer-content-link">My Wallet</Link>
           </div>
           <div className="footer-content-section legal">
             <div className="footer-content-section-title" >Legal</div>
-            <Link className="footer-content-link">Terms of Use</Link>
-            <Link className="footer-content-link">Privacy policy</Link>
+            <Link to="/" className="footer-content-link">Terms of Use</Link>
+            <Link to="/" className="footer-content-link">Privacy policy</Link>
           </div>
         </div>
       </div>
       <div className="footer-copyright">
-        <Link className="footer-copyright-text">Privacy policy</Link>
+        <Link to="/" className="footer-copyright-text">Privacy policy</Link>
         <span className="footer-copyright-text">© 2021. DROPS</span>
-        <Link className="footer-copyright-text">Term of use</Link>
+        <Link to="/" className="footer-copyright-text">Term of use</Link>
       </div>
     </FooterWrapper>
   );

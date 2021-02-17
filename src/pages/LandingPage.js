@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import Header from "../component/Header";
 import HowItWorks from "../component/HowItWorks";
-import UpcomingDrops from "../component/UpcomingDrops";
+// import UpcomingDrops from "../component/UpcomingDrops";
 import MoreUtility from "../component/MoreUtility";
 import TeamMember from "../component/TeamMember";
 import SubscribeInput from "../component/SubscribeInput";
@@ -12,7 +12,7 @@ import Footer from "../component/Footer";
 
 import Button from "../component/Button";
 
-import { dataHowItWorks, dataUpcomingDrops, dataMoreNFTs, dataTeam } from "../helper/dummy";
+import { dataHowItWorks, /*dataUpcomingDrops,*/ dataMoreNFTs, dataTeam } from "../helper/dummy";
 
 const LandingPage = ({ history }) => {
   return (

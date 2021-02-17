@@ -6,7 +6,7 @@ import cn from "classnames";
 const TeamMember = ({ className, bg, data }) => (
   <TeamMemberWrapper className={cn(className, `bg-${bg}`)}>
     <img className="team-member-img" src={data.image} alt="" />
-    <a href={data.linkedin} target="_blank" noopener noreferrer><img className="team-member-social" src="/static/images/social/linkedin.png" alt="" /></a>
+    <a href={data.linkedin} target="_blank" rel="noopener noreferrer"><img className="team-member-social" src="/static/images/social/linkedin.png" alt="" /></a>
     <div className="team-member-name">{data.name}</div>
     <div className="team-member-title">{data.title}</div>
   </TeamMemberWrapper>

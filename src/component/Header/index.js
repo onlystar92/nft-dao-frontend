@@ -1,64 +1,54 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useLocation } from "react-router";
-import { useWallet } from "use-wallet";
+import React from "react";
+// import { useLocation } from "react-router";
 import styled from "styled-components";
 
-import MenuIcon from "@material-ui/icons/Menu";
-import CloseIcon from "@material-ui/icons/Close";
-
-import lpstakingActions from "../../redux/lpstaking/actions";
-import { NavLink } from "react-router-dom";
-
 const Header = () => {
-  const [mobileMenu, setMobileMenu] = useState(false);
+  // const location = useLocation();
+  // const getCurrentUrl = (location) => {
+  //   return location.pathname.split(/[?#]/)[0];
+  // };
 
-  const location = useLocation();
-  const getCurrentUrl = (location) => {
-    return location.pathname.split(/[?#]/)[0];
-  };
+  // const checkIsActive = (location, url) => {
+  //   const current = getCurrentUrl(location);
 
-  const checkIsActive = (location, url) => {
-    const current = getCurrentUrl(location);
+  //   if (!current || !url) {
+  //     return false;
+  //   }
 
-    if (!current || !url) {
-      return false;
-    }
+  //   if (current === url || (current === "/" && url === "home")) {
+  //     return true;
+  //   }
 
-    if (current === url || (current === "/" && url === "home")) {
-      return true;
-    }
+  //   return current.indexOf(url) > -1;
+  // };
 
-    return current.indexOf(url) > -1;
-  };
+  // const getMenuItemActive = (url) => {
+  //   return checkIsActive(location, url) ? "active" : "";
+  // };
 
-  const getMenuItemActive = (url) => {
-    return checkIsActive(location, url) ? "active" : "";
-  };
+  // const getMenuName = () => {
+  //   if (getMenuItemActive("home")) {
+  //     return "Home";
+  //   }
 
-  const getMenuName = () => {
-    if (getMenuItemActive("home")) {
-      return "Home";
-    }
+  //   if (getMenuItemActive("stake")) {
+  //     return "Stake";
+  //   }
 
-    if (getMenuItemActive("stake")) {
-      return "Stake";
-    }
+  //   if (getMenuItemActive("get-heroes")) {
+  //     return "Get Cards";
+  //   }
 
-    if (getMenuItemActive("get-heroes")) {
-      return "Get Cards";
-    }
+  //   if (getMenuItemActive("farm")) {
+  //     return "Farm";
+  //   }
 
-    if (getMenuItemActive("farm")) {
-      return "Farm";
-    }
+  //   if (getMenuItemActive("fight-villains")) {
+  //     return "Fight Villains";
+  //   }
 
-    if (getMenuItemActive("fight-villains")) {
-      return "Fight Villains";
-    }
-
-    return "";
-  };
+  //   return "";
+  // };
 
   return (
     <HeaderWrapper>
