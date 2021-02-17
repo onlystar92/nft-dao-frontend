@@ -223,6 +223,7 @@ const Section = styled.div`
     }
 
     .section-6-item {
+      width: 23%;
       @media screen and (max-width: 768px) {
         width: 80%;
         margin-bottom: 23px;

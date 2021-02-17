@@ -57,28 +57,27 @@ export const dataMoreNFTs = [
 
 export const dataTeam = [
   {
-    image: "/static/images/dummy/user-1.png",
-    name: "Kira Smith",
-    title: "Designer"
+    image: "/static/images/team/darius.png",
+    name: "Darius Kozlovskis",
+    title: "Founder",
+    linkedin: "https://www.linkedin.com/in/dariuskozlovskis/"
   },
   {
-    image: "/static/images/dummy/user-2.png",
-    name: "Kira Smith",
-    title: "Designer"
+    image: "/static/images/team/Volodymyr.png",
+    name: "Volodymyr Matskiv",
+    title: "CTO",
+    linkedin: "https://www.linkedin.com/in/nikita-ufimcev-8425b64a/"
   },
   {
-    image: "/static/images/dummy/user-3.png",
-    name: "Kira Smith",
-    title: "Designer"
+    image: "/static/images/team/nikita.png",
+    name: "Nikita Ufimcev",
+    title: "Business developer",
+    linkedin: "https://www.linkedin.com/in/volodymyr-matskiv/"
   },
   {
-    image: "/static/images/dummy/user-4.png",
-    name: "Kira Smith",
-    title: "Designer"
+    image: "/static/images/team/Dario.png",
+    name: "Dario Corbeli",
+    title: "Full-stack developer",
+    linkedin: "https://www.linkedin.com/in/dariocorbelli/"
   },
-  {
-    image: "/static/images/dummy/user-5.png",
-    name: "Kira Smith",
-    title: "Designer"
-  }
 ];

@@ -11,16 +11,16 @@ const Footer = () => {
           <div className="footer-content-section social">
             <img className="footer-content-section-title" src="/static/images/logo/logo-white.png" width="109" height="23" alt="" />
             <div className="footer-content-social">
-              <img src="/static/images/social/twitter.png" alt="" /> <span>Twitter</span>
+              <a href="https://twitter.com/dropsnft" target="_blank" rel="noopener noreferrer"><img width="26" height="26" src="/static/images/social/twitter.png" alt="" /> <span>Twitter</span></a>
             </div>
             <div className="footer-content-social">
-              <img src="/static/images/social/telegram.png" alt="" /> <span>Telegram</span>
+              <a href="https://t.me/drops_nft" target="_blank" rel="noopener noreferrer"><img width="26" height="26" src="/static/images/social/telegram.png" alt="" /> <span>Telegram</span></a>
             </div>
             <div className="footer-content-social">
-              <img src="/static/images/social/discord.png" alt="" /> <span>Discord</span>
+              <a href="https://discord.gg/FqZKAs6pmD" target="_blank" rel="noopener noreferrer"><img width="26" height="26" src="/static/images/social/discord.png" alt="" /> <span>Discord</span></a>
             </div>
             <div className="footer-content-social">
-              <img src="/static/images/social/medium.png" alt="" /> <span>Medium </span>
+              <a href="https://github.com/dropsnft" target="_blank" rel="noopener noreferrer"><img width="26" height="26" src="/static/images/social/linkedin.png" alt="" /> <span>Github</span></a>
             </div>
           </div>
           <div className="footer-content-section get-in-touch">
@@ -93,6 +93,13 @@ const FooterWrapper = styled.div`
       display: flex;
       flex-direction: column;
       flex: 1;
+
+      a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #fff;
+      }
 
       @media screen and (max-width: 768px) {
         align-items: center;
@@ -193,6 +200,10 @@ const FooterWrapper = styled.div`
 
       @media screen and (max-width: 768px) {
         margin: 10px;
+      }
+
+      img {
+        border-radius: 13px;
       }
 
       span {
