@@ -68,7 +68,7 @@ const LandingPage = ({ history }) => {
       </Section>
       <Section className="section-7">
         <h2 className="font-color-dark font-size-lg text-center">Apply as an artist</h2>
-        <p className="font-color-dark font-size-md text-center">Apply  Duis libero elit, pulvinar vitae turpis non,<br/>scelerisque tempus felis</p>
+        {/* <p className="font-color-dark font-size-md text-center">Apply  Duis libero elit, pulvinar vitae turpis non,<br/>scelerisque tempus felis</p> */}
         <div className="text-center">
           <a href="https://docs.google.com/forms/d/e/1FAIpQLSeIu6-kRK_Owq4w5z8OfSz3YMXvlB1A_flAxDyxLJ6PMRaXww/viewform?usp=sf_link" 
             target="_blank" className="apply-artist m-10 font-button" rel="noopener noreferrer">APPLY</a>
