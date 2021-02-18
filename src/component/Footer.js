@@ -25,19 +25,19 @@ const Footer = () => {
           </div>
           <div className="footer-content-section get-in-touch">
             <div className="footer-content-section-title" >Get in touch</div>
-            <p>hello@example.com</p>
-            <p>Address lorem ipsum dolo sit amet pratas<br />lhadala malah penak tenan</p>
+            <a href="mailto:info@drops.is">info@drops.is</a>
+            {/* <p>Address lorem ipsum dolo sit amet pratas<br />lhadala malah penak tenan</p> */}
           </div>
         </div>
         <div className="footer-content-right">
-          <div className="footer-content-section info">
+          {/* <div className="footer-content-section info">
             <img className="footer-content-section-title" src="/static/images/logo/logo-white.png" width="109" height="23" alt="" />
             <div className="footer-content-section-title" >Info</div>
             <Link to="/" className="footer-content-link">Home</Link>
             <Link to="/" className="footer-content-link">Stake & earn</Link>
             <Link to="/" className="footer-content-link">Drop</Link>
             <Link to="/" className="footer-content-link">My Wallet</Link>
-          </div>
+          </div> */}
           <div className="footer-content-section legal">
             <div className="footer-content-section-title" >Legal</div>
             <Link to="/" className="footer-content-link">Terms of Use</Link>
@@ -46,9 +46,9 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-copyright">
-        <Link to="/" className="footer-copyright-text">Privacy policy</Link>
+        {/* <Link to="/" className="footer-copyright-text">Privacy policy</Link> */}
         <span className="footer-copyright-text">© 2021. DROPS</span>
-        <Link to="/" className="footer-copyright-text">Term of use</Link>
+        {/* <Link to="/" className="footer-copyright-text">Term of use</Link> */}
       </div>
     </FooterWrapper>
   );
@@ -69,7 +69,7 @@ const FooterWrapper = styled.div`
     }
 
     &-left {
-      width: 45%;
+      width: 60%;
       display: flex;
       flex-direction: row;
 
@@ -80,7 +80,7 @@ const FooterWrapper = styled.div`
     }
 
     &-right {
-      width: 45%;
+      width: 30%;
       display: flex;
       flex-direction: row;
       
@@ -225,7 +225,7 @@ const FooterWrapper = styled.div`
     background: #1C1E35;
     height: 80px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 0px 20px;
     

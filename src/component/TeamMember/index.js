@@ -6,9 +6,9 @@ import cn from "classnames";
 const TeamMember = ({ className, bg, data }) => (
   <TeamMemberWrapper className={cn(className, `bg-${bg}`)}>
     <img className="team-member-img" src={data.image} alt="" />
-    <a href={data.linkedin} target="_blank" rel="noopener noreferrer"><img className="team-member-social" src="/static/images/social/linkedin.png" alt="" /></a>
     <div className="team-member-name">{data.name}</div>
     <div className="team-member-title">{data.title}</div>
+    <a href={data.linkedin} target="_blank" rel="noopener noreferrer"><img className="team-member-social" src="/static/images/social/linkedin.png" alt="" /></a>
   </TeamMemberWrapper>
 );
 
@@ -71,9 +71,9 @@ const TeamMemberWrapper = styled.div`
   .team-member-title {
     font-family: "Montserrat";
     font-style: normal;
-    font-weight: 300;
-    font-size: 12px;
-    line-height: 15px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
     text-align: center;
     margin-top: 9px;
   }
