@@ -23,9 +23,11 @@ const LandingPage = ({ history }) => {
       <Section className="section-1">
         <h1 className="font-color-dark font-size-lg text-center">NFT Raffles, STAKING & LOANS</h1>
         <p className="font-color-dark font-size-md text-center">Do more with your NFT assets.<br />Zero gas fees. Built on Polygon and Biconomy.</p>
-        <div className="text-center">
-          <Button className="m-10" onClick={() => { }} type="dark">PRESENTATION</Button>
-          <Button className="m-10" onClick={() => { }} type="light">WHITEPAPER</Button>
+        <div className="d-flex justify-content-center">
+          <a href="https://docsend.com/view/nc56ckqmy7zvjv9n"
+            target="_blank" className="link-button m-10 font-button" rel="noopener noreferrer">Pitch Deck</a>
+          <a href="https://docsend.com/view/e9nq2waxia63hrq7"
+            target="_blank" className="link-button m-10 font-button" rel="noopener noreferrer">WHITEPAPER</a>
         </div>
       </Section>
       <Section className="section-2" />
@@ -69,9 +71,9 @@ const LandingPage = ({ history }) => {
       <Section className="section-7">
         <h2 className="font-color-dark font-size-lg text-center">Apply as an artist</h2>
         {/* <p className="font-color-dark font-size-md text-center">Apply  Duis libero elit, pulvinar vitae turpis non,<br/>scelerisque tempus felis</p> */}
-        <div className="text-center">
+        <div className="d-flex justify-content-center">
           <a href="https://docs.google.com/forms/d/e/1FAIpQLSeIu6-kRK_Owq4w5z8OfSz3YMXvlB1A_flAxDyxLJ6PMRaXww/viewform?usp=sf_link" 
-            target="_blank" className="apply-artist m-10 font-button" rel="noopener noreferrer">APPLY</a>
+            target="_blank" className="link-button m-10 font-button" rel="noopener noreferrer">APPLY</a>
         </div>
       </Section>
       <Section className="section-8" />
@@ -254,27 +256,6 @@ const Section = styled.div`
     flex-direction: column;
     justify-content: center;
     padding-top: 140px;
-
-    .apply-artist {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-decoration: none;
-      width: 240px;
-      height: 56px;
-      border-radius: 28px;
-      border: 1px solid #282B49;
-      cursor: pointer;
-      outline: none;
-      background: #282b49;
-      color: #fff;
-      margin: 0px auto;
-
-      @media screen and (max-width: 768px) {
-        width: 224px;
-        height: 48px;
-      }
-    }
   }
 
   &.section-8 {
