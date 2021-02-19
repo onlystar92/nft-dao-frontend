@@ -25,9 +25,9 @@ const LandingPage = ({ history }) => {
         <p className="font-color-dark font-size-md text-center">Do more with your NFT assets.<br />Zero gas fees. Built on Polygon and Biconomy.</p>
         <div className="d-flex justify-content-center">
           <a href="https://docsend.com/view/nc56ckqmy7zvjv9n"
-            target="_blank" className="link-button m-10 font-button" rel="noopener noreferrer">Pitch Deck</a>
+            target="_blank" className="link-button  dark m-10 font-button" rel="noopener noreferrer">Pitch Deck</a>
           <a href="https://docsend.com/view/e9nq2waxia63hrq7"
-            target="_blank" className="link-button m-10 font-button" rel="noopener noreferrer">WHITEPAPER</a>
+            target="_blank" className="link-button  light m-10 font-button" rel="noopener noreferrer">WHITEPAPER</a>
         </div>
       </Section>
       <Section className="section-2" />
