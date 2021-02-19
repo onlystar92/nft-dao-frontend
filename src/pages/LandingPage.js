@@ -98,9 +98,17 @@ const LandingPage = ({ history }) => {
 const LandingPageWrapper = styled.div``;
 
 const Section = styled.div`
-  padding: 60px;
+  padding: 60px 20%;
   width: 100vw;
   max-width: 100%;
+
+  @media screen and (max-width: 1920px) {
+    padding 60px 10%;
+  }
+
+  @media screen and (max-width: 1440px) {
+    padding 60px;
+  }
 
   @media screen and (max-width: 768px) {
     padding 60px 20px;
@@ -187,7 +195,11 @@ const Section = styled.div`
     background-position: bottom;
     background-size: 100%;
     padding-top: 60px;
-    padding-bottom: 240px;
+    padding-bottom: 440px;
+
+    @media screen and (max-width: 1920px) {
+      padding-bottom: 240px;
+    }
 
     @media screen and (max-width: 768px) {
       padding-bottom: 120px;
@@ -226,7 +238,7 @@ const Section = styled.div`
     }
 
     .section-6-item {
-      width: 23%;
+      width: 18%;
       @media screen and (max-width: 768px) {
         width: 80%;
         margin-bottom: 23px;
