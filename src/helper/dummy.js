@@ -51,7 +51,7 @@ export const dataMoreNFTs = [
   {
     image: "/static/images/bg/bg-p-1.png",
     title: "NFT Loans",
-    description: "Use NFT assets for permissionless and trustless lending. Value of NFT assets determined via the associated ERC20 tokens. Value of NFT assets determined via the associated ERC20 tokens."
+    description: "Use NFT assets for permissionless and trustless lending. Value of NFT assets determined via the associated ERC20 tokens."
   },
 ];
 
@@ -66,13 +66,13 @@ export const dataTeam = [
     image: "/static/images/team/Volodymyr.png",
     name: "Volodymyr Matskiv",
     title: "CTO",
-    linkedin: "https://www.linkedin.com/in/nikita-ufimcev-8425b64a/"
+    linkedin: "https://www.linkedin.com/in/volodymyr-matskiv/"
   },
   {
     image: "/static/images/team/nikita.png",
     name: "Nikita Ufimcev",
     title: "Business developer",
-    linkedin: "https://www.linkedin.com/in/volodymyr-matskiv/"
+    linkedin: "https://www.linkedin.com/in/nikita-ufimcev-8425b64a/"
   },
   {
     image: "/static/images/team/Dario.png",
