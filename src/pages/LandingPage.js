@@ -43,8 +43,6 @@ const LandingPage = ({ history }) => {
           <img className="m-10" src="/static/images/tokens/eth-men.png" alt="" height="24" />
           <img className="m-10" src="/static/images/tokens/ndr.png" alt="" height="24" />
           <img className="m-10" src="/static/images/tokens/marble.png" alt="" height="24" />
-          <img className="m-10" src="/static/images/tokens/bondly.png" alt="" height="24" />
-          <img className="m-10" src="/static/images/tokens/polka.png" alt="" height="24" />
         </div>
       </Section>
       {/* <Section className="section-4">
