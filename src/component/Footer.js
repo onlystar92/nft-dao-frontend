@@ -25,7 +25,7 @@ const Footer = () => {
           </div>
           <div className="footer-content-section get-in-touch">
             <div className="footer-content-section-title" >Get in touch</div>
-            <a href="mailto:info@drops.is">info@drops.is</a>
+            <a href="mailto:info@drops.is">info@drops.co</a>
             {/* <p>Address lorem ipsum dolo sit amet pratas<br />lhadala malah penak tenan</p> */}
           </div>
         </div>

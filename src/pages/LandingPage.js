@@ -21,8 +21,8 @@ const LandingPage = ({ history }) => {
       <AnnounceCap />
       <Header />
       <Section className="section-1">
-        <h1 className="font-color-dark font-size-lg text-center">NFT Raffles, STAKING & LOANS</h1>
-        <p className="font-color-dark font-size-md text-center">Do more with your NFT assets.<br />Zero gas fees. Built on Polygon and Biconomy.</p>
+        <h1 className="font-color-dark font-size-lg text-center">DeFi for NFTs</h1>
+        <p className="font-color-dark font-size-xd text-center">Staking, Trustless loans, Vaults</p>
         <div className="d-flex justify-content-center">
           <a href="https://docsend.com/view/nc56ckqmy7zvjv9n"
             target="_blank" className="link-button  dark m-10 font-button" rel="noopener noreferrer">Pitch Deck</a>
@@ -103,7 +103,7 @@ const Section = styled.div`
   max-width: 100%;
 
   @media screen and (max-width: 1920px) {
-    padding 60px 10%;
+    padding 60px 15%;
   }
 
   @media screen and (max-width: 1440px) {
