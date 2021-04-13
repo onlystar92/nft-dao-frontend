@@ -89,11 +89,11 @@ const HeaderWrapper = styled.div`
   background: #fff;
 
   .logo-wrapper {
-    width: 160px;
+    display: flex;
     padding-left: 60px;
 
     .logo {
-      height: 24px;
+      height: 40px;
     }
 
     .icon-btn {
