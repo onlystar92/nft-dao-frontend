@@ -45,8 +45,8 @@ export const dataMoreNFTs = [
   },
   {
     image: "/static/images/bg/bg-p-2.png",
-    title: "NFT Launchpad - “Drops”",
-    description: "Introduction of rare artists to the platform, fair and exciting NFT distribution through raffles."
+    title: "NFT to ERC20",
+    description: "Instant access to NFT liquidity. Making NFTs fungible by converting it to ERC20 tokens, which have liquidity pools."
   },
   {
     image: "/static/images/bg/bg-p-1.png",
