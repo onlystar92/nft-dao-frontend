@@ -93,8 +93,8 @@ const HeaderWrapper = styled.div`
     padding-left: 60px;
 
     .logo {
-      width: 100px;
-      height: 23px;
+      width: 122px;
+      height: 24px;
     }
 
     .icon-btn {
