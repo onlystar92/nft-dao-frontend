@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-content-left">
           <div className="footer-content-section social">
-            <img className="footer-content-section-title" src="/static/images/logo/logo-white.png" width="122" height="24" alt="" />
+            <img className="footer-content-section-title" src="/static/images/logo/logo-white.png" width="110" alt="" />
             <div className="footer-content-social">
               <a href="https://twitter.com/dropsnft" target="_blank" rel="noopener noreferrer"><img width="26" height="26" src="/static/images/social/twitter.png" alt="" /> <span>Twitter</span></a>
             </div>

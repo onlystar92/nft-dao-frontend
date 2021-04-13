@@ -93,7 +93,6 @@ const HeaderWrapper = styled.div`
     padding-left: 60px;
 
     .logo {
-      width: 122px;
       height: 24px;
     }
 
