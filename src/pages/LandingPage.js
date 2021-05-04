@@ -66,20 +66,38 @@ const LandingPage = ({ history }) => {
           {dataTeam.map((d, index) => <TeamMember className="section-6-item" bg={index % 5} key={`team-member-${index}`} data={d} />)}
         </div>
       </Section>
-      <Section className="section-7">
+      {/* <Section className="section-7">
         <h2 className="font-color-dark font-size-lg text-center">Apply as an artist</h2>
-        {/* <p className="font-color-dark font-size-md text-center">Apply  Duis libero elit, pulvinar vitae turpis non,<br/>scelerisque tempus felis</p> */}
+        // <p className="font-color-dark font-size-md text-center">Apply  Duis libero elit, pulvinar vitae turpis non,<br/>scelerisque tempus felis</p>
         <div className="d-flex justify-content-center">
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeIu6-kRK_Owq4w5z8OfSz3YMXvlB1A_flAxDyxLJ6PMRaXww/viewform?usp=sf_link" 
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeIu6-kRK_Owq4w5z8OfSz3YMXvlB1A_flAxDyxLJ6PMRaXww/viewform?usp=sf_link"
             target="_blank" className="link-button m-10 font-button" rel="noopener noreferrer">APPLY</a>
+        </div>
+      </Section> */}
+      <Section className="section-7">
+        <h2 className="font-color-dark font-size-lg text-center">Investors</h2>
+        <div className="section-images">
+          <img className="investor-img" src="/static/images/investors/investor-1.png" alt="" />
+          <img className="investor-img" src="/static/images/investors/investor-2.png" alt="" />
+          <img className="investor-img" src="/static/images/investors/investor-3.png" alt="" />
+          <img className="investor-img" src="/static/images/investors/investor-4.png" alt="" />
+          <img className="investor-img" src="/static/images/investors/investor-5.png" alt="" />
+          <img className="investor-img" src="/static/images/investors/investor-6.png" alt="" />
+          <img className="investor-img" src="/static/images/investors/investor-7.png" alt="" />
+          <img className="investor-img" src="/static/images/investors/investor-8.png" alt="" />
         </div>
       </Section>
       <Section className="section-8" />
       <Section className="section-9">
         <h2 className="font-color-dark font-size-lg text-center">Partners</h2>
-        <div className="text-center">
+        <div className="section-images">
           <img className="partner-img" src="/static/images/partners/partner-1.png" alt="" />
           <img className="partner-img" src="/static/images/partners/partner-2.png" alt="" />
+          <img className="partner-img" src="/static/images/partners/partner-3.png" alt="" />
+          <img className="partner-img" src="/static/images/partners/partner-4.png" alt="" />
+          <img className="partner-img" src="/static/images/partners/partner-5.png" alt="" />
+          <img className="partner-img" src="/static/images/partners/partner-6.png" alt="" />
+          <img className="partner-img" src="/static/images/partners/partner-7.png" alt="" />
         </div>
       </Section>
       {/* <Section className="section-10">
@@ -254,6 +272,10 @@ const Section = styled.div`
     flex-direction: column;
     justify-content: center;
     padding-top: 140px;
+
+    .investor-img {
+      margin: 1rem;
+    }
   }
 
   &.section-8 {
@@ -272,11 +294,7 @@ const Section = styled.div`
     padding-top: 140px;
 
     .partner-img {
-      margin: 30px;
-
-      @media screen and (max-width: 768px) {
-        margin: 0px 0px 30px 0px;
-      }
+      margin: 1rem;
     }
   }
 
@@ -317,6 +335,13 @@ const Section = styled.div`
       background-size: contain;
       height: 150px;
     }
+  }
+
+  .section-images {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
   }
 `
 export default withRouter(LandingPage);
