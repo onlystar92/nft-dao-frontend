@@ -1,18 +1,18 @@
 export const dataHowItWorks = [
   {
-    title: `STAKE NFT AND EARN dPOINTS`,
+    title: `Pool NFTs to mint dNFT (ERC20) tokens`,
     description:
-      "Put your NFT to work in vaults and earn dPoints which can be used as coupons for purchases at the plaform.",
+      "Access instant fungible liquidity backed by NFT assets, using the dNFT Fractionalization protocol.",
   },
   {
-    title: "Participate in Drops artwork raffles ",
+    title: "Take out an NFT-backed loan",
     description:
-      "Buy a ticket and feel a thrill of winning the rarest artwork from the collection.",
+      "Borrow crypto trustlessly, using your dNFT tokens as collateral.",
   },
   {
-    title: "Get cashback rewards",
+    title: "Yield farm using your NFTs",
     description:
-      "For each purchase you can get up to 5% cashback in DROP tokens.",
+      "Participate in real yield-farming strategies via dNFT Vaults and earn a return on your assets.",
   },
 ];
 
@@ -40,18 +40,23 @@ export const dataUpcomingDrops = [
 export const dataMoreNFTs = [
   {
     image: "/static/images/bg/bg-p-1.png",
-    title: "NFT Vaults",
-    description: "Stake NFT to earn dPoints that can be used as “coupons” to partially cover purchases at the platform."
+    title: "Simple NFT Staking",
+    description: "Stake NFTs to earn dPoints, which can be used as coupons within the platform."
   },
   {
     image: "/static/images/bg/bg-p-2.png",
-    title: "NFT to ERC20",
-    description: "Instant access to NFT liquidity. Making NFTs fungible by converting it to ERC20 tokens, which have liquidity pools."
+    title: "L2 Scaling with Polygon and Biconomy",
+    description: "Quick and gasless transactions with a seamless user experience. Powered by Polygon and Biconomy."
   },
   {
     image: "/static/images/bg/bg-p-1.png",
-    title: "NFT Loans",
-    description: "Use NFT assets for permissionless and trustless lending. Value of NFT assets determined via the associated ERC20 tokens."
+    title: "Fair NFT distribution",
+    description: "Participate in “drops” raffles for a fair chance in NFT releases. No more getting front-run by bots and whales."
+  },
+  {
+    image: "/static/images/bg/bg-p-2.png",
+    title: "Powered by the DOP token",
+    description: "DOP the native token of the Drops ecosystem. Vote with DOP, stake DOP, earn DOP as cashback rewards!"
   },
 ];
 

@@ -32,7 +32,7 @@ const LandingPage = ({ history }) => {
       </Section>
       <Section className="section-2" />
       <Section className="section-3">
-        <h2 className="font-color-dark font-size-lg">HOW IT WORKS</h2>
+        <h2 className="font-color-dark font-size-lg">How It Works</h2>
         <div className="section-3-content">
           {dataHowItWorks.map((d, index) => <HowItWorks className="section-3-item" key={`how-it-works-${index}`} bg={index % 3} data={d} />)}
         </div>
@@ -54,8 +54,17 @@ const LandingPage = ({ history }) => {
           <Button className="m-10" onClick={() => { }} type="light">VIEW ALL</Button>
         </div>
       </Section> */}
+      <Section className="section-4">
+        <h2 className="font-color-dark font-size-lg text-center">More Utility For Your NFTs</h2>
+        <div className="section-4-content section-4-content--first">
+          Drops brings DeFi-style infrastructure to NFTs, adding much-needed utility to idle NFT assets. Users can leverage their NFTs to obtain loans and earn real yield, reducing the opportunity cost of holding NFTs long-term.
+        </div>
+        <div className="section-4-content">
+          The Drops infrastructure will become increasingly important as we witness the rise of “financial” NFTs - an expansion of the space beyond digital artwork into more tangible financial instruments.
+        </div>
+      </Section>
       <Section className="section-5">
-        <h2 className="font-color-dark font-size-lg text-center">MORE UTILITY FOR YOUR NFT</h2>
+        <h2 className="font-color-dark font-size-lg text-center">Also Featuring</h2>
         <div className="section-5-content">
           {dataMoreNFTs.map((d, index) => <MoreUtility className="section-5-item" key={`upcoming-drops-${index}`} data={d} />)}
         </div>
@@ -188,9 +197,28 @@ const Section = styled.div`
       flex-direction: row;
       justify-content: space-between;
       margin-bottom: 60px;
+      text-align: center;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 28px;
+
+      padding: 0 160px;
+      letter-spacing: 0.1em;
 
       @media screen and (max-width: 768px) {
         flex-direction: column;
+        font-size: 14px;
+        padding: 0;
+      }
+
+      @media screen and (min-width: 769px) and (max-width: 1200px) {
+        padding: 0 80px;
+      }
+
+      &--first {
+        margin-bottom: 20px;
       }
     }
 
