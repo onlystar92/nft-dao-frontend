@@ -18,6 +18,7 @@ interface IBorrowModal {
   borrowLimit: number
   totalBorrow: number
   borrowLimitUsed: number
+  borrowRatePerBlock: number
   allowed: boolean
   distributeApy: string
   disabled: string
@@ -37,6 +38,7 @@ export default function BorrowModal({
   balance,
   borrowLimit,
   borrowLimitUsed,
+  borrowRatePerBlock,
   totalBorrow,
   allowed,
   distributeApy,
@@ -45,6 +47,9 @@ export default function BorrowModal({
   onClose,
   closeOnEscape,
 }: IBorrowModal) {
+  const blocksPerDay = 4 * 60 * 24
+  const daysPerYear = 365
+
   const [tab, setTab] = useState('borrow')
   const [form, setForm] = useState<TMap>(defaults)
   const { borrowAmount, repayAmount } = form
@@ -183,7 +188,12 @@ export default function BorrowModal({
                       .toLowerCase()}.${
                       market.underlyingSymbol === 'DOP' ? 'png' : 'svg'
                     }`}
-                    apy={Number(market.borrowRate * 100)}
+                    apy={new BigNumber(borrowRatePerBlock * blocksPerDay + 1)
+                      .pow(daysPerYear)
+                      .minus(1)
+                      .times(100)
+                      .dp(2, 1)
+                      .toString(10)}
                     borrowLimitUsed={borrowLimitUsed}
                     borrowBalance={totalBorrow}
                     distributeApy={distributeApy}
@@ -263,7 +273,12 @@ export default function BorrowModal({
                       market.underlyingSymbol === 'DOP' ? 'png' : 'svg'
                     }`}
                     isBorrowLimitInfo={allowed}
-                    apy={Number(market.borrowRate * 100)}
+                    apy={new BigNumber(borrowRatePerBlock * blocksPerDay + 1)
+                      .pow(daysPerYear)
+                      .minus(1)
+                      .times(100)
+                      .dp(2, 1)
+                      .toString(10)}
                     borrowLimitUsed={borrowLimitUsed}
                     borrowBalance={totalBorrow}
                     distributeApy={distributeApy}

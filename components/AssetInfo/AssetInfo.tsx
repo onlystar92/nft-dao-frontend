@@ -5,7 +5,7 @@ interface IAssetInfo {
   infoType: string
   assetUrl: string
   isBorrowLimitInfo?: boolean
-  apy?: number
+  apy?: string
   borrowBalance?: number
   borrowLimit?: number
   borrowLimitUsed?: number
@@ -16,7 +16,7 @@ export default function AssetInfo({
   infoType = "supply",
   assetUrl,
   isBorrowLimitInfo = true,
-  apy = 0,
+  apy = '0',
   borrowBalance = 0,
   borrowLimit = 0,
   borrowLimitUsed = 0,
@@ -30,7 +30,7 @@ export default function AssetInfo({
             <img src={assetUrl} alt="asset" />
             <span>{infoType === "supply" ? "Supply" : "Borrow"} APY</span>
           </div>
-          <span>{(apy || Number(0)).toFixed(2)}%</span>
+          <span>{Number(apy || 0).toFixed(2)}%</span>
         </div>
         <div className={`${styles.info} flex justify-between`}>
           <div className="flex-center">

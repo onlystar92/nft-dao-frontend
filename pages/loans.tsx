@@ -406,6 +406,10 @@ export default function Loans(props) {
                 balance={Number(
                   (supply && marketBalances[supply.underlyingAddress]) || '0'
                 )}
+                supplyRatePerBlock={supply && fromWei(
+                  marketSupplyRates[supply.underlyingAddress],
+                  18
+                )}
                 current={Number(
                   (supply && supplyBalances[supply.underlyingAddress]) || '0'
                 )}
@@ -528,6 +532,10 @@ export default function Loans(props) {
                     ? totalCash / borrow.underlyingPriceUSD
                     : 0)
                 }
+                borrowRatePerBlock={borrow && fromWei(
+                  marketBorrowRates[borrow.underlyingAddress],
+                  18
+                )}
                 borrowLimitUsed={
                   totalCash > 0 ? (totalBorrow / totalCash) * 100 : 0
                 }
