@@ -11,6 +11,7 @@ interface IAccount {
   requests: any
   loading: boolean
   account: TMap
+  balance: string
   rewardBalance: string
   dopBalance: string
   dispatch: Function
@@ -120,6 +121,10 @@ export default function Account({
                   0,
                   4
                 )}.${account.address.substr(-4, 4)}@crypto.com`}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  connectWallet(true)
+                }}
               />
               <p className="border-right">
                 <span>Ether</span>

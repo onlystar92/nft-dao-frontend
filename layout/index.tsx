@@ -113,6 +113,8 @@ export function accountBalance(library, dispatch) {
         let supplyEarning = 0
         let totalBorrow = 0
         let borrowEarning = 0
+        let totalDopSupplyApy = 0
+        let totalDopBorrowApy = 0
         const blocksPerDay = 4 * 60 * 24
         const daysPerYear = 365
 
@@ -177,6 +179,8 @@ export function accountBalance(library, dispatch) {
 
           const supplyDopApy = !compSpeed ? '0' : new BigNumber(100).times(new BigNumber(new BigNumber(1).plus(new BigNumber(dopMarket.underlyingPriceUSD).times(compSpeed).times(blocksPerDay).div((totalSupply * _markets[idx][6] * price )))).pow(365).minus(1)).toString(10)
           const borrowDopApy = !compSpeed ? '0' : new BigNumber(100).times(new BigNumber(new BigNumber(1).plus(new BigNumber(dopMarket.underlyingPriceUSD).times(compSpeed).times(blocksPerDay).div((totalBorrow * price )))).pow(365).minus(1)).toString(10)
+          totalDopSupplyApy += Number(supplyDopApy)
+          totalDopBorrowApy += Number(borrowDopApy)
           marketDistributeApys[address] = [supplyDopApy, borrowDopApy]
         })
         const totalSupplyAPY =
@@ -200,7 +204,7 @@ export function accountBalance(library, dispatch) {
             totalSupply,
             totalCash,
             totalBorrow,
-            netAPY: totalSupplyAPY - totalBorrowAPY,
+            netAPY: totalSupplyAPY - totalBorrowAPY + totalDopSupplyApy + totalDopBorrowApy,
           },
         })
         updateMarketCash(library, (markets) => library.updateMarkets(markets))
@@ -365,16 +369,16 @@ export default function Layout({
                       Staking
                     </div>
                   </Link>
-                  <Link href="/app">
+                  <Link href="/loans">
                     <div
                       className={
-                        router.pathname === '/app' ? styles.activeMenu : ''
+                        router.pathname === '/loans' ? styles.activeMenu : ''
                       }
                     >
                       Loans
                     </div>
                   </Link>
-                  <Link href="/app">
+                  <Link href="/swap">
                     <div
                       className={
                         router.pathname === '/swap' ? styles.activeMenu : ''
@@ -417,10 +421,10 @@ export default function Layout({
                             Staking
                           </div>
                         </Link>
-                        <Link href="/app">
+                        <Link href="/loans">
                           <div
                             className={
-                              router.pathname === '/app'
+                              router.pathname === '/loans'
                                 ? styles.activeMenu
                                 : ''
                             }
