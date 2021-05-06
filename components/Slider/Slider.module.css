@@ -1,0 +1,40 @@
+.slider {
+  position: relative;
+  width: 32px;
+  height: 16px;
+  background: var(--color-lightgray);
+  border-radius: 8px;
+  margin-left: auto;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.checked {
+  background: var(--color-black);
+}
+
+.bar {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-white);
+  box-shadow: var(--toggle-shadow);
+  z-index: 1;
+
+  top: 50%;
+  transform: translate(0%, -50%);
+  left: 2px;
+  transition: all .1s;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.checked .bar {
+  right: 2px;
+  left: unset;
+}
+

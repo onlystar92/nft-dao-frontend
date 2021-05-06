@@ -1,0 +1,27 @@
+.assetInfo {
+  display: block;
+}
+
+.apySection {
+  border-top: 1px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider);
+  padding: 16px 0px;
+}
+
+.borrowSection {
+  padding: 16px 0px;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.info {
+  padding: 8px 0;
+}
+
+.info img {
+  width: var(--padding-normal);
+  height: var(--padding-normal);
+  margin-right: var(--padding-narrow);
+}
