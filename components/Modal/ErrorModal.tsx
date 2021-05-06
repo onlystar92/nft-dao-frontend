@@ -23,7 +23,6 @@ export default function ErrorModal({
   return (
     <Modal
       show={!!errMessage}
-      title="Error"
       onRequestClose={onClose}
       closeOnEscape={closeOnEscape}
     >
