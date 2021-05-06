@@ -285,18 +285,20 @@ const Footer = () => {
           </div> */}
           <div className="footer-content-section legal">
             <div className="footer-content-section-title">Legal</div>
-            <Link href="/" className="footer-content-link">
-              Terms of Use
+            <Link href="/">
+              <a className="footer-content-link">Terms of Use</a>
             </Link>
-            <Link href="/" className="footer-content-link">
-              Privacy policy
+            <Link href="/">
+              <a className="footer-content-link">Privacy policy</a>
             </Link>
           </div>
         </div>
       </div>
       <div className="footer-copyright">
         {/* <Link to="/" className="footer-copyright-text">Privacy policy</Link> */}
-        <span className="footer-copyright-text">© {new Date().getFullYear()}. DROPS</span>
+        <span className="footer-copyright-text">
+          © {new Date().getFullYear()}. DROPS
+        </span>
         {/* <Link to="/" className="footer-copyright-text">Term of use</Link> */}
       </div>
     </FooterWrapper>

@@ -10,11 +10,11 @@ import BorrowModal from 'components/Modal/BorrowModal'
 import { ZERO } from 'utils/constants'
 import { abbreviateNumberSI } from 'utils/number'
 import { accountBalance } from 'layout'
-import styles from 'styles/App.module.css'
+import styles from 'styles/Loans.module.css'
 
 let gasInterval = null
 
-export default function App(props) {
+export default function Loans(props) {
   const {
     state: {
       account,
