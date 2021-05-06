@@ -84,7 +84,10 @@ export function accountBalance(library, dispatch) {
               ),
               Number(market.exchangeRate),
             ])
-          : Promise.resolve([...new Array(7).fill(['0']),Number(market.exchangeRate)])
+          : Promise.resolve([
+              ...new Array(7).fill(['0']),
+              Number(market.exchangeRate),
+            ])
       })
     ),
   ])
@@ -177,8 +180,38 @@ export function accountBalance(library, dispatch) {
             new BigNumber(_markets[idx][6]).div(10 ** 18).toString(10)
           )
 
-          const supplyDopApy = !compSpeed ? '0' : new BigNumber(100).times(new BigNumber(new BigNumber(1).plus(new BigNumber(dopMarket.underlyingPriceUSD).times(compSpeed).times(blocksPerDay).div((totalSupply * _markets[idx][6] * price )))).pow(365).minus(1)).toString(10)
-          const borrowDopApy = !compSpeed ? '0' : new BigNumber(100).times(new BigNumber(new BigNumber(1).plus(new BigNumber(dopMarket.underlyingPriceUSD).times(compSpeed).times(blocksPerDay).div((totalBorrow * price )))).pow(365).minus(1)).toString(10)
+          const supplyDopApy = !compSpeed
+            ? '0'
+            : new BigNumber(100)
+                .times(
+                  new BigNumber(
+                    new BigNumber(1).plus(
+                      new BigNumber(dopMarket.underlyingPriceUSD)
+                        .times(compSpeed)
+                        .times(blocksPerDay)
+                        .div(totalSupply * _markets[idx][6] * price)
+                    )
+                  )
+                    .pow(365)
+                    .minus(1)
+                )
+                .toString(10)
+          const borrowDopApy = !compSpeed
+            ? '0'
+            : new BigNumber(100)
+                .times(
+                  new BigNumber(
+                    new BigNumber(1).plus(
+                      new BigNumber(dopMarket.underlyingPriceUSD)
+                        .times(compSpeed)
+                        .times(blocksPerDay)
+                        .div(totalBorrow * price)
+                    )
+                  )
+                    .pow(365)
+                    .minus(1)
+                )
+                .toString(10)
           totalDopSupplyApy += Number(supplyDopApy)
           totalDopBorrowApy += Number(borrowDopApy)
           marketDistributeApys[address] = [supplyDopApy, borrowDopApy]
@@ -204,7 +237,11 @@ export function accountBalance(library, dispatch) {
             totalSupply,
             totalCash,
             totalBorrow,
-            netAPY: totalSupplyAPY - totalBorrowAPY + totalDopSupplyApy + totalDopBorrowApy,
+            netAPY:
+              totalSupplyAPY -
+              totalBorrowAPY +
+              totalDopSupplyApy +
+              totalDopBorrowApy,
           },
         })
         updateMarketCash(library, (markets) => library.updateMarkets(markets))
@@ -230,9 +267,9 @@ export function updateMarketCash(library, callback) {
       )
         .then((cashes) => {
           callback(
-            cashes.map(([market, cash]) => ({
-              ...market,
-              cash: fromWei(cash, market.underlyingDecimals),
+            cashes.map((data: any) => ({
+              ...data[0],
+              cash: fromWei(data[1], data[0].underlyingDecimals),
             }))
           )
         })
