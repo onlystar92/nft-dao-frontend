@@ -12,7 +12,7 @@ export const initState = {
   totalSupply: 0,
   totalCash: 0,
   totalBorrow: 0,
-  borrowLimit: 0.8,
+  borrowLimit: 0.5,
   netAPY: 0,
 }
 
@@ -66,7 +66,7 @@ export function reducer(state, action) {
         totalSupply: 0,
         totalCash: 0,
         totalBorrow: 0,
-        borrowLimit: 0.8,
+        borrowLimit: 0.5,
         netAPY: 0,
       }
     }

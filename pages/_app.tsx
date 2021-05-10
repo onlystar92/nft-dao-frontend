@@ -26,15 +26,15 @@ function App({ Component, router }: AppProps) {
       <Component />
     </Layout>
   ) : (
-    <>
-      <Head>
-        <title>Drops NFT Loans</title>
-      </Head>
-      <div className="fill flex-center justify-center">
-        <img src="/assets/loading.gif" />
-      </div>
-    </>
-  )
+      <>
+        <Head>
+          <title>Drops NFT Loans</title>
+        </Head>
+        <div className="fill flex-center justify-center">
+          <img src="/assets/loading.gif" style={{ width: 50 }} />
+        </div>
+      </>
+    )
 }
 
 export function getMarkets(network?: number) {

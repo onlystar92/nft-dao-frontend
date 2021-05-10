@@ -56,11 +56,11 @@ export default function BorrowModal({
   const borrowed = (borrowLimit * (100 - borrowLimitUsed)) / 100
   const available = market
     ? new BigNumber(borrowed)
-        .times(0.8)
+        .times(0.5)
         .isGreaterThan(new BigNumber(market.cash))
       ? new BigNumber(market.cash)
       : new BigNumber(borrowed)
-          .times(0.8)
+          .times(0.5)
           .dp(market.underlyingDecimals, 1)
           .toString(10)
     : 0
@@ -251,7 +251,7 @@ export default function BorrowModal({
                             market.underlyingDecimals
                           )}
                         </span>
-                        <span>Available to replay {abbreviateNumberSI(
+                        <span>Available to repay {abbreviateNumberSI(
                             Number(balance),
                             0,
                             4,

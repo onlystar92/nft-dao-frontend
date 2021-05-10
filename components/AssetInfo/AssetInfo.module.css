@@ -1,5 +1,6 @@
 .assetInfo {
   display: block;
+  margin-top: var(--padding-normal);
 }
 
 .apySection {

@@ -253,6 +253,12 @@ button {
     padding: var(--padding-normal) calc(var(--padding-normal) * 3 / 4);
   }
 }
+@media screen and (max-width: 1267px) {
+  footer .limited {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
 @media all and (min-width: 2400px) {
   body {
     font-size: var(--font-size-2x);

@@ -50,7 +50,6 @@ export default function BorrowMarket({
             .toString(10)}
           %
         </p>
-        {isMyMarkets && <p className={styles.textOpacity}>TBD</p>}
       </td>
       <td>
         <p>

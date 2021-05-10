@@ -127,12 +127,12 @@ export default function Account({
                 }}
               />
               <p className="border-right">
-                <span>Ether</span>
+                <span>ETH</span>
                 <br />
                 {Number(balance).toFixed(4)}
               </p>
               <p>
-                <span>dPoints</span>
+                <span>DOP</span>
                 <br />
                 {Number(dopBalance || 0).toFixed(0)}
               </p>

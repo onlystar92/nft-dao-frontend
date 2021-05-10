@@ -301,7 +301,7 @@ export default function Loans(props) {
             <div className={`bold ${styles.supplyTitle}`}>
               Supply
               {totalSupply ? (
-                <span>${abbreviateNumberSI(totalSupply, 7, 7)}</span>
+                <span>${new BigNumber(totalSupply).dp(2).toString(10)}</span>
               ) : (
                 ''
               )}
@@ -437,7 +437,7 @@ export default function Loans(props) {
             <div className={`bold ${styles.borrowTitle}`}>
               Borrow
               {totalBorrow ? (
-                <span>${abbreviateNumberSI(totalBorrow, 7, 7)}</span>
+                <span>${new BigNumber(totalBorrow).dp(2).toString(10)}</span>
               ) : (
                 ''
               )}
