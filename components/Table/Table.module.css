@@ -24,6 +24,11 @@
   padding: 16px 16px 0px;
 }
 
+.noBorder {
+  border: none;
+  padding: 0;
+}
+
 .tableContent table {
   width: 100%;
   table-layout: fixed;
@@ -91,5 +96,10 @@
   }
   .tableContent table td > div {
     text-align: right;
+  }
+
+  .tableContent table td button {
+    width: 100%;
+    margin-top: 24px;
   }
 }

@@ -288,6 +288,22 @@ export default function Loans(props) {
     (m) => +borrowBalances[m.underlyingAddress] > 0
   )
 
+  if (process.env.ENABLE_LOANS === 'false') {
+    return (
+      <>
+        <section className={styles.header}>
+        </section>
+        <section className={`${styles.content} flex flex-start justify-center`}>
+          <div className={`${styles.container} limited flex`}>
+            <div className="full">
+              {process.env.ENABLE_DROPS === 'false' ? 'Coming soon' : ''}
+            </div>
+          </div>
+        </section>
+      </>
+    )
+  }
+
   return (
     <>
       <section className={styles.header}>
@@ -307,7 +323,10 @@ export default function Loans(props) {
               )}
             </div>
             {mySupplies.length > 0 && (
-              <Table labels={{}}>
+              <Table
+                classes={{ title: 'first' }}
+                labels={{}}
+              >
                 <table cellPadding={0} cellSpacing={0}>
                   <thead>
                     <tr>
@@ -347,6 +366,7 @@ export default function Loans(props) {
               </Table>
             )}
             <Table
+              classes={{ title: 'first' }}
               labels={{
                 title: mySupplies.length > 0 ? 'Available to supply' : '',
               }}

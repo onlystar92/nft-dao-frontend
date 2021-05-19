@@ -1,0 +1,208 @@
+.header {
+    padding: 90px 0 0;
+}
+
+.mobileLpLinkBtn {
+    display: none;
+}
+
+.content {
+    flex: 1;
+    line-height: 1.5;
+}
+  
+.container {
+    padding: var(--padding-narrow) var(--padding-normal);
+    margin-top: 0;
+}
+  
+.assetInfo {
+    flex: 1;
+    border: 1px solid var(--color-gray-1);
+    box-sizing: border-box;
+    border-radius: 16px;
+    padding: var(--padding-normal);
+    margin-right: var(--padding-normal);
+}
+
+.assetTitle {
+    margin-bottom: 40px;
+}
+
+.assetIcon {
+    position: relative;
+    margin-right: 40px;
+}
+  
+.logo {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: var(--color-lightgray);
+}
+  
+.firstAsset {
+    z-index: 1;
+}
+  
+.secondAsset {
+    position: absolute;
+    left: 24px;
+}
+
+.assetName {
+    font-weight: bold;
+    font-size: 48px;
+    color: var(--color-black);
+}
+
+.lpLinkBtn {
+    width: 71px;
+    height: 24px;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray);
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--color-black1);
+    margin-left: 8px;
+}
+
+.infoWrapper {
+    min-width: 208px;
+}
+
+.label {
+    font-size: var(--font-size-normal);
+    color: var(--color-gray);
+}
+
+.value {
+    font-size: var(--font-size-2x);
+    font-weight: bold;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-divider);
+    margin: var(--padding-normal) 0;
+}
+
+.stakingManage {
+    display: none;
+    background: var(--color-white);
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.16);
+    padding: 30px 24px;
+    margin-top: 100px;
+}
+
+.stakingManage > div {
+    font-weight: bold;
+    font-size: var(--font-size-3x);
+    color: var(--color-black);
+}
+
+.stakingManage button {
+    width: 256px;
+    height: 56px;
+    background: var(--color-black1);
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--color-white);
+}
+
+@media all and (max-width: 1260px) {
+    .infoWrapper {
+        min-width: 180px;
+    }
+}
+
+@media all and (max-width: 1024px) {
+    .assetInfo {
+        margin-right: 0px;
+    }
+    .stakingForm {
+        display: none;
+    }
+    .stakingModal {
+        position: fixed;
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--color-black-04);
+        z-index: 10;
+    }
+    .stakingManage {
+        display: flex;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .mobileLpLinkBtn {
+        display: block;
+    }
+    .assetName {
+        font-size: var(--font-size-2x);
+    }
+    .assetInfo {
+        border: none;
+    }
+    .assetInfo button {
+        display: none;
+    }
+    .container {
+      flex-direction: column;
+      top: 0;
+    }
+    .assetTitle {
+        margin-bottom: 24px;
+    }
+    .infoDetail {
+        padding: 8px 16px;
+        border: 1px solid var(--color-gray-1);
+        box-sizing: border-box;
+        border-radius: 8px;
+    }
+    .infoDetail > div {
+        flex-direction: column;
+    }
+    .divider {
+        display: none;
+    }
+    .assetInfo .infoWrapper {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 8px 0px;
+    }
+    .assetInfo .infoWrapper:not(:last-child) {
+        border-bottom: 1px solid var(--color-gray-1);
+    }
+    .value {
+        font-size: var(--font-size-normal);
+        color: var(--color-black);
+        font-weight: normal;
+    }
+}
+
+@media all and (max-width: 567px) {
+    .stakingManage {
+        justify-content: center;
+    }
+
+    .stakingManage > div {
+        display: none;
+    }
+
+    .stakingManage button {
+        width: 100%;
+        max-width: 312px;
+    }
+}

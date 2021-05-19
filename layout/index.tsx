@@ -220,6 +220,7 @@ export function accountBalance(library, dispatch) {
           totalSupply <= 0 ? 0 : supplyEarning / totalSupply
         const totalBorrowAPY =
           totalBorrow <= 0 ? 0 : borrowEarning / totalBorrow
+
         dispatch({
           type: 'balance',
           payload: {
@@ -368,7 +369,7 @@ export default function Layout({
       {route === '/' ? (
         children
       ) : (
-          <main className={`${styles.main} flex-column`}>
+          <main className={`${styles.main} flex-column justify-between`}>
             <header className={styles.header}>
               {/* <div className="relative">
               {library && library.wallet.network !== 1 && (
@@ -415,10 +416,10 @@ export default function Layout({
                         Loans
                     </div>
                     </Link>
-                    <Link href="/swap">
+                    <Link href="/swaps">
                       <div
                         className={
-                          router.pathname === '/swap' ? styles.activeMenu : ''
+                          router.pathname === '/swaps' ? styles.activeMenu : ''
                         }
                       >
                         Swap NFT
@@ -472,7 +473,7 @@ export default function Layout({
                           <Link href="/app">
                             <div
                               className={
-                                router.pathname === '/swap'
+                                router.pathname === '/swaps'
                                   ? styles.activeMenu
                                   : ''
                               }

@@ -2,6 +2,7 @@ export const initState = {
   account: {},
   balance: 0,
   markets: [],
+  pools: [],
   transactions: [],
   requests: {},
   assetsIn: [],
@@ -74,10 +75,23 @@ export function reducer(state, action) {
       return { ...state, markets: action.payload }
     case 'balance':
       return { ...state, ...action.payload }
+    case 'pools':
+      return { ...state, pools: action.payload }
+    case 'vesting':
+      return { ...state, vesting: action.payload }
     case 'allowance':
       return {
         ...state,
         marketAllowances: { ...state.marketAllowances, ...action.payload },
+      }
+    case 'poolAllowance':
+      state.pools.map((pool) => {
+        if (pool.id === action.payload.id) {
+          pool.allowance = action.payload.allowance
+        }
+      })
+      return {
+        ...state,
       }
     case 'disconnect':
       return { ...state, account: '' }

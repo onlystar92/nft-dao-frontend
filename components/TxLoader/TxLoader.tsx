@@ -7,7 +7,7 @@ interface ITxLoader {
   network?: number
 }
 
-const scanLabels = {
+export const scanLabels = {
   1: 'Etherscan',
   4: 'Etherscan',
   56: 'Bscscan',

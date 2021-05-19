@@ -22,5 +22,17 @@ export const addresses = {
     OAHighJumpModel: '0xa4449919e6Fe855D1BA8534454014B4130724D6C',
     UniswapAnchoredView: '0x8855bF9739b3aa168752d5D0Ee2Fa4f3Eadf5dFd',
     Unitroller: '0x7406A07C66b3b2365d3acB06a414125082C99eb0',
+    MasterChef: '0xC7328c2C48E146E003CD4b1dcB0962A54f560D5F',
+    Pools: [
+      {
+        id: 0,
+        symbol: 'DROPS-ETH',
+        label: 'Drops/ETH',
+        firstAsset: '/assets/cryptologos/dop.png',
+        secondAsset: '/assets/cryptologos/eth.svg',
+        lpToken: '0x5D03F2b3aD36F52FF066e3C40e596599A291048b'
+      },    
+    ],
+    Vesting: '0xaae04068703637E445297C1D501Ee296c5DE5Dde'
   },
 }

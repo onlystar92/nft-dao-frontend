@@ -1,0 +1,51 @@
+.farm{
+  cursor: pointer;
+}
+
+.farm td > div {
+  word-break: break-all;
+}
+
+.farm td p {
+  word-break: break-all;
+}
+
+.assetIcon {
+  margin-right: 32px;
+}
+
+.logo {
+  width: calc(var(--padding-normal) * 2);
+  text-align: center;
+  height: calc(var(--padding-normal) * 2);
+  border-radius: 50%;
+  background-color: var(--color-lightgray);
+}
+
+.firstAsset {
+  z-index: 1;
+}
+
+.secondAsset {
+  position: absolute;
+  left: 40px;
+}
+
+.mobileLabel {
+  display: none;
+  font-size: var(--font-size-normal);
+  color: var(--color-gray);
+}
+
+.btn {
+  width: 98px;
+  height: 40px;
+  background: var(--color-black1);
+  color: var(--color-white);
+}
+
+@media all and (max-width: 567px) {
+  .mobileLabel {
+    display: block;
+  } 
+}

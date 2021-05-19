@@ -137,7 +137,7 @@ export default function SupplyModal({
                 onClick={() => tab !== 'supply' && setTab('supply')}
               >
                 Supply
-            </Button>
+              </Button>
               <Button
                 className={tab === 'withdraw' ? styles.active : ''}
                 onClick={() => tab !== 'withdraw' && setTab('withdraw')}

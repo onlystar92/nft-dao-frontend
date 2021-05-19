@@ -6,22 +6,29 @@ import CompoundLens from './ABIs/CompoundLens.json'
 import Comp from './ABIs/Comp.json'
 import bETH from './ABIs/dETH.json'
 import dToken from './ABIs/dToken.json'
+import lpToken from './ABIs/lpToken.json'
+import MasterChef from './ABIs/MasterChef.json'
+import Vesting from './ABIs/Vesting.json'
 import { ZERO } from 'utils/constants'
 
 const DEFAULT_REFRESH = 5 * 1000
 
-export const call = (method: (...args: any) => any) => (...args: any) =>
-  method(...args).call() as Promise<any>
-export const send = (method: (...args: any) => any) => (...args: any) => {
-  const option = args.pop()
-  const transaction = method(...args)
-  return {
-    estimate: (): Promise<any> =>
-      transaction.estimateGas(option) as Promise<any>,
-    send: (): Promise<any> => transaction.send(option) as Promise<any>,
-    transaction,
+export const call =
+  (method: (...args: any) => any) =>
+  (...args: any) =>
+    method(...args).call() as Promise<any>
+export const send =
+  (method: (...args: any) => any) =>
+  (...args: any) => {
+    const option = args.pop()
+    const transaction = method(...args)
+    return {
+      estimate: (): Promise<any> =>
+        transaction.estimateGas(option) as Promise<any>,
+      send: (): Promise<any> => transaction.send(option) as Promise<any>,
+      transaction,
+    }
   }
-}
 
 interface Options {
   readonly onEvent?: (type: string, payload: any, error: any) => void
@@ -164,6 +171,11 @@ class DropsLoanLibrary {
           addresses.CompoundLens
         ),
         Comp: new this.web3.eth.Contract(Comp as any, addresses.Comp),
+        MasterChef: new this.web3.eth.Contract(
+          MasterChef as any,
+          addresses.MasterChef
+        ),
+        Vesting: new this.web3.eth.Contract(Vesting as any, addresses.Vesting),
       }
       this.subscriptions.push(
         this.contracts.Comptroller.events.allEvents({}).on('data', onEvent)
@@ -198,7 +210,16 @@ class DropsLoanLibrary {
           supplyRatePerBlock: call(contract.methods.supplyRatePerBlock),
           borrowRatePerBlock: call(contract.methods.borrowRatePerBlock),
         }
-
+      const getLpTokenMethods = (contract: any) =>
+        contract && {
+          getBalance: call(contract.methods.balanceOf),
+          getAllowance: call(contract.methods.allowance),
+          totalSupply: call(contract.methods.totalSupply),
+          getReserves: call(contract.methods.getReserves),
+          getToken0: call(contract.methods.token0),
+          getToken1: call(contract.methods.token1),
+          approve: send(contract.methods.approve),
+        }
       this.methods = {
         Comptroller: {
           allMarkets: call(this.contracts.Comptroller.methods.allMarkets),
@@ -225,6 +246,25 @@ class DropsLoanLibrary {
         },
         Market: getERC20Methods,
         DToken: getDTokenMethods,
+        LpToken: getLpTokenMethods,
+        MasterChef: {
+          dopPerBlock: call(this.contracts.MasterChef.methods.dopPerBlock),
+          poolLength: call(this.contracts.MasterChef.methods.poolLength),
+          poolInfo: call(this.contracts.MasterChef.methods.poolInfo),
+          userInfo: call(this.contracts.MasterChef.methods.userInfo),
+          pendingDop: call(this.contracts.MasterChef.methods.pendingDop),
+          deposit: send(this.contracts.MasterChef.methods.deposit),
+          withdraw: send(this.contracts.MasterChef.methods.withdraw),
+        },
+        Vesting: {
+          allocation: call(this.contracts.Vesting.methods.allocation),
+          cliff: call(this.contracts.Vesting.methods.cliff),
+          start: call(this.contracts.Vesting.methods.start),
+          duration: call(this.contracts.Vesting.methods.duration),
+          releasable: call(this.contracts.Vesting.methods.releasable),
+          released: call(this.contracts.Vesting.methods.released),
+          release: send(this.contracts.Vesting.methods.release),
+        },
         web3: {
           getBlock: (field: string = 'timestamp') =>
             new Promise((resolve, reject) =>
@@ -263,6 +303,10 @@ class DropsLoanLibrary {
       (item) => item[0].underlyingAddress === market.underlyingAddress
     )
     return match ? match[1] : null
+  }
+
+  public LPTokenContract(address) {
+    return new this.web3.eth.Contract(lpToken as any, address)
   }
 
   public updateMarkets(markets) {

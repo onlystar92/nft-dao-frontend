@@ -12,6 +12,7 @@ export default function Balance({
   totalBorrow,
   netAPY,
 }: IBalance) {
+
   const borrowPercent = totalCash > 0 ? (totalBorrow / totalCash) * 100 : 0
   return (
     <div className={styles.balance}>
@@ -20,7 +21,7 @@ export default function Balance({
         <div className={styles.infoWrapper}>
           <div className={styles.label}>Net APY</div>
           <div className={`bold ${styles.value}`}>
-            {netAPY !== 0 ? `${netAPY.toFixed(2)} %` : '...'}
+            {netAPY !== 0 ? `${(netAPY.toString() === 'Infinity' ? '< 0.01' : netAPY.toFixed(2))} %` : '...'}
           </div>
         </div>
         <div className={styles.divider} />
@@ -49,7 +50,7 @@ export default function Balance({
         <div className={`flex-center justify-between ${styles.infoWrapper}`}>
           <div className={styles.label}>Net APY</div>
           <div className={`bold ${styles.value}`}>
-            {netAPY !== 0 ? `${netAPY.toFixed(2)} %` : '...'}
+            {netAPY !== 0 ? `${(netAPY.toString() === 'Infinity' ? '< 0.01' : netAPY.toFixed(2))} %` : '...'}
           </div>
         </div>
         <div className={`flex-center justify-between ${styles.infoWrapper}`}>

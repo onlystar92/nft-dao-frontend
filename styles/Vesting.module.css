@@ -1,0 +1,29 @@
+.content {
+  flex: 1;
+  line-height: 1.5;
+}
+
+.content h1 {
+  margin-bottom: var(--padding-normal) !important;
+}
+
+.content table {
+  width: 100%;
+  max-width: 420px;
+  table-layout: fixed;
+}
+
+.content td:nth-child(2) {
+  text-align: right;
+}
+
+.content button {
+  width: 100%;
+  background: var(--color-black);
+  border-radius: 8px;
+  padding: 16px 0px;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--color-white);
+  margin-top: var(--padding-narrow);
+}
