@@ -1,4 +1,5 @@
 export const ZERO = '0x0000000000000000000000000000000000000000'
+export const dopAddress = '0x7fd552c1acbdEDf3640992e323051E5287d903b7'
 
 export const addresses = {
   1: {
