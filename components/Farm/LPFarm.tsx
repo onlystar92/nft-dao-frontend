@@ -41,30 +41,24 @@ export default function LPFarm({
       </td>
       <td>
         <span className={styles.mobileLabel}>APY%</span>
-        <span>{farm.apy || 0}% year</span>
+        <span>{farm.apy || 0}%</span>
       </td>
       <td>
         <span className={styles.mobileLabel}>Total staked</span>
+        <p>
+          {farm.totalLpSupply}
+        </p>
+      </td>
+      <td>
+        <span className={styles.mobileLabel}>My Stake</span>
         <p>
           {fromWei(farm.amount || 0)}
         </p>
       </td>
       <td>
-        <span className={styles.mobileLabel}>My staked weight</span>
-        <p>
-          {farm.allocPoint}
-        </p>
-      </td>
-      <td>
-        <span className={styles.mobileLabel}>Availiable</span>
-        <p>
-          {Number(farm.balance || 0).toFixed(2)}
-        </p>
-      </td>
-      <td>
         <span className={styles.mobileLabel}>My earnings</span>
         <p>
-          {Number(fromWei(farm.pendingDop || 0)).toFixed(2)} Drops
+          {Number(fromWei(farm.pendingDop || 0)).toFixed(2)} DOP
         </p>
       </td>
       <td>

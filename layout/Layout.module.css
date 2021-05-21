@@ -56,11 +56,16 @@
 }
 
 .invalidNetwork {
-  height: 100vh;
+  height: 100%;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 200%;
+}
+
+.invalidNetwork ul li {
+  font-size: 80%;
 }
 
 .menu a {

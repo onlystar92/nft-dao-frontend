@@ -13,7 +13,7 @@ function App({ Component, router }: AppProps) {
   const cleanCash = (market) => ({ ...market, cash: 0 })
   useEffect(() => {
     getMarkets()
-      .then(([markets, rinkebyMarkets, maticMarkets]) =>
+      .then(([markets, rinkebyMarkets]) =>
         setMarkets({
           1: markets.map(cleanCash),
           4: rinkebyMarkets.map(cleanCash),
@@ -22,7 +22,7 @@ function App({ Component, router }: AppProps) {
       .catch(console.log)
   }, [])
   return markets ? (
-    <Layout router={router} networks={[4]} markets={markets}>
+    <Layout router={router} networks={[1, 4]} markets={markets}>
       <Component />
     </Layout>
   ) : (

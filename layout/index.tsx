@@ -66,28 +66,28 @@ export function accountBalance(library, dispatch) {
 
         return marketMethods && dTokenMethods
           ? Promise.all([
-            address !== ZERO
-              ? marketMethods.getBalance(account)
-              : Promise.resolve('0'),
-            address !== ZERO
-              ? marketMethods.getAllowance(
-                account,
+              address !== ZERO
+                ? marketMethods.getBalance(account)
+                : Promise.resolve('0'),
+              address !== ZERO
+                ? marketMethods.getAllowance(
+                    account,
+                    library.web3.utils.toChecksumAddress(market.id)
+                  )
+                : Promise.resolve(0),
+              dTokenMethods.balanceOfUnderlying(account),
+              dTokenMethods.borrowBalanceCurrent(account),
+              dTokenMethods.supplyRatePerBlock(),
+              dTokenMethods.borrowRatePerBlock(),
+              library.methods.Comptroller.compSpeeds(
                 library.web3.utils.toChecksumAddress(market.id)
-              )
-              : Promise.resolve(0),
-            dTokenMethods.balanceOfUnderlying(account),
-            dTokenMethods.borrowBalanceCurrent(account),
-            dTokenMethods.supplyRatePerBlock(),
-            dTokenMethods.borrowRatePerBlock(),
-            library.methods.Comptroller.compSpeeds(
-              library.web3.utils.toChecksumAddress(market.id)
-            ),
-            Number(market.exchangeRate),
-          ])
+              ),
+              Number(market.exchangeRate),
+            ])
           : Promise.resolve([
-            ...new Array(7).fill(['0']),
-            Number(market.exchangeRate),
-          ])
+              ...new Array(7).fill(['0']),
+              Number(market.exchangeRate),
+            ])
       })
     ),
   ])
@@ -180,38 +180,40 @@ export function accountBalance(library, dispatch) {
             new BigNumber(_markets[idx][6]).div(10 ** 18).toString(10)
           )
 
-          const supplyDopApy = !compSpeed || !totalSupply
-            ? '0'
-            : new BigNumber(100)
-              .times(
-                new BigNumber(
-                  new BigNumber(1).plus(
-                    new BigNumber(dopMarket.underlyingPriceUSD)
-                      .times(compSpeed)
-                      .times(blocksPerDay)
-                      .div(totalSupply * _markets[idx][6] * price)
+          const supplyDopApy =
+            !compSpeed || !totalSupply
+              ? '0'
+              : new BigNumber(100)
+                  .times(
+                    new BigNumber(
+                      new BigNumber(1).plus(
+                        new BigNumber(dopMarket.underlyingPriceUSD)
+                          .times(compSpeed)
+                          .times(blocksPerDay)
+                          .div(totalSupply * _markets[idx][6] * price)
+                      )
+                    )
+                      .pow(365)
+                      .minus(1)
                   )
-                )
-                  .pow(365)
-                  .minus(1)
-              )
-              .toString(10)
-          const borrowDopApy = !compSpeed || !totalBorrow
-            ? '0'
-            : new BigNumber(100)
-              .times(
-                new BigNumber(
-                  new BigNumber(1).plus(
-                    new BigNumber(dopMarket.underlyingPriceUSD)
-                      .times(compSpeed)
-                      .times(blocksPerDay)
-                      .div(totalBorrow * price)
+                  .toString(10)
+          const borrowDopApy =
+            !compSpeed || !totalBorrow
+              ? '0'
+              : new BigNumber(100)
+                  .times(
+                    new BigNumber(
+                      new BigNumber(1).plus(
+                        new BigNumber(dopMarket.underlyingPriceUSD)
+                          .times(compSpeed)
+                          .times(blocksPerDay)
+                          .div(totalBorrow * price)
+                      )
+                    )
+                      .pow(365)
+                      .minus(1)
                   )
-                )
-                  .pow(365)
-                  .minus(1)
-              )
-              .toString(10)
+                  .toString(10)
           totalDopSupplyApy += Number(supplyDopApy)
           totalDopBorrowApy += Number(borrowDopApy)
           marketDistributeApys[address] = [supplyDopApy, borrowDopApy]
@@ -369,9 +371,9 @@ export default function Layout({
       {route === '/' ? (
         children
       ) : (
-          <main className={`${styles.main} flex-column justify-between`}>
-            <header className={styles.header}>
-              {/* <div className="relative">
+        <main className={`${styles.main} flex-column justify-between`}>
+          <header className={styles.header}>
+            {/* <div className="relative">
               {library && library.wallet.network !== 1 && (
                 <div className={styles.note}>
                   Note: You are currently connected to{' '}
@@ -379,44 +381,44 @@ export default function Layout({
                 </div>
               )}
             </div> */}
-              <div className="flex-center justify-between limited">
-                <Link href="/">
-                  <img
-                    className={`${styles.logo} cursor`}
-                    src="/logo.png"
-                    alt="Drops Loans"
-                  />
-                </Link>
-                <div className="flex-center">
-                  <div className={`flex ${styles.menu}`}>
-                    <Link href="/">
-                      <div
-                        className={
-                          router.pathname === '/' ? styles.activeMenu : ''
-                        }
-                      >
-                        Home
+            <div className="flex-center justify-between limited">
+              <Link href="/">
+                <img
+                  className={`${styles.logo} cursor`}
+                  src="/logo.png"
+                  alt="Drops Loans"
+                />
+              </Link>
+              <div className="flex-center">
+                <div className={`flex ${styles.menu}`}>
+                  <Link href="/staking">
+                    <div
+                      className={
+                        router.pathname === '/staking' ? styles.activeMenu : ''
+                      }
+                    >
+                      Staking
                     </div>
-                    </Link>
-                    <Link href="/staking">
-                      <div
-                        className={
-                          router.pathname === '/staking' ? styles.activeMenu : ''
-                        }
-                      >
-                        Staking
+                  </Link>
+                  <Link href="/loans">
+                    <div
+                      className={
+                        router.pathname === '/loans' ? styles.activeMenu : ''
+                      }
+                    >
+                      Loans
                     </div>
-                    </Link>
-                    <Link href="/loans">
-                      <div
-                        className={
-                          router.pathname === '/loans' ? styles.activeMenu : ''
-                        }
-                      >
-                        Loans
+                  </Link>
+                  <Link href="/vesting">
+                    <div
+                      className={
+                        router.pathname === '/vesting' ? styles.activeMenu : ''
+                      }
+                    >
+                      Vesting
                     </div>
-                    </Link>
-                    <Link href="/swaps">
+                  </Link>
+                  {/* <Link href="/swaps">
                       <div
                         className={
                           router.pathname === '/swaps' ? styles.activeMenu : ''
@@ -432,87 +434,87 @@ export default function Layout({
                         }
                       >
                         Drops
-                    </div>
-                    </Link>
-                  </div>
-                  <div className={styles.mobileMenu}>
-                    <div className={styles.collapseContent} id="collapse-content">
-                      <Collapse isOpened={isCollapse}>
-                        <div className={`${styles.menuContent} flex-all`}>
-                          <Link href="/">
-                            <div
-                              className={
-                                router.pathname === '/' ? styles.activeMenu : ''
-                              }
-                            >
-                              Home
-                          </div>
-                          </Link>
-                          <Link href="/staking">
-                            <div
-                              className={
-                                router.pathname === '/staking'
-                                  ? styles.activeMenu
-                                  : ''
-                              }
-                            >
-                              Staking
-                          </div>
-                          </Link>
-                          <Link href="/loans">
-                            <div
-                              className={
-                                router.pathname === '/loans'
-                                  ? styles.activeMenu
-                                  : ''
-                              }
-                            >
-                              Loans
-                          </div>
-                          </Link>
-                          <Link href="/app">
-                            <div
-                              className={
-                                router.pathname === '/swaps'
-                                  ? styles.activeMenu
-                                  : ''
-                              }
-                            >
-                              Swap NFT
-                          </div>
-                          </Link>
-                          <Link href="/drops">
-                            <div
-                              className={
-                                router.pathname === '/drops'
-                                  ? styles.activeMenu
-                                  : ''
-                              }
-                            >
-                              Drops
-                          </div>
-                          </Link>
-                        </div>
-                      </Collapse>
-                    </div>
-                  </div>
-                  <Account
-                    library={library}
-                    {...state}
-                    loading={loading}
-                    dispatch={dispatch}
-                    connectWallet={connectWallet}
-                  />
-                  <img
-                    src="/assets/menu.svg"
-                    className={`${styles.hamburger} cursor`}
-                    alt="menu"
-                    onClick={() => setIsCollapse(!isCollapse)}
-                  />
+                      </div>
+                    </Link> */}
                 </div>
+                <div className={styles.mobileMenu}>
+                  <div className={styles.collapseContent} id="collapse-content">
+                    <Collapse isOpened={isCollapse}>
+                      <div className={`${styles.menuContent} flex-all`}>
+                        <Link href="/">
+                          <div
+                            className={
+                              router.pathname === '/' ? styles.activeMenu : ''
+                            }
+                          >
+                            Home
+                          </div>
+                        </Link>
+                        <Link href="/staking">
+                          <div
+                            className={
+                              router.pathname === '/staking'
+                                ? styles.activeMenu
+                                : ''
+                            }
+                          >
+                            Staking
+                          </div>
+                        </Link>
+                        <Link href="/loans">
+                          <div
+                            className={
+                              router.pathname === '/loans'
+                                ? styles.activeMenu
+                                : ''
+                            }
+                          >
+                            Loans
+                          </div>
+                        </Link>
+                        <Link href="/app">
+                          <div
+                            className={
+                              router.pathname === '/swaps'
+                                ? styles.activeMenu
+                                : ''
+                            }
+                          >
+                            Swap NFT
+                          </div>
+                        </Link>
+                        <Link href="/drops">
+                          <div
+                            className={
+                              router.pathname === '/drops'
+                                ? styles.activeMenu
+                                : ''
+                            }
+                          >
+                            Drops
+                          </div>
+                        </Link>
+                      </div>
+                    </Collapse>
+                  </div>
+                </div>
+                <Account
+                  library={library}
+                  {...state}
+                  loading={loading}
+                  dispatch={dispatch}
+                  connectWallet={connectWallet}
+                />
+                <img
+                  src="/assets/menu.svg"
+                  className={`${styles.hamburger} cursor`}
+                  alt="menu"
+                  onClick={() => setIsCollapse(!isCollapse)}
+                />
               </div>
-            </header>
-            {/* <header className={styles.popup}>
+            </div>
+          </header>
+          {/* <header className={styles.popup}>
             <div className="flex-center justify-between limited">
               <Link href="/">
                 <img
@@ -524,105 +526,124 @@ export default function Layout({
               <div className="account">8xv3...aE0c</div>
             </div>
           </header> */}
-            {library && networks.includes(state.account.network) ? (
-              React.cloneElement(children, {
-                state,
-                dispatch,
-                library,
-                markets: netMarkets,
-                networks,
-              })
-            ) : (
-                <div className={styles.invalidNetwork}>
-                  Please connect to the supported networks (
-                  {networks.map((network) => networkLabels[network]).join(', ')})
-                </div>
-              )}
-            <footer className={styles.footer}>
-              <div className="flex-center justify-between limited">
+          {library && networks.includes(state.account.network) ? (
+            React.cloneElement(children, {
+              state,
+              dispatch,
+              library,
+              markets: netMarkets,
+              networks,
+            })
+          ) : (
+            <div className={styles.invalidNetwork}>
+              <div className="center flex-column flex-center">
+                Please connect to following networks
+                <br />
+                <ul>
+                  {networks.map((network, idx) => (
+                    <li key={idx}>{networkLabels[network]}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+          <footer className={styles.footer}>
+            <div className="flex-center justify-between limited">
+              <Link href="/">
+                <img
+                  className={`${styles.logo} cursor`}
+                  src="/logo_white.png"
+                  alt="Drops Loans"
+                />
+              </Link>
+              <div className={`flex-center ${styles.linkWrapper}`}>
                 <Link href="/">
-                  <img
-                    className={`${styles.logo} cursor`}
-                    src="/logo_white.png"
-                    alt="Drops Loans"
-                  />
-                </Link>
-                <div className={`flex-center ${styles.linkWrapper}`}>
-                  <Link href="/">
-                    <div
-                      className={
-                        router.pathname === '/' ? styles.activeMenu : ''
-                      }
-                    >
-                      Home
-                      </div>
-                  </Link>
-                  <Link href="/staking">
-                    <div
-                      className={
-                        router.pathname === '/staking' ? styles.activeMenu : ''
-                      }
-                    >
-                      Stake & earn
-                      </div>
-                  </Link>
-                  <Link href="/drops">
-                    <div
-                      className={
-                        router.pathname === '/drops' ? styles.activeMenu : ''
-                      }
-                    >
-                      Drops
-                      </div>
-                  </Link>
-                  <Link href="/wallet">
-                    <div
-                      className={
-                        router.pathname === '/wallet' ? styles.activeMenu : ''
-                      }
-                    >
-                      My Wallet
-                      </div>
-                  </Link>
-                  <Link href="/terms-use">
-                    <div
-                      className={
-                        router.pathname === '/terms-use' ? styles.activeMenu : ''
-                      }
-                    >
-                      Terms of Use
-                      </div>
-                  </Link>
-                  <Link href="/privacy-policy">
-                    <div
-                      className={
-                        router.pathname === '/privacy-policy' ? styles.activeMenu : ''
-                      }
-                    >
-                      Privacy Policy
-                      </div>
-                  </Link>
-                </div>
-                <div className="flex-center">
-                  <div className={styles.socials}>
-                    <a href="https://twitter.com/dropsnft" target="_blank" rel="noopener noreferrer">
-                      <img src="/assets/socials/twitter.svg" alt="twitter" />
-                    </a>
-                    <a href="https://t.me/drops_nft" target="_blank" rel="noopener noreferrer">
-                      <img src="/assets/socials/telegram.svg" alt="telegram" />
-                    </a>
-                    <a href="https://discord.gg/FqZKAs6pmD" target="_blank" rel="noopener noreferrer">
-                      <img src="/assets/socials/discord.svg" alt="discord" />
-                    </a>
-                    <a href="/" target="_blank">
-                      <img src="/assets/socials/medium.svg" alt="medium" />
-                    </a>
+                  <div
+                    className={router.pathname === '/' ? styles.activeMenu : ''}
+                  >
+                    Home
                   </div>
+                </Link>
+                <Link href="/staking">
+                  <div
+                    className={
+                      router.pathname === '/staking' ? styles.activeMenu : ''
+                    }
+                  >
+                    Stake & earn
+                  </div>
+                </Link>
+                <Link href="/drops">
+                  <div
+                    className={
+                      router.pathname === '/drops' ? styles.activeMenu : ''
+                    }
+                  >
+                    Drops
+                  </div>
+                </Link>
+                <Link href="/wallet">
+                  <div
+                    className={
+                      router.pathname === '/wallet' ? styles.activeMenu : ''
+                    }
+                  >
+                    My Wallet
+                  </div>
+                </Link>
+                <Link href="/terms-use">
+                  <div
+                    className={
+                      router.pathname === '/terms-use' ? styles.activeMenu : ''
+                    }
+                  >
+                    Terms of Use
+                  </div>
+                </Link>
+                <Link href="/privacy-policy">
+                  <div
+                    className={
+                      router.pathname === '/privacy-policy'
+                        ? styles.activeMenu
+                        : ''
+                    }
+                  >
+                    Privacy Policy
+                  </div>
+                </Link>
+              </div>
+              <div className="flex-center">
+                <div className={styles.socials}>
+                  <a
+                    href="https://twitter.com/dropsnft"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src="/assets/socials/twitter.svg" alt="twitter" />
+                  </a>
+                  <a
+                    href="https://t.me/drops_nft"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src="/assets/socials/telegram.svg" alt="telegram" />
+                  </a>
+                  <a
+                    href="https://discord.gg/FqZKAs6pmD"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src="/assets/socials/discord.svg" alt="discord" />
+                  </a>
+                  <a href="/" target="_blank">
+                    <img src="/assets/socials/medium.svg" alt="medium" />
+                  </a>
                 </div>
               </div>
-            </footer>
-          </main>
-        )}
+            </div>
+          </footer>
+        </main>
+      )}
     </>
   )
 }

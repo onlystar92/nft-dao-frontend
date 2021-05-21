@@ -13,22 +13,18 @@ import { ZERO } from 'utils/constants'
 
 const DEFAULT_REFRESH = 5 * 1000
 
-export const call =
-  (method: (...args: any) => any) =>
-  (...args: any) =>
-    method(...args).call() as Promise<any>
-export const send =
-  (method: (...args: any) => any) =>
-  (...args: any) => {
-    const option = args.pop()
-    const transaction = method(...args)
-    return {
-      estimate: (): Promise<any> =>
-        transaction.estimateGas(option) as Promise<any>,
-      send: (): Promise<any> => transaction.send(option) as Promise<any>,
-      transaction,
-    }
+export const call = (method: (...args: any) => any) => (...args: any) =>
+  method(...args).call() as Promise<any>
+export const send = (method: (...args: any) => any) => (...args: any) => {
+  const option = args.pop()
+  const transaction = method(...args)
+  return {
+    estimate: (): Promise<any> =>
+      transaction.estimateGas(option) as Promise<any>,
+    send: (): Promise<any> => transaction.send(option) as Promise<any>,
+    transaction,
   }
+}
 
 interface Options {
   readonly onEvent?: (type: string, payload: any, error: any) => void
@@ -139,7 +135,6 @@ class DropsLoanLibrary {
     this.reset()
     const status = await this.setupWallet()
     const { addresses, markets = [], onEvent } = this
-
     this.subscriptions = [
       provider.on && provider.on('accountsChanged', () => this.initWallet()),
       provider.on && provider.on('chainChanged', () => this.init()),
@@ -175,7 +170,18 @@ class DropsLoanLibrary {
           MasterChef as any,
           addresses.MasterChef
         ),
-        Vesting: new this.web3.eth.Contract(Vesting as any, addresses.Vesting),
+        Vesting1: new this.web3.eth.Contract(
+          Vesting as any,
+          addresses.Vesting1
+        ),
+        Vesting2: new this.web3.eth.Contract(
+          Vesting as any,
+          addresses.Vesting2
+        ),
+        Vesting3: new this.web3.eth.Contract(
+          Vesting as any,
+          addresses.Vesting3
+        ),
       }
       this.subscriptions.push(
         this.contracts.Comptroller.events.allEvents({}).on('data', onEvent)
@@ -256,15 +262,35 @@ class DropsLoanLibrary {
           deposit: send(this.contracts.MasterChef.methods.deposit),
           withdraw: send(this.contracts.MasterChef.methods.withdraw),
         },
-        Vesting: {
-          allocation: call(this.contracts.Vesting.methods.allocation),
-          cliff: call(this.contracts.Vesting.methods.cliff),
-          start: call(this.contracts.Vesting.methods.start),
-          duration: call(this.contracts.Vesting.methods.duration),
-          releasable: call(this.contracts.Vesting.methods.releasable),
-          released: call(this.contracts.Vesting.methods.released),
-          release: send(this.contracts.Vesting.methods.release),
-        },
+        Vesting: [
+          {
+            allocation: call(this.contracts.Vesting1.methods.allocation),
+            cliff: call(this.contracts.Vesting1.methods.cliff),
+            start: call(this.contracts.Vesting1.methods.start),
+            duration: call(this.contracts.Vesting1.methods.duration),
+            releasable: call(this.contracts.Vesting1.methods.releasable),
+            released: call(this.contracts.Vesting1.methods.released),
+            release: send(this.contracts.Vesting1.methods.release),
+          },
+          {
+            allocation: call(this.contracts.Vesting2.methods.allocation),
+            cliff: call(this.contracts.Vesting2.methods.cliff),
+            start: call(this.contracts.Vesting2.methods.start),
+            duration: call(this.contracts.Vesting2.methods.duration),
+            releasable: call(this.contracts.Vesting2.methods.releasable),
+            released: call(this.contracts.Vesting2.methods.released),
+            release: send(this.contracts.Vesting2.methods.release),
+          },
+          {
+            allocation: call(this.contracts.Vesting3.methods.allocation),
+            cliff: call(this.contracts.Vesting3.methods.cliff),
+            start: call(this.contracts.Vesting3.methods.start),
+            duration: call(this.contracts.Vesting3.methods.duration),
+            releasable: call(this.contracts.Vesting3.methods.releasable),
+            released: call(this.contracts.Vesting3.methods.released),
+            release: send(this.contracts.Vesting3.methods.release),
+          },
+        ],
         web3: {
           getBlock: (field: string = 'timestamp') =>
             new Promise((resolve, reject) =>

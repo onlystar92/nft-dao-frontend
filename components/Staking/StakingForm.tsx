@@ -143,7 +143,7 @@ export default function StakingForm({
                   <>
                     <div className={`flex-column justify-center ${styles.field}`}>
                       <div className={`center ${styles.claimLabel}`}>
-                        Claimable points
+                        Claimable DOP
                       </div>
                       <div className={`center bold ${styles.claimValue}`}>
                         {new BigNumber(market.pendingDop).div(1e18).dp(2, 1).toString(10)}
@@ -187,7 +187,7 @@ export default function StakingForm({
                         <span>Max: {new BigNumber(available).dp(2, 1).toString(10)} LP</span>
                       </label>
                       <div className={`flex-center justify-between ${styles.claimPoint}`}>
-                        <span>Claimable points</span>
+                        <span>Claimable DOP</span>
                         <span>
                           {new BigNumber(market.pendingDop).div(1e18).dp(2, 1).toString(10)}
                         </span>

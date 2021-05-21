@@ -10,7 +10,7 @@ let poolTimer = null
 
 export default function Staking({ library, state, dispatch }) {
   const [tab, setTab] = useState('stake_lp')
-  const myStaked = []
+  const myStaked = state.pools.filter((farm) => Number(farm.amount) !== 0)
 
   const loadPools = () => {
     getPools(library, dispatch)
@@ -37,16 +37,16 @@ export default function Staking({ library, state, dispatch }) {
           <div className="full">
             <div className={styles.tabs}>
               <Button
-                className={tab === 'stake_nft' ? styles.active : ''}
-                onClick={() => tab !== 'stake_nft' && setTab('stake_nft')}
-              >
-                Stake NFT
-              </Button>
-              <Button
                 className={tab === 'stake_lp' ? styles.active : ''}
                 onClick={() => tab !== 'stake_lp' && setTab('stake_lp')}
               >
                 Stake LP
+              </Button>
+              <Button
+                className={tab === 'stake_nft' ? styles.active : ''}
+                onClick={() => tab !== 'stake_nft' && setTab('stake_nft')}
+              >
+                Stake NFT
               </Button>
             </div>
           </div>
@@ -65,22 +65,20 @@ export default function Staking({ library, state, dispatch }) {
                         <th>Asset name</th>
                         <th>APY%</th>
                         <th>Total staked</th>
-                        <th>My staked weight</th>
-                        <th>Availiable</th>
+                        <th>My Stake</th>
                         <th>My earnings</th>
                         <th></th>
                       </tr>
                     </thead>
                     <tbody>
-                      {myStaked
-                        .map((farm) => (
-                          <LPFarm
-                            key={farm.symbol}
-                            farm={farm}
-                            library={library}
-                            isStaked={true}
-                          />
-                        ))}
+                      {myStaked.map((farm) => (
+                        <LPFarm
+                          key={farm.symbol}
+                          farm={farm}
+                          library={library}
+                          isStaked={true}
+                        />
+                      ))}
                     </tbody>
                   </table>
                 </Table>
@@ -93,29 +91,36 @@ export default function Staking({ library, state, dispatch }) {
               >
                 <table cellPadding={0} cellSpacing={0}>
                   <thead>
-                    <th>Asset name</th>
-                    <th>APY%</th>
-                    <th>Total staked</th>
-                    <th>My staked weight</th>
-                    <th>Availiable</th>
-                    <th>My earnings</th>
-                    <th></th>
+                    <tr>
+                      <th>Asset name</th>
+                      <th>APY%</th>
+                      <th>Total staked</th>
+                      <th>My Stake</th>
+                      <th>My earnings</th>
+                      <th></th>
+                    </tr>
                   </thead>
                   <tbody>
-                    {state.pools && state.pools
-                      .map((farm) => (
-                        <LPFarm
-                          key={farm.symbol}
-                          farm={farm}
-                          library={library}
-                          isStaked={false}
-                        />
-                      ))}
+                    {state.pools &&
+                      state.pools
+                        .filter((farm) => Number(farm.amount) === 0)
+                        .map((farm) => (
+                          <LPFarm
+                            key={farm.symbol}
+                            farm={farm}
+                            library={library}
+                            isStaked={false}
+                          />
+                        ))}
                   </tbody>
                 </table>
-                {!state.pools || state.pools.length === 0 && (
-                  <p className={`${styles.noFarms} center`}>No Available Farming</p>
-                )}
+                {!state.pools ||
+                  (state.pools.filter((farm) => Number(farm.amount) === 0)
+                    .length === 0 && (
+                    <p className={`${styles.noFarms} center`}>
+                      No Available Farming
+                    </p>
+                  ))}
               </Table>
             </div>
           )}

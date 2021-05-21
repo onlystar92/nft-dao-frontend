@@ -1,8 +1,13 @@
 import BigNumber from 'bignumber.js'
 
 export function getPools(library, dispatch) {
-  const { dopPerBlock, poolLength, poolInfo, userInfo, pendingDop } =
-    library.methods.MasterChef
+  const {
+    dopPerBlock,
+    poolLength,
+    poolInfo,
+    userInfo,
+    pendingDop,
+  } = library.methods.MasterChef
   const { LpToken } = library.methods
   const account = library.wallet.address
 
@@ -14,11 +19,20 @@ export function getPools(library, dispatch) {
     library.markets &&
     library.markets.find((m) => m.underlyingSymbol === 'DOP')
 
+  const dopUsdPrice = dopMarket ? dopMarket.underlyingPriceUSD : 0.6
+
   const fromWei = (value, decimals = 18) =>
     decimals < 18 ? value / 10 ** decimals : library.web3.utils.fromWei(value)
 
   poolLength()
-    .then((length) =>
+    .then((length) => {
+      if (Number(length) === 0) {
+        dispatch({
+          type: 'pools',
+          payload: [],
+        })
+        return
+      }
       Promise.all(
         new Array(length)
           .fill(0)
@@ -27,6 +41,7 @@ export function getPools(library, dispatch) {
               poolInfo(id),
               userInfo(id, account),
               pendingDop(id, account),
+              id,
             ])
           )
       )
@@ -67,12 +82,12 @@ export function getPools(library, dispatch) {
                               totalLocked = new BigNumber(_reserves._reserve0)
                                 .div(1e18)
                                 .times(2)
-                                .times(dopMarket.underlyingPriceUSD)
+                                .times(dopUsdPrice)
                             } else {
                               totalLocked = new BigNumber(_reserves._reserve1)
                                 .div(1e18)
                                 .times(2)
-                                .times(dopMarket.underlyingPriceUSD)
+                                .times(dopUsdPrice)
                             }
                             let apy =
                               totalLocked.isZero() ||
@@ -82,7 +97,7 @@ export function getPools(library, dispatch) {
                                     .div(1e18)
                                     .times(blocksPerDay)
                                     .times(daysPerYear)
-                                    .times(dopMarket.underlyingPriceUSD)
+                                    .times(dopUsdPrice)
                                     .div(
                                       new BigNumber(info[1].amount)
                                         .div(_totalLp)
@@ -93,7 +108,7 @@ export function getPools(library, dispatch) {
 
                             resolve({
                               ...(library.addresses.Pools.find(
-                                (pool) => pool.lpToken === info[0].lpToken
+                                (pool) => pool.id === info[3]
                               ) || {}),
                               ...info[0],
                               ...info[1],
@@ -136,33 +151,49 @@ export function getPools(library, dispatch) {
             .catch((err) => console.log('getPoolDetails', err))
         })
         .catch((err) => console.log('getPoolInfos', err))
-    )
+    })
     .catch((err) => console.log('getPools', err))
 }
 
-export function getVestingInfo(library, dispatch) {
-  const { allocation, cliff, start, duration, releasable, released } =
-    library.methods.Vesting
+export function getVestings(library, dispatch) {
+  Promise.all([0, 1, 2].map((id) => getVestingInfo(id, library)))
+    .then((vestings) => {
+      dispatch({
+        type: 'vesting',
+        payload: (
+          vestings || []
+        ).map(
+          ([allocation, released, releasable, cliff, start, duration, id]) => [
+            library.web3.utils.fromWei(allocation),
+            library.web3.utils.fromWei(released),
+            library.web3.utils.fromWei(releasable),
+            Number(cliff) * 1000,
+            (Number(start) + Number(duration)) * 1000,
+            id,
+          ]
+        ),
+      })
+    })
+    .catch((err) => console.log('getVestingInfo', err))
+}
+
+export function getVestingInfo(vIndex, library) {
+  const {
+    allocation,
+    cliff,
+    start,
+    duration,
+    releasable,
+    released,
+  } = library.methods.Vesting[vIndex]
   const account = library.wallet.address
-  Promise.all([
+  return Promise.all([
     allocation(account),
     released(account),
     releasable(account),
     cliff(),
     start(),
     duration(),
+    vIndex,
   ])
-    .then(([allocation, released, releasable, cliff, start, duration]) => {
-      dispatch({
-        type: 'vesting',
-        payload: [
-          library.web3.utils.fromWei(allocation),
-          library.web3.utils.fromWei(released),
-          library.web3.utils.fromWei(releasable),
-          Number(cliff) * 1000,
-          (Number(start) + Number(duration)) * 1000,
-        ],
-      })
-    })
-    .catch((err) => console.log('getVestingInfo', err))
 }

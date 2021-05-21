@@ -11,17 +11,9 @@ const FETCH_TIME = 15
 let poolTimer = null
 
 export default function LpStaking(props) {
-  const {
-    state,
-    dispatch,
-    library,
-  } = props
+  const { state, dispatch, library } = props
 
-  const {
-    transactions,
-    requests,
-    pools
-  } = state
+  const { transactions, requests, pools } = state
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -61,7 +53,7 @@ export default function LpStaking(props) {
     new Array(4).fill({})
   )
 
-  const assetInfo = pools.find(p => p.id == router.query.id)
+  const assetInfo = pools.find((p) => p.id == router.query.id)
   if (!assetInfo) return null
 
   const handleTransaction = (type, ...args) => (
@@ -106,9 +98,7 @@ export default function LpStaking(props) {
 
   const handleStaking = (form) => {
     if (!library) return null
-    const {
-      LpToken
-    } = library.methods
+    const { LpToken } = library.methods
     if (Number(assetInfo.allowance) <= 0) {
       // Approve
       const methods = LpToken(library.LPTokenContract(assetInfo.lpToken))
@@ -129,10 +119,7 @@ export default function LpStaking(props) {
       )
     } else {
       const { amount, type } = form
-      const {
-        deposit,
-        withdraw,
-      } = library.methods.MasterChef
+      const { deposit, withdraw } = library.methods.MasterChef
 
       if (type === 'stake') {
         const transaction = deposit(
@@ -144,11 +131,7 @@ export default function LpStaking(props) {
           // setIsOpen(false)
         })
       } else if (type === 'claim') {
-        const transaction = deposit(
-          assetInfo.id,
-          '0',
-          { from: account }
-        )
+        const transaction = deposit(assetInfo.id, '0', { from: account })
         handleTransaction('stake', assetInfo.symbol)(transaction.send(), () => {
           // setIsOpen(false)
         })
@@ -172,7 +155,9 @@ export default function LpStaking(props) {
           <Link href="/staking">
             <img className="cursor" src="/left-arrow.svg" alt="arrow" />
           </Link>
-          <Button className={`flex-center bold ${styles.lpLinkBtn} ${styles.mobileLpLinkBtn}`}>
+          <Button
+            className={`flex-center bold ${styles.lpLinkBtn} ${styles.mobileLpLinkBtn}`}
+          >
             Get Lp <img src="/link.svg" />
           </Button>
         </div>
@@ -203,13 +188,15 @@ export default function LpStaking(props) {
             <div className={styles.infoDetail}>
               <div className="flex-center">
                 <div className={styles.infoWrapper}>
-                  <div className={styles.label}>Points per day</div>
+                  <div className={styles.label}>DOP/DAY</div>
                   <div className={styles.value}>
-                    {new BigNumber(assetInfo.dopPerBlock).times(blocksPerDay).toString(10)}
+                    {new BigNumber(assetInfo.dopPerBlock)
+                      .times(blocksPerDay)
+                      .toString(10)}
                   </div>
                 </div>
                 <div className={styles.infoWrapper}>
-                  <div className={styles.label}>Total weight</div>
+                  <div className={styles.label}>Total staked</div>
                   <div className={styles.value}>
                     {new BigNumber(assetInfo.totalLpSupply).toString(10)}
                   </div>
@@ -218,28 +205,47 @@ export default function LpStaking(props) {
               <div className={styles.divider} />
               <div className="flex-center">
                 <div className={styles.infoWrapper}>
-                  <div className={styles.label}>My staked weight</div>
+                  <div className={styles.label}>My Stake</div>
                   <div className={styles.value}>
-                    {new BigNumber(assetInfo.amount).div(1e18).dp(2, 1).toString(10)}
+                    {new BigNumber(assetInfo.amount)
+                      .div(1e18)
+                      .dp(2, 1)
+                      .toString(10)}
                   </div>
                 </div>
                 <div className={styles.infoWrapper}>
-                  <div className={styles.label}>Points per day</div>
+                  <div className={styles.label}>My DOP/DAY</div>
                   <div className={styles.value}>
-                    {(new BigNumber(assetInfo.amount).div(1e18).div(assetInfo.totalLpSupply)).times(new BigNumber(assetInfo.dopPerBlock).times(blocksPerDay)).dp(2, 1).toString(10)}
+                    {new BigNumber(assetInfo.totalLpSupply).isZero()
+                      ? '0'
+                      : new BigNumber(assetInfo.amount)
+                          .div(1e18)
+                          .div(assetInfo.totalLpSupply)
+                          .times(
+                            new BigNumber(assetInfo.dopPerBlock).times(
+                              blocksPerDay
+                            )
+                          )
+                          .dp(2, 1)
+                          .toString(10)}
                   </div>
                 </div>
                 <div className={styles.infoWrapper}>
-                  <div className={styles.label}>Claimable points</div>
+                  <div className={styles.label}>Claimable DOP</div>
                   <div className={styles.value}>
-                    {new BigNumber(assetInfo.pendingDop).div(1e18).dp(2, 1).toString(10)}
+                    {new BigNumber(assetInfo.pendingDop)
+                      .div(1e18)
+                      .dp(2, 1)
+                      .toString(10)}
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div
-            className={`${styles.stakingForm} ${isOpen ? styles.stakingModal : ''}`}
+            className={`${styles.stakingForm} ${
+              isOpen ? styles.stakingModal : ''
+            }`}
             onMouseDown={() => setIsOpen(false)}
           >
             <StakingForm
@@ -254,9 +260,14 @@ export default function LpStaking(props) {
           </div>
         </div>
       </section>
-      <section className={`flex-center justify-between ${styles.stakingManage}`}>
+      <section
+        className={`flex-center justify-between ${styles.stakingManage}`}
+      >
         <div>Staking</div>
-        <Button className="flex-center justify-center" onClick={() => setIsOpen(true)}>
+        <Button
+          className="flex-center justify-center"
+          onClick={() => setIsOpen(true)}
+        >
           Manage
         </Button>
       </section>

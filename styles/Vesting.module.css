@@ -1,23 +1,40 @@
 .content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
   flex: 1;
+  overflow: auto;
   line-height: 1.5;
+  width: 90%;
+  margin: auto;
 }
 
-.content h1 {
-  margin-bottom: var(--padding-normal) !important;
+.vestingContent {
+  box-shadow: 0px 16px 40px rgb(0 0 0 / 8%);
+  border-radius: 16px;
+  padding: 40px;
 }
 
-.content table {
+.vestingContent h1 {
+  margin-bottom: var(--padding-narrow) !important;
+}
+
+.vestingContent h3 {
+  margin-bottom: var(--padding-narrow) !important;
+}
+
+.vestingContent table {
   width: 100%;
   max-width: 420px;
   table-layout: fixed;
 }
 
-.content td:nth-child(2) {
+.vestingContent td:nth-child(2) {
   text-align: right;
 }
 
-.content button {
+.vestingContent button {
   width: 100%;
   background: var(--color-black);
   border-radius: 8px;
