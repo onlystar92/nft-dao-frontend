@@ -153,7 +153,7 @@ const Header = () => {
 
   useEffect(() => {
     setIsCollapse(false)
-  }, [router, ])
+  }, [router])
 
   return (
     <HeaderWrapper>
@@ -204,9 +204,7 @@ const Header = () => {
           </Link>
           <Link href="/loans">
             <div
-              className={
-                router.pathname === '/loans' ? styles.activeMenu : ''
-              }
+              className={router.pathname === '/loans' ? styles.activeMenu : ''}
             >
               Loans
             </div>
@@ -255,9 +253,7 @@ const Header = () => {
                 <Link href="/staking">
                   <div
                     className={
-                      router.pathname === '/staking'
-                        ? styles.activeMenu
-                        : ''
+                      router.pathname === '/staking' ? styles.activeMenu : ''
                     }
                   >
                     Staking
@@ -266,9 +262,7 @@ const Header = () => {
                 <Link href="/loans">
                   <div
                     className={
-                      router.pathname === '/loans'
-                        ? styles.activeMenu
-                        : ''
+                      router.pathname === '/loans' ? styles.activeMenu : ''
                     }
                   >
                     Loans
@@ -277,9 +271,7 @@ const Header = () => {
                 <Link href="/vesting">
                   <div
                     className={
-                      router.pathname === '/vesting'
-                        ? styles.activeMenu
-                        : ''
+                      router.pathname === '/vesting' ? styles.activeMenu : ''
                     }
                   >
                     Vesting

@@ -28,7 +28,7 @@ export const addresses = {
     Vesting3: '0xe5F10e1ab6C2CdC37476eC6c7460976c67C4D7bb',
   },
   4: {
-    Comp: '0x057388D8a9c0e269362d5eF7a1e016A44F971B3e',
+    Comp: '0x7CeBC7A14ff1399C53Fe1d0b19CC4388b5eA7433',
     CompoundLens: '0x7fD50b1209Ad1134Bb0A69786B720dBCfd0F8ea9',
     Comptroller: '0x30f15f4939F3E611dACb1e752a15F9FcBEaDCb08',
     DAIInterestRateModelV3: '0x2aF6C0129e55c8ee3Ba5aD894F38a2578e3e0583',

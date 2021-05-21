@@ -56,7 +56,7 @@ export function accountBalance(library, dispatch) {
     library.methods.Comptroller.getAssetsIn(account),
     library.web3.eth.getBalance(account),
     // library.methods.Comptroller.compAccrued(account),
-    // library.methods.Comp.balanceOf(account),
+    library.methods.Comp.balanceOf(account),
     library.methods.CompoundLens.getCompBalanceMetadataExt(account),
     Promise.all(
       library.markets.map((market) => {
@@ -96,13 +96,13 @@ export function accountBalance(library, dispatch) {
         assetsIn,
         _balance,
         // _rewardBalance,
-        // _dopBalance,
+        _dopBalance,
         metadata,
         _markets,
       ]) => {
         const balance = toNumber(fromWei(_balance))
         const rewardBalance = toNumber(fromWei(metadata.allocated))
-        const dopBalance = toNumber(fromWei(metadata.balance))
+        const dopBalance = toNumber(fromWei(_dopBalance))
         const marketBalances = {}
         const marketAllowances = {}
         const supplyBalances = {}
