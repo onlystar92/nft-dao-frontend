@@ -52,7 +52,7 @@ export default function Vesting({ library, state, dispatch }) {
 
   if (myVestings.length === 0) {
     return (
-      <section className={`${styles.content} flex-all`}>No Vesting</section>
+      <section className={`${styles.content} flex-all`}>This wallet does not have vested contracts</section>
     )
   }
 
