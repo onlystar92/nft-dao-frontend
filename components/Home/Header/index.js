@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 // import { useLocation } from "react-router";
 import styled from 'styled-components'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { Collapse } from 'react-collapse'
+import styles from './Header.module.css'
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -8,6 +12,7 @@ const HeaderWrapper = styled.div`
   height: 96px;
   align-items: center;
   background: #fff;
+  justify-content: space-between;
 
   .logo-wrapper {
     display: flex;
@@ -21,7 +26,7 @@ const HeaderWrapper = styled.div`
       display: none;
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 767px) {
       padding-left: 20px;
       padding-right: 20px;
       display: flex;
@@ -42,7 +47,7 @@ const HeaderWrapper = styled.div`
     height: 68px;
     padding-left: 30px;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 767px) {
       display: none;
     }
 
@@ -68,7 +73,7 @@ const HeaderWrapper = styled.div`
   .menu-wrapper {
     flex: 1;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 767px) {
       display: none;
     }
 
@@ -143,6 +148,13 @@ const Header = () => {
   //   return "";
   // };
 
+  const router = useRouter()
+  const [isCollapse, setIsCollapse] = useState(false)
+
+  useEffect(() => {
+    setIsCollapse(false)
+  }, [router, ])
+
   return (
     <HeaderWrapper>
       <div className="logo-wrapper">
@@ -170,6 +182,142 @@ const Header = () => {
         </div>
         <div className="wallet-info">MY WALLET</div>
       </div> */}
+      <div className="flex-center">
+        <div className={`flex ${styles.menu}`}>
+          {/* <Link href="/">
+            <div
+              className={
+                router.pathname === '/' ? styles.activeMenu : ''
+              }
+            >
+              Home
+            </div>
+          </Link> */}
+          <Link href="/staking">
+            <div
+              className={
+                router.pathname === '/staking' ? styles.activeMenu : ''
+              }
+            >
+              Staking
+            </div>
+          </Link>
+          <Link href="/loans">
+            <div
+              className={
+                router.pathname === '/loans' ? styles.activeMenu : ''
+              }
+            >
+              Loans
+            </div>
+          </Link>
+          <Link href="/vesting">
+            <div
+              className={
+                router.pathname === '/vesting' ? styles.activeMenu : ''
+              }
+            >
+              Vesting
+            </div>
+          </Link>
+          {/* <Link href="/swaps">
+            <div
+              className={
+                router.pathname === '/swaps' ? styles.activeMenu : ''
+              }
+            >
+              Swap NFT
+          </div>
+          </Link>
+          <Link href="/drops">
+            <div
+              className={
+                router.pathname === '/drops' ? styles.activeMenu : ''
+              }
+            >
+              Drops
+          </div>
+          </Link> */}
+        </div>
+        <div className={styles.mobileMenu}>
+          <div className={styles.collapseContent} id="collapse-content">
+            <Collapse isOpened={isCollapse}>
+              <div className={`${styles.menuContent} flex-all`}>
+                {/* <Link href="/">
+                  <div
+                    className={
+                      router.pathname === '/' ? styles.activeMenu : ''
+                    }
+                  >
+                    Home
+                  </div>
+                </Link> */}
+                <Link href="/staking">
+                  <div
+                    className={
+                      router.pathname === '/staking'
+                        ? styles.activeMenu
+                        : ''
+                    }
+                  >
+                    Staking
+                  </div>
+                </Link>
+                <Link href="/loans">
+                  <div
+                    className={
+                      router.pathname === '/loans'
+                        ? styles.activeMenu
+                        : ''
+                    }
+                  >
+                    Loans
+                  </div>
+                </Link>
+                <Link href="/vesting">
+                  <div
+                    className={
+                      router.pathname === '/vesting'
+                        ? styles.activeMenu
+                        : ''
+                    }
+                  >
+                    Vesting
+                  </div>
+                </Link>
+                {/* <Link href="/app">
+                  <div
+                    className={
+                      router.pathname === '/swaps'
+                        ? styles.activeMenu
+                        : ''
+                    }
+                  >
+                    Swap NFT
+                </div>
+                </Link>
+                <Link href="/drops">
+                  <div
+                    className={
+                      router.pathname === '/drops'
+                        ? styles.activeMenu
+                        : ''
+                    }
+                  >
+                    Drops
+                </div>
+                </Link> */}
+              </div>
+            </Collapse>
+          </div>
+        </div>
+        <img
+          src="/assets/menu.svg"
+          className={`${styles.hamburger} cursor`}
+          alt="menu"
+          onClick={() => setIsCollapse(!isCollapse)}
+        />
+      </div>
     </HeaderWrapper>
   )
 }

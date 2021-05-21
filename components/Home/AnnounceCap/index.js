@@ -9,9 +9,8 @@ const AnnounceCap = () => {
 
   useEffect(() => {
     if (copied) {
-      let timer1 = setTimeout(() => setCopied(true), 5000);
+      let timer1 = setTimeout(() => setCopied(false), 5000);
       return () => {
-        setCopied(false);
         clearTimeout(timer1);
       };
     }
@@ -42,7 +41,7 @@ const AnnounceCap = () => {
 const AnnounceCapWrapper = styled.div`
   width: 100vw;
   max-width: 100%;
-  height: 50px;
+  height: 54px;
   background: #051ca6;
   display: flex;
   justify-content: space-between;
@@ -56,13 +55,14 @@ const AnnounceCapWrapper = styled.div`
     display: block;
     padding: 0.25rem 20px;
   }
-  @media only screen and (min-width: 451px) and (max-width: 768px) {
+  @media only screen and (min-width: 451px) and (max-width: 767px) {
     padding: 0 20px;
   }
   .join-us, .dop {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 0.25rem;
   }
 
   img {
@@ -74,7 +74,6 @@ const AnnounceCapWrapper = styled.div`
 
   .copied {
     margin-left: 10px;
-    color: red;
   }
 `;
 
