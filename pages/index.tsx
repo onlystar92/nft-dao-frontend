@@ -36,17 +36,22 @@ const Section = styled.div`
     background: url("/static/images/bg/bg-1.png") #FBF9F8;
     background-repeat: no-repeat;
     background-position: top right;
-    height: calc(100vh - 246px);
+    height: calc(100vh - 156px);
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    .available-on-icon-header {
+      text-transform: none;
+      margin-bottom: 0;
+    }
   }
 
   &.section-2 {
     background: url("/static/images/bg/bg-2.png") #FBF9F8;
     background-repeat: no-repeat;
     background-position: bottom left;
-    height: 150px;
+    height: 50px;
   }
 
   &.section-3 {
@@ -298,6 +303,27 @@ export default function Home() {
             >
               WHITEPAPER
             </a>
+          </div>
+          <p className="font-color-dark font-size-xd available-on-icon-header text-center">
+            Available on
+          </p>
+          <div className="d-flex justify-content-center">
+            <a
+              className="social m-10"
+              href="https://uniswap.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img width="66" height="66" src="/static/images/icons/uniswap.png" alt="" />
+            </a>
+            {/* <a
+              className="social m-10"
+              href="https://twitter.com/dropsnft"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img width="66" height="66" src="/static/images/icons/gate.png" alt="" />
+            </a> */}
           </div>
         </Section>
         <Section className="section-2" />

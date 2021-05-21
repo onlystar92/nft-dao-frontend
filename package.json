@@ -17,6 +17,7 @@
     "next": "10.0.7",
     "react": "17.0.1",
     "react-collapse": "^5.1.0",
+    "react-copy-to-clipboard": "^5.0.3",
     "react-dom": "17.0.1",
     "react-gravatar": "^2.6.3",
     "sass": "^1.32.12",
