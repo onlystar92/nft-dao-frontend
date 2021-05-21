@@ -310,7 +310,7 @@ export default function Home() {
           <div className="d-flex justify-content-center">
             <a
               className="social m-10"
-              href="https://uniswap.org/"
+              href="https://v2.info.uniswap.org/pair/0x00aa1c57e894c4010fe44cb840ae56432d7ea1d1"
               target="_blank"
               rel="noopener noreferrer"
             >
