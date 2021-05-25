@@ -316,14 +316,14 @@ export default function Home() {
             >
               <img width="66" height="66" src="/static/images/icons/uniswap.png" alt="" />
             </a>
-            {/* <a
+            <a
               className="social m-10"
-              href="https://twitter.com/dropsnft"
+              href="https://gate.io/trade/DOP_USDT"
               target="_blank"
               rel="noopener noreferrer"
             >
               <img width="66" height="66" src="/static/images/icons/gate.png" alt="" />
-            </a> */}
+            </a>
           </div>
         </Section>
         <Section className="section-2" />
