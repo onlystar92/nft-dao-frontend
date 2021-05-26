@@ -84,13 +84,17 @@ export default function Staking({ library, state, dispatch }) {
                   </table>
                 </Table>
               )}
-              {availalbeFarms.length > 0 && (
-                <Table
-                  labels={{
-                    title: myStaked.length > 0 ? 'Available to stake' : '',
-                  }}
-                  noBorder
-                >
+
+              <Table
+                labels={{
+                  title:
+                    myStaked.length > 0 && availalbeFarms.length > 0
+                      ? 'Available to stake'
+                      : '',
+                }}
+                noBorder
+              >
+                {availalbeFarms.length > 0 && (
                   <table cellPadding={0} cellSpacing={0}>
                     <thead>
                       <tr>
@@ -113,15 +117,13 @@ export default function Staking({ library, state, dispatch }) {
                       ))}
                     </tbody>
                   </table>
-                  {!state.pools ||
-                    (state.pools.filter((farm) => Number(farm.amount) === 0)
-                      .length === 0 && (
-                      <p className={`${styles.noFarms} center`}>
-                        No Available Farming
-                      </p>
-                    ))}
-                </Table>
-              )}
+                )}
+                {myStaked.length === 0 && availalbeFarms.length === 0 && (
+                  <p className={`${styles.noFarms} center`}>
+                    No Available Farming
+                  </p>
+                )}
+              </Table>
             </div>
           )}
           {tab === 'stake_nft' && (
