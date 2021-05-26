@@ -91,7 +91,7 @@ export function getPools(library, dispatch) {
                             }
                             let apy =
                               totalLocked.isZero() ||
-                              new BigNumber(info[1].amount).isZero()
+                              new BigNumber(totalLpSupply).isZero()
                                 ? '0'
                                 : new BigNumber(dops)
                                     .div(1e18)
@@ -99,7 +99,7 @@ export function getPools(library, dispatch) {
                                     .times(daysPerYear)
                                     .times(dopUsdPrice)
                                     .div(
-                                      new BigNumber(info[1].amount)
+                                      new BigNumber(totalLpSupply)
                                         .div(_totalLp)
                                         .times(totalLocked)
                                     )

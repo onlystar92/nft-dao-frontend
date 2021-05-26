@@ -107,7 +107,7 @@ export default function LpStaking(props) {
         methods
           .approve(
             library.addresses.MasterChef,
-            new BigNumber(amount).times(1e18).toString(10),
+            library.web3.utils.toWei(amount),
             { from: account }
           )
           .send(),
@@ -124,7 +124,7 @@ export default function LpStaking(props) {
       if (type === 'stake') {
         const transaction = deposit(
           assetInfo.id,
-          new BigNumber(amount).times(1e18).toString(),
+          library.web3.utils.toWei(amount),
           { from: account }
         )
         handleTransaction('stake', assetInfo.symbol)(transaction.send(), () => {
@@ -138,7 +138,7 @@ export default function LpStaking(props) {
       } else {
         const transaction = withdraw(
           assetInfo.id,
-          new BigNumber(amount).times(1e18).toString(),
+          library.web3.utils.toWei(amount),
           { from: account }
         )
         handleTransaction('stake', assetInfo.symbol)(transaction.send(), () => {
