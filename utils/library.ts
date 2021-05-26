@@ -103,6 +103,7 @@ export function getPools(library, dispatch) {
                                         .div(_totalLp)
                                         .times(totalLocked)
                                     )
+                                    .times(100)
                                     .dp(2, 1)
                                     .toString(10)
 
