@@ -12,6 +12,7 @@ import { addresses, ZERO } from 'utils/constants'
 import { reducer, initState } from './store'
 import styles from './Layout.module.css'
 import { getMarkets } from 'pages/_app'
+import { getTokenPriceUSD } from 'utils/uniswap'
 
 const FETCH_TIME = 15
 let balanceTimer = null
@@ -53,6 +54,7 @@ export function accountBalance(library, dispatch) {
   }
   const dopMarket = library.markets.find((m) => m.underlyingSymbol === 'DOP')
   Promise.all([
+    getTokenPriceUSD(addresses[1].Comp),
     library.methods.Comptroller.getAssetsIn(account),
     library.web3.eth.getBalance(account),
     // library.methods.Comptroller.compAccrued(account),
@@ -93,6 +95,7 @@ export function accountBalance(library, dispatch) {
   ])
     .then(
       ([
+        dopPrice,
         assetsIn,
         _balance,
         // _rewardBalance,
@@ -232,6 +235,7 @@ export function accountBalance(library, dispatch) {
         dispatch({
           type: 'balance',
           payload: {
+            dopPrice: Number(dopPrice),
             assetsIn,
             balance,
             rewardBalance,

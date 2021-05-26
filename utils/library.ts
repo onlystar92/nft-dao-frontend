@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js'
 
-export function getPools(library, dispatch) {
+export function getPools(library, dispatch, dopPrice) {
   const {
     dopPerBlock,
     poolLength,
@@ -13,13 +13,6 @@ export function getPools(library, dispatch) {
 
   const blocksPerDay = 4 * 60 * 24
   const daysPerYear = 365
-
-  const dopMarket =
-    library &&
-    library.markets &&
-    library.markets.find((m) => m.underlyingSymbol === 'DOP')
-
-  const dopUsdPrice = dopMarket ? dopMarket.underlyingPriceUSD : 0.6
 
   const fromWei = (value, decimals = 18) =>
     decimals < 18 ? value / 10 ** decimals : library.web3.utils.fromWei(value)
@@ -82,12 +75,12 @@ export function getPools(library, dispatch) {
                               totalLocked = new BigNumber(_reserves._reserve0)
                                 .div(1e18)
                                 .times(2)
-                                .times(dopUsdPrice)
+                                .times(dopPrice)
                             } else {
                               totalLocked = new BigNumber(_reserves._reserve1)
                                 .div(1e18)
                                 .times(2)
-                                .times(dopUsdPrice)
+                                .times(dopPrice)
                             }
                             let apy =
                               totalLocked.isZero() ||
@@ -97,7 +90,7 @@ export function getPools(library, dispatch) {
                                     .div(1e18)
                                     .times(blocksPerDay)
                                     .times(daysPerYear)
-                                    .times(dopUsdPrice)
+                                    .times(dopPrice)
                                     .div(
                                       new BigNumber(totalLpSupply)
                                         .div(_totalLp)
@@ -132,7 +125,7 @@ export function getPools(library, dispatch) {
                                 .toString(10),
                               lpPrice: new BigNumber(totalLocked)
                                 .div(new BigNumber(_totalLp).div(1e18))
-                                .toString(10),
+                                .toNumber(),
                             })
                           })
                           .catch((err) => console.log('dopPerBlock', err))

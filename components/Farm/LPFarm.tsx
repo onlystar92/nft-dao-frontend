@@ -2,15 +2,18 @@ import BigNumber from 'bignumber.js'
 import Link from 'next/link'
 import styles from './Farm.module.css'
 import Button from 'components/Button/Button'
+import { abbreviateNumberSI } from "utils/number"
 
 interface ILPFarm {
   farm: any
+  dopPrice: number
   isStaked: boolean
   library?: any
 }
 
 export default function LPFarm({
   farm,
+  dopPrice,
   isStaked,
   library
 }: ILPFarm) {
@@ -49,18 +52,27 @@ export default function LPFarm({
         <p>
           {farm.totalLpSupply}
         </p>
+        <span className={styles.usdPrice}>
+          ${abbreviateNumberSI(new BigNumber(farm.totalLpSupply).times(farm.lpPrice || 0).toString(10), 2, 2)}
+        </span>
       </td>
       <td>
         <span className={styles.mobileLabel}>My Stake</span>
         <p>
           {Number(fromWei(farm.amount || 0)).toFixed(2)}
         </p>
+        <span className={styles.usdPrice}>
+          ${abbreviateNumberSI(new BigNumber(fromWei(farm.amount || 0)).times(farm.lpPrice || 0).toString(10), 2, 2)}
+        </span>
       </td>
       <td>
         <span className={styles.mobileLabel}>My earnings</span>
         <p>
           {Number(fromWei(farm.pendingDop || 0)).toFixed(2)} DOP
         </p>
+        <span className={styles.usdPrice}>
+          ${abbreviateNumberSI(new BigNumber(fromWei(farm.pendingDop || 0)).times(dopPrice || 0).toString(10), 2, 2)}
+        </span>
       </td>
       <td>
         <Link href={`/staking/lp/${farm.id}`}>

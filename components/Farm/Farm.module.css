@@ -37,6 +37,11 @@
   color: var(--color-gray);
 }
 
+.usdPrice {
+  color: var(--color-gray);
+  font-size: var(--font-size-small);
+}
+
 .btn {
   width: 98px;
   height: 40px;

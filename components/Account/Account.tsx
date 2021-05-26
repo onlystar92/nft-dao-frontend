@@ -6,6 +6,7 @@ import DopModal from 'components/Modal/DopModal'
 import { accountBalance } from 'layout'
 
 interface IAccount {
+  dopPrice: number
   library: any
   transactions: any
   requests: any
@@ -19,6 +20,7 @@ interface IAccount {
 }
 
 export default function Account({
+  dopPrice,
   dispatch,
   library,
   transactions,
@@ -145,7 +147,7 @@ export default function Account({
         pending={isOpen && !!requests.claim}
         balance={Number(dopBalance)}
         rewardBalance={Number(rewardBalance)}
-        price={dopMarket ? dopMarket.underlyingPriceUSD : 0}
+        price={dopPrice}
         disabled={isOpen && transactionMap[0].claim}
         onSubmit={handleClaimDop}
         onClose={() => setIsOpen(false)}

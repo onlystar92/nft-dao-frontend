@@ -14,17 +14,17 @@ export default function Staking({ library, state, dispatch }) {
   const availalbeFarms = state.pools.filter((farm) => Number(farm.amount) === 0)
 
   const loadPools = () => {
-    getPools(library, dispatch)
+    getPools(library, dispatch, state.dopPrice)
   }
 
   useEffect(() => {
-    if (library && state.account.address) {
+    if (library && state.account.address && state.dopPrice) {
       if (poolTimer) clearInterval(poolTimer)
       poolTimer = setInterval(loadPools, FETCH_TIME * 1000)
       loadPools()
     }
     return () => poolTimer && clearInterval(poolTimer)
-  }, [library, state.account.address])
+  }, [library, state.account.address, state.dopPrice])
 
   return (
     <>
@@ -76,6 +76,7 @@ export default function Staking({ library, state, dispatch }) {
                         <LPFarm
                           key={farm.symbol}
                           farm={farm}
+                          dopPrice={state.dopPrice}
                           library={library}
                           isStaked={true}
                         />
@@ -111,6 +112,7 @@ export default function Staking({ library, state, dispatch }) {
                         <LPFarm
                           key={farm.symbol}
                           farm={farm}
+                          dopPrice={state.dopPrice}
                           library={library}
                           isStaked={false}
                         />

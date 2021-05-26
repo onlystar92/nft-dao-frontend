@@ -83,6 +83,11 @@
     font-weight: bold;
 }
 
+.usdPrice {
+    color: var(--color-gray);
+    font-size: var(--font-size-small);
+}
+
 .divider {
     width: 100%;
     height: 1px;
