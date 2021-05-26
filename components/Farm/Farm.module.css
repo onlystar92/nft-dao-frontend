@@ -42,6 +42,7 @@
   height: 40px;
   background: var(--color-black1);
   color: var(--color-white);
+  border-radius: 8px;
 }
 
 @media all and (max-width: 567px) {

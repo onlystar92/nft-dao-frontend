@@ -155,11 +155,17 @@ export default function LpStaking(props) {
           <Link href="/staking">
             <img className="cursor" src="/left-arrow.svg" alt="arrow" />
           </Link>
-          <Button
-            className={`flex-center bold ${styles.lpLinkBtn} ${styles.mobileLpLinkBtn}`}
+          <a
+            href={`https://app.uniswap.org/#/add/v2/${library.addresses.Comp}/ETH`}
+            target="_blank"
+            rel="noreferrer"
           >
-            Get Lp <img src="/link.svg" />
-          </Button>
+            <Button
+              className={`flex-center bold ${styles.lpLinkBtn} ${styles.mobileLpLinkBtn}`}
+            >
+              Get Lp <img src="/link.svg" />
+            </Button>
+          </a>
         </div>
       </section>
       <section className={`${styles.content} flex flex-start justify-center`}>
@@ -181,9 +187,15 @@ export default function LpStaking(props) {
                 )}
               </div>
               <div className={styles.assetName}>{assetInfo.label}</div>
-              <Button className={`flex-center bold ${styles.lpLinkBtn}`}>
-                Get Lp <img src="/link.svg" />
-              </Button>
+              <a
+                href={`https://app.uniswap.org/#/add/v2/${library.addresses.Comp}/ETH`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Button className={`flex-center bold ${styles.lpLinkBtn}`}>
+                  Get Lp <img src="/link.svg" />
+                </Button>
+              </a>
             </div>
             <div className={styles.infoDetail}>
               <div className="flex-center">

@@ -35,8 +35,8 @@ export default function StakingForm({
   const { stakeAmount, unstakeAmount } = form
 
   const maxStake = market.balance
-  const available = new BigNumber(market.amount).div(1e18).dp(2, 1).toNumber()
-  const claimAmount = new BigNumber(market.pendingDop).div(1e18).dp(2, 1).toNumber()
+  const available = new BigNumber(market.amount).div(1e18)
+  const claimAmount = new BigNumber(market.pendingDop).div(1e18)
 
   const handleInput = (e) => {
     let value = (e.target.value || '').replace(/[^.\d]/g, '')
@@ -57,7 +57,7 @@ export default function StakingForm({
     } else if (tab === 'unstake') {
       onSubmit({ amount: unstakeAmount, type: tab })
     } else if (tab === 'claim') {
-      onSubmit({ amount: claimAmount, type: tab })
+      onSubmit({ amount: claimAmount.toString(10), type: tab })
     }
   }
 
@@ -152,7 +152,7 @@ export default function StakingForm({
                     <div className="flex">
                       <Button
                         className="flex-center justify-center"
-                        disabled={disabled || claimAmount <= 0}
+                        disabled={disabled || claimAmount.toNumber() <= 0}
                       >
                         Claim
                       </Button>
@@ -175,7 +175,7 @@ export default function StakingForm({
                           onClick={() =>
                             setForm({
                               ...form,
-                              unstakeAmount: available,
+                              unstakeAmount: available.toString(10),
                             })
                           }
                         >
@@ -184,7 +184,7 @@ export default function StakingForm({
                       </div>
                       <label className="flex-center justify-between" htmlFor="unstakeAmount">
                         <span>${new BigNumber(market.lpPrice).times(unstakeAmount || 0).dp(2, 1).toString(10)}</span>
-                        <span>Max: {new BigNumber(available).dp(2, 1).toString(10)} LP</span>
+                        <span>Max: {available.dp(2, 1).toString(10)} LP</span>
                       </label>
                       <div className={`flex-center justify-between ${styles.claimPoint}`}>
                         <span>Claimable DOP</span>
@@ -198,7 +198,7 @@ export default function StakingForm({
                         disabled={
                           disabled ||
                           unstakeAmount <= 0 ||
-                          unstakeAmount > available
+                          unstakeAmount > available.toNumber()
                         }
                       >
                         Unstake & Claim

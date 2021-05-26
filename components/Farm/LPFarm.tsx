@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js'
 import Link from 'next/link'
 import styles from './Farm.module.css'
 import Button from 'components/Button/Button'
@@ -52,7 +53,7 @@ export default function LPFarm({
       <td>
         <span className={styles.mobileLabel}>My Stake</span>
         <p>
-          {fromWei(farm.amount || 0)}
+          {Number(fromWei(farm.amount || 0)).toFixed(2)}
         </p>
       </td>
       <td>

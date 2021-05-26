@@ -11,6 +11,7 @@ let poolTimer = null
 export default function Staking({ library, state, dispatch }) {
   const [tab, setTab] = useState('stake_lp')
   const myStaked = state.pools.filter((farm) => Number(farm.amount) !== 0)
+  const availalbeFarms = state.pools.filter((farm) => Number(farm.amount) === 0)
 
   const loadPools = () => {
     getPools(library, dispatch)
@@ -83,45 +84,44 @@ export default function Staking({ library, state, dispatch }) {
                   </table>
                 </Table>
               )}
-              <Table
-                labels={{
-                  title: myStaked.length > 0 ? 'Available to stake' : '',
-                }}
-                noBorder
-              >
-                <table cellPadding={0} cellSpacing={0}>
-                  <thead>
-                    <tr>
-                      <th>Asset name</th>
-                      <th>APY%</th>
-                      <th>Total staked</th>
-                      <th>My Stake</th>
-                      <th>My earnings</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {state.pools &&
-                      state.pools
-                        .filter((farm) => Number(farm.amount) === 0)
-                        .map((farm) => (
-                          <LPFarm
-                            key={farm.symbol}
-                            farm={farm}
-                            library={library}
-                            isStaked={false}
-                          />
-                        ))}
-                  </tbody>
-                </table>
-                {!state.pools ||
-                  (state.pools.filter((farm) => Number(farm.amount) === 0)
-                    .length === 0 && (
-                    <p className={`${styles.noFarms} center`}>
-                      No Available Farming
-                    </p>
-                  ))}
-              </Table>
+              {availalbeFarms.length > 0 && (
+                <Table
+                  labels={{
+                    title: myStaked.length > 0 ? 'Available to stake' : '',
+                  }}
+                  noBorder
+                >
+                  <table cellPadding={0} cellSpacing={0}>
+                    <thead>
+                      <tr>
+                        <th>Asset name</th>
+                        <th>APY%</th>
+                        <th>Total staked</th>
+                        <th>My Stake</th>
+                        <th>My earnings</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {availalbeFarms.map((farm) => (
+                        <LPFarm
+                          key={farm.symbol}
+                          farm={farm}
+                          library={library}
+                          isStaked={false}
+                        />
+                      ))}
+                    </tbody>
+                  </table>
+                  {!state.pools ||
+                    (state.pools.filter((farm) => Number(farm.amount) === 0)
+                      .length === 0 && (
+                      <p className={`${styles.noFarms} center`}>
+                        No Available Farming
+                      </p>
+                    ))}
+                </Table>
+              )}
             </div>
           )}
           {tab === 'stake_nft' && (
