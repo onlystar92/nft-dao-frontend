@@ -56,45 +56,44 @@ export default function LpStaking(props) {
   const assetInfo = pools.find((p) => p.id == router.query.id)
   if (!assetInfo) return null
 
-  const handleTransaction = (type, ...args) => (
-    transaction,
-    callback = () => {}
-  ) => {
-    dispatch({
-      type: 'txRequest',
-      payload: [type, true, ...args],
-    })
-    transaction
-      .on('transactionHash', function (hash) {
-        dispatch({
-          type: 'txHash',
-          payload: [hash, false, type, ...args],
-        })
+  const handleTransaction =
+    (type, ...args) =>
+    (transaction, callback = () => {}) => {
+      dispatch({
+        type: 'txRequest',
+        payload: [type, true, ...args],
       })
-      .on('receipt', function (receipt) {
-        dispatch({
-          type: 'txHash',
-          payload: [receipt.transactionHash, true, type, callback()],
-        })
-        getPools(library, dispatch)
-      })
-      .on('error', (err, receipt) => {
-        if (err && err.message) {
-          console.log(err.message)
-        }
-        if (receipt) {
+      transaction
+        .on('transactionHash', function (hash) {
           dispatch({
             type: 'txHash',
-            payload: [receipt.transactionHash, true, type],
+            payload: [hash, false, type, ...args],
           })
-        } else {
+        })
+        .on('receipt', function (receipt) {
           dispatch({
-            type: 'txRequest',
-            payload: [type, false, ...args],
+            type: 'txHash',
+            payload: [receipt.transactionHash, true, type, callback()],
           })
-        }
-      })
-  }
+          getPools(library, dispatch)
+        })
+        .on('error', (err, receipt) => {
+          if (err && err.message) {
+            console.log(err.message)
+          }
+          if (receipt) {
+            dispatch({
+              type: 'txHash',
+              payload: [receipt.transactionHash, true, type],
+            })
+          } else {
+            dispatch({
+              type: 'txRequest',
+              payload: [type, false, ...args],
+            })
+          }
+        })
+    }
 
   const handleStaking = (form) => {
     if (!library) return null
@@ -204,7 +203,7 @@ export default function LpStaking(props) {
                   <div className={styles.value}>
                     {new BigNumber(assetInfo.dopPerBlock)
                       .times(blocksPerDay)
-                      .toString(10)}
+                      .toFixed(2)}
                   </div>
                 </div>
                 <div className={styles.infoWrapper}>
@@ -238,8 +237,7 @@ export default function LpStaking(props) {
                               blocksPerDay
                             )
                           )
-                          .dp(2, 1)
-                          .toString(10)}
+                          .toFixed(2)}
                   </div>
                 </div>
                 <div className={styles.infoWrapper}>

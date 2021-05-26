@@ -117,7 +117,6 @@ export function getPools(library, dispatch) {
                               apy,
                               dopPerBlock: new BigNumber(dops)
                                 .div(1e18)
-                                .dp(2, 1)
                                 .toString(10),
                               totalLp: new BigNumber(_totalLp)
                                 .div(1e18)
