@@ -281,10 +281,10 @@ export default function Home() {
         <Header />
         <Section className="section-1">
           <h1 className="font-color-dark font-size-lg text-center">
-            DeFi for NFTs
+            More Leverage for Your NFTs
           </h1>
           <p className="font-color-dark font-size-xd text-center">
-            Staking, Trustless loans, Vaults
+            Margin NFT | Fractions | Vaults | Trustless Loans
           </p>
           <div className="d-flex justify-content-center">
             <a
