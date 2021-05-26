@@ -111,13 +111,14 @@ export function accountBalance(library, dispatch) {
         const marketBorrowRates = {}
         const marketDistributeApys = {}
 
-        let totalSupply = 0
-        let totalCash = 0
-        let supplyEarning = 0
-        let totalBorrow = 0
-        let borrowEarning = 0
-        let totalDopSupplyApy = 0
-        let totalDopBorrowApy = 0
+        let totalSupply = new BigNumber(0)
+        let totalCash = new BigNumber(0)
+        let supplyEarning = new BigNumber(0)
+        let totalBorrow = new BigNumber(0)
+        let borrowEarning = new BigNumber(0)
+        let totalDopSupplyEarning = new BigNumber(0)
+        let totalDopBorrowEarning = new BigNumber(0)
+        let netApy = new BigNumber(0)
         const blocksPerDay = 4 * 60 * 24
         const daysPerYear = 365
 
@@ -141,10 +142,9 @@ export function accountBalance(library, dispatch) {
             _markets[idx][2],
             market.underlyingDecimals
           )
-          totalSupply += supplyBalances[address] * price
+          totalSupply = totalSupply.plus(new BigNumber(supplyBalances[address]).times(price))
           if (assetsIn.includes(toChecksumAddress(market.id))) {
-            totalCash +=
-              supplyBalances[address] * price * market.collateralFactor
+            totalCash = totalCash.plus(new BigNumber(supplyBalances[address]).times(price).times(market.collateralFactor))
           }
 
           marketSupplyRates[address] = _markets[idx][4]
@@ -168,20 +168,20 @@ export function accountBalance(library, dispatch) {
             .dp(2, 1)
             .toString(10)
 
-          supplyEarning += supplyBalances[address] * price * Number(supplyApy)
+          supplyEarning = supplyEarning.plus(new BigNumber(supplyBalances[address]).times(price).times(supplyApy).div(100))
           borrowBalances[address] = fromWei(
             _markets[idx][3],
             market.underlyingDecimals
           )
-          totalBorrow += borrowBalances[address] * price
-          borrowEarning += borrowBalances[address] * price * Number(borrowApy)
+          totalBorrow = totalBorrow.plus(new BigNumber(borrowBalances[address]).times(price))
+          borrowEarning = borrowEarning.plus(new BigNumber(borrowBalances[address]).times(price).times(borrowApy).div(100))
           // Distribution APY Calculation
           const compSpeed = Number(
             new BigNumber(_markets[idx][6]).div(10 ** 18).toString(10)
           )
 
           const supplyDopApy =
-            !compSpeed || !totalSupply
+            !compSpeed || totalSupply.isZero()
               ? '0'
               : new BigNumber(100)
                   .times(
@@ -190,7 +190,7 @@ export function accountBalance(library, dispatch) {
                         new BigNumber(dopMarket.underlyingPriceUSD)
                           .times(compSpeed)
                           .times(blocksPerDay)
-                          .div(totalSupply * _markets[idx][6] * price)
+                          .div(new BigNumber(new BigNumber(totalSupply).times(_markets[idx][6]).times(price)))
                       )
                     )
                       .pow(365)
@@ -198,7 +198,7 @@ export function accountBalance(library, dispatch) {
                   )
                   .toString(10)
           const borrowDopApy =
-            !compSpeed || !totalBorrow
+            !compSpeed || totalBorrow.isZero()
               ? '0'
               : new BigNumber(100)
                   .times(
@@ -207,21 +207,27 @@ export function accountBalance(library, dispatch) {
                         new BigNumber(dopMarket.underlyingPriceUSD)
                           .times(compSpeed)
                           .times(blocksPerDay)
-                          .div(totalBorrow * price)
+                          .div(new BigNumber(totalBorrow).times(price))
                       )
                     )
                       .pow(365)
                       .minus(1)
                   )
                   .toString(10)
-          totalDopSupplyApy += Number(supplyDopApy)
-          totalDopBorrowApy += Number(borrowDopApy)
+          totalDopSupplyEarning = totalDopSupplyEarning.plus(supplyDopApy).times(totalSupply)
+          totalDopBorrowEarning = totalDopBorrowEarning.plus(borrowDopApy).times(totalBorrow)
           marketDistributeApys[address] = [supplyDopApy, borrowDopApy]
         })
-        const totalSupplyAPY =
-          totalSupply <= 0 ? 0 : supplyEarning / totalSupply
-        const totalBorrowAPY =
-          totalBorrow <= 0 ? 0 : borrowEarning / totalBorrow
+        
+        const totalEarning = new BigNumber(supplyEarning)
+          .plus(totalDopSupplyEarning)
+          .plus(totalDopBorrowEarning)
+          .minus(borrowEarning)
+        if (totalEarning.isGreaterThan(0)) {
+          if (totalSupply.isGreaterThan(0)) netApy = totalEarning.div(totalSupply).times(100)
+        } else {
+          if (totalBorrow.isGreaterThan(0)) netApy = totalEarning.div(totalBorrow).times(100)
+        }
 
         dispatch({
           type: 'balance',
@@ -237,14 +243,10 @@ export function accountBalance(library, dispatch) {
             marketDistributeApys,
             supplyBalances,
             borrowBalances,
-            totalSupply,
-            totalCash,
-            totalBorrow,
-            netAPY:
-              totalSupplyAPY -
-              totalBorrowAPY +
-              totalDopSupplyApy +
-              totalDopBorrowApy,
+            totalSupply: totalSupply.toNumber(),
+            totalCash: totalCash.toNumber(),
+            totalBorrow: totalBorrow.toNumber(),
+            netAPY: netApy.toNumber(),
           },
         })
         updateMarketCash(library, (markets) => library.updateMarkets(markets))
