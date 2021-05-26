@@ -106,7 +106,7 @@ export default function LpStaking(props) {
         methods
           .approve(
             library.addresses.MasterChef,
-            library.web3.utils.toWei(amount),
+            library.web3.utils.toWei(amount.toString()),
             { from: account }
           )
           .send(),
