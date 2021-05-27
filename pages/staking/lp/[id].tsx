@@ -58,47 +58,46 @@ export default function LpStaking(props) {
   )
 
   const assetInfo = pools.find((p) => p.id == router.query.id)
-  if (!assetInfo) return null
+  if (!assetInfo) return <div />
 
-  const handleTransaction = (type, ...args) => (
-    transaction,
-    callback = () => {}
-  ) => {
-    dispatch({
-      type: 'txRequest',
-      payload: [type, true, ...args],
-    })
-    transaction
-      .on('transactionHash', function (hash) {
-        dispatch({
-          type: 'txHash',
-          payload: [hash, false, type, ...args],
-        })
+  const handleTransaction =
+    (type, ...args) =>
+    (transaction, callback = () => {}) => {
+      dispatch({
+        type: 'txRequest',
+        payload: [type, true, ...args],
       })
-      .on('receipt', function (receipt) {
-        dispatch({
-          type: 'txHash',
-          payload: [receipt.transactionHash, true, type, callback()],
-        })
-        getPools(library, dispatch, state.dopPrice)
-      })
-      .on('error', (err, receipt) => {
-        if (err && err.message) {
-          console.log(err.message)
-        }
-        if (receipt) {
+      transaction
+        .on('transactionHash', function (hash) {
           dispatch({
             type: 'txHash',
-            payload: [receipt.transactionHash, true, type],
+            payload: [hash, false, type, ...args],
           })
-        } else {
+        })
+        .on('receipt', function (receipt) {
           dispatch({
-            type: 'txRequest',
-            payload: [type, false, ...args],
+            type: 'txHash',
+            payload: [receipt.transactionHash, true, type, callback()],
           })
-        }
-      })
-  }
+          getPools(library, dispatch, state.dopPrice)
+        })
+        .on('error', (err, receipt) => {
+          if (err && err.message) {
+            console.log(err.message)
+          }
+          if (receipt) {
+            dispatch({
+              type: 'txHash',
+              payload: [receipt.transactionHash, true, type],
+            })
+          } else {
+            dispatch({
+              type: 'txRequest',
+              payload: [type, false, ...args],
+            })
+          }
+        })
+    }
 
   const handleStaking = (form) => {
     if (!library) return null
