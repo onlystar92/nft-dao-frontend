@@ -120,13 +120,13 @@ export default function StakingForm({
                         </div>
                         <label className="flex-center justify-between" htmlFor="stakeAmount">
                           <span>${new BigNumber(market.lpPrice).times(stakeAmount || 0).dp(2, 1).toString(10)}</span>
-                          <span>Max: {new BigNumber(maxStake).dp(2, 1).toString(10)} LP</span>
+                          <span>Max: {new BigNumber(maxStake).dp(2, 1).toString(10)} {market.type === 'LP' ? 'LP' : market.symbol}</span>
                         </label>
                       </div>
                     )}
                     {!allowed && (
                       <p className={styles.enableMsg}>
-                        To Stake Lp token to the drops, you need to enable it first.
+                        To Stake {market.type === 'LP' ? 'LP' : market.symbol} token to the drops, you need to enable it first.
                       </p>
                     )}
                     <div className="flex">
@@ -184,7 +184,7 @@ export default function StakingForm({
                       </div>
                       <label className="flex-center justify-between" htmlFor="unstakeAmount">
                         <span>${new BigNumber(market.lpPrice).times(unstakeAmount || 0).dp(2, 1).toString(10)}</span>
-                        <span>Max: {available.dp(2, 1).toString(10)} LP</span>
+                        <span>Max: {available.dp(2, 1).toString(10)} {market.type === 'LP' ? 'LP' : market.symbol}</span>
                       </label>
                       <div className={`flex-center justify-between ${styles.claimPoint}`}>
                         <span>Claimable DOP</span>
