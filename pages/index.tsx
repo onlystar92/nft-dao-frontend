@@ -281,7 +281,7 @@ export default function Home() {
         <Header />
         <Section className="section-1">
           <h1 className="font-color-dark font-size-lg text-center">
-            More Leverage for Your NFTs
+            NFT Liquidity & Leverage
           </h1>
           <p className="font-color-dark font-size-xd text-center">
             Margin NFT | Fractions | Vaults | Trustless Loans
