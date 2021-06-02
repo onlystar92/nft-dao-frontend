@@ -23,14 +23,14 @@ export const addresses = {
         lpToken: '0x00aa1c57e894c4010fe44cb840ae56432d7ea1d1',
         type: 'LP'
       },
-      // {
-      //   id: 1,
-      //   symbol: 'NDR',
-      //   label: 'NDR',
-      //   firstAsset: '/assets/cryptologos/ndr.jpg',
-      //   lpToken: '0x739763a258640919981F9bA610AE65492455bE53',
-      //   type: 'SINGLE'
-      // },
+      {
+        id: 1,
+        symbol: 'NDR',
+        label: 'NDR',
+        firstAsset: '/assets/cryptologos/ndr.jpg',
+        lpToken: '0x739763a258640919981F9bA610AE65492455bE53',
+        type: 'SINGLE'
+      },
     ],
     Vesting1: '0x5B13929DA9fAE9929aBa25fC14014305F6e5dA89',
     Vesting2: '0x93532BBDa855716C2C16E77695589d78FFe94085',
