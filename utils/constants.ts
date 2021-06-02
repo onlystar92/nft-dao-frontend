@@ -20,8 +20,17 @@ export const addresses = {
         label: 'DOP/ETH',
         firstAsset: '/assets/cryptologos/dop.png',
         secondAsset: '/assets/cryptologos/eth.svg',
-        lpToken: '0x5D03F2b3aD36F52FF066e3C40e596599A291048b'
-      },    
+        lpToken: '0x00aa1c57e894c4010fe44cb840ae56432d7ea1d1',
+        type: 'LP'
+      },
+      {
+        id: 1,
+        symbol: 'NDR',
+        label: 'NDR',
+        firstAsset: '/assets/cryptologos/ndr.jpg',
+        lpToken: '0x739763a258640919981F9bA610AE65492455bE53',
+        type: 'SINGLE'
+      },
     ],
     Vesting1: '0x5B13929DA9fAE9929aBa25fC14014305F6e5dA89',
     Vesting2: '0x93532BBDa855716C2C16E77695589d78FFe94085',
@@ -45,8 +54,17 @@ export const addresses = {
         label: 'DOP/ETH',
         firstAsset: '/assets/cryptologos/dop.png',
         secondAsset: '/assets/cryptologos/eth.svg',
-        lpToken: '0x5D03F2b3aD36F52FF066e3C40e596599A291048b'
-      },    
+        lpToken: '0xD6DA17E55eF235c19BeeEb6A90Ad6Dd232206d0D',
+        type: 'LP'
+      },
+      {
+        id: 1,
+        symbol: 'NDR',
+        label: 'NDR',
+        firstAsset: '/assets/cryptologos/ndr.jpg',
+        lpToken: '0xD9571a03628014f44e8Fb12e3b4e2420891F5CD8',
+        type: 'SINGLE'
+      },
     ],
     Vesting1: '0x3C044989d1cF1aF16E3d1927c420dF39CA7c4f90',
     Vesting2: '0x0530e93007D5eab6A44d0A446272fE7848BE7d42',

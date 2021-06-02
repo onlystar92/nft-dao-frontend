@@ -200,6 +200,7 @@ class DropsLoanLibrary {
           getAllowance: call(contract.methods.allowance),
           getBalance: call(contract.methods.balanceOf),
           totalSupply: call(contract.methods.totalSupply),
+          decimals: call(contract.methods.decimals),
         }
 
       const getDTokenMethods = (contract: any) =>
@@ -259,6 +260,7 @@ class DropsLoanLibrary {
           poolInfo: call(this.contracts.MasterChef.methods.poolInfo),
           userInfo: call(this.contracts.MasterChef.methods.userInfo),
           pendingDop: call(this.contracts.MasterChef.methods.pendingDop),
+          totalAllocPoint: call(this.contracts.MasterChef.methods.totalAllocPoint),
           deposit: send(this.contracts.MasterChef.methods.deposit),
           withdraw: send(this.contracts.MasterChef.methods.withdraw),
         },
@@ -333,6 +335,10 @@ class DropsLoanLibrary {
 
   public LPTokenContract(address) {
     return new this.web3.eth.Contract(lpToken as any, address)
+  }
+
+  public ERC20TokenContract(address) {
+    return new this.web3.eth.Contract(ERC20 as any, address)
   }
 
   public updateMarkets(markets) {

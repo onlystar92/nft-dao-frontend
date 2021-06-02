@@ -35,7 +35,7 @@ export default function StakingForm({
   const { stakeAmount, unstakeAmount } = form
 
   const maxStake = market.balance
-  const available = new BigNumber(market.amount).div(1e18)
+  const available = new BigNumber(market.amount).div(10 ** market.decimals)
   const claimAmount = new BigNumber(market.pendingDop).div(1e18)
 
   const handleInput = (e) => {
