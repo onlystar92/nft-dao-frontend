@@ -18,8 +18,14 @@ export default function LpStaking(props) {
 
   const [isOpen, setIsOpen] = useState(false)
 
+  const toWei = (value, decimals = 18) =>
+    decimals < 18
+      ? new BigNumber(value).times(10 ** decimals).toString(10)
+      : library.web3.utils.toWei(value)
   const fromWei = (value, decimals = 18) =>
-    decimals < 18 ? value / 10 ** decimals : library.web3.utils.fromWei(value)
+    decimals < 18
+      ? new BigNumber(value).div(10 ** decimals).toString()
+      : library.web3.utils.fromWei(value)
 
   const router = useRouter()
   const blocksPerDay = 4 * 60 * 24
@@ -60,44 +66,45 @@ export default function LpStaking(props) {
   const assetInfo = pools.find((p) => p.id == router.query.id)
   if (!assetInfo) return <div />
 
-  const handleTransaction =
-    (type, ...args) =>
-    (transaction, callback = () => {}) => {
-      dispatch({
-        type: 'txRequest',
-        payload: [type, true, ...args],
+  const handleTransaction = (type, ...args) => (
+    transaction,
+    callback = () => {}
+  ) => {
+    dispatch({
+      type: 'txRequest',
+      payload: [type, true, ...args],
+    })
+    transaction
+      .on('transactionHash', function (hash) {
+        dispatch({
+          type: 'txHash',
+          payload: [hash, false, type, ...args],
+        })
       })
-      transaction
-        .on('transactionHash', function (hash) {
+      .on('receipt', function (receipt) {
+        dispatch({
+          type: 'txHash',
+          payload: [receipt.transactionHash, true, type, callback()],
+        })
+        getPools(library, dispatch, state.dopPrice)
+      })
+      .on('error', (err, receipt) => {
+        if (err && err.message) {
+          console.log(err.message)
+        }
+        if (receipt) {
           dispatch({
             type: 'txHash',
-            payload: [hash, false, type, ...args],
+            payload: [receipt.transactionHash, true, type],
           })
-        })
-        .on('receipt', function (receipt) {
+        } else {
           dispatch({
-            type: 'txHash',
-            payload: [receipt.transactionHash, true, type, callback()],
+            type: 'txRequest',
+            payload: [type, false, ...args],
           })
-          getPools(library, dispatch, state.dopPrice)
-        })
-        .on('error', (err, receipt) => {
-          if (err && err.message) {
-            console.log(err.message)
-          }
-          if (receipt) {
-            dispatch({
-              type: 'txHash',
-              payload: [receipt.transactionHash, true, type],
-            })
-          } else {
-            dispatch({
-              type: 'txRequest',
-              payload: [receipt.transactionHash, false, ...args],
-            })
-          }
-        })
-    }
+        }
+      })
+  }
 
   const handleStaking = (form) => {
     if (!library) return null
@@ -127,7 +134,7 @@ export default function LpStaking(props) {
       if (type === 'stake') {
         const transaction = deposit(
           assetInfo.id,
-          library.web3.utils.toWei(amount),
+          toWei(amount, Number(assetInfo.decimals)),
           { from: account }
         )
         handleTransaction('stake', assetInfo.symbol)(transaction.send(), () => {
@@ -141,7 +148,7 @@ export default function LpStaking(props) {
       } else {
         const transaction = withdraw(
           assetInfo.id,
-          library.web3.utils.toWei(amount),
+          toWei(amount, Number(assetInfo.decimals)),
           { from: account }
         )
         handleTransaction('stake', assetInfo.symbol)(transaction.send(), () => {
@@ -150,7 +157,6 @@ export default function LpStaking(props) {
       }
     }
   }
-
   return (
     <>
       <section className={styles.header}>
@@ -159,14 +165,19 @@ export default function LpStaking(props) {
             <img className="cursor" src="/left-arrow.svg" alt="arrow" />
           </Link>
           <a
-            href={`https://app.uniswap.org/#/add/v2/${library.addresses.Comp}/ETH`}
+            href={
+              assetInfo.type === 'LP'
+                ? `https://app.uniswap.org/#/add/v2/${library.addresses.Comp}/ETH`
+                : `https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=${assetInfo.lpToken}&use=V2&exactAmount=1`
+            }
             target="_blank"
             rel="noreferrer"
           >
             <Button
               className={`flex-center bold ${styles.lpLinkBtn} ${styles.mobileLpLinkBtn}`}
             >
-              Get Lp <img src="/link.svg" />
+              Get {assetInfo.type === 'LP' ? 'LP' : assetInfo.symbol}{' '}
+              <img src="/link.svg" />
             </Button>
           </a>
         </div>
@@ -191,12 +202,17 @@ export default function LpStaking(props) {
               </div>
               <div className={styles.assetName}>{assetInfo.label}</div>
               <a
-                href={`https://app.uniswap.org/#/add/v2/${library.addresses.Comp}/ETH`}
+                href={
+                  assetInfo.type === 'LP'
+                    ? `https://app.uniswap.org/#/add/v2/${library.addresses.Comp}/ETH`
+                    : `https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=${assetInfo.lpToken}&use=V2&exactAmount=1`
+                }
                 target="_blank"
                 rel="noreferrer"
               >
                 <Button className={`flex-center bold ${styles.lpLinkBtn}`}>
-                  Get Lp <img src="/link.svg" />
+                  Get {assetInfo.type === 'LP' ? 'LP' : assetInfo.symbol}{' '}
+                  <img src="/link.svg" />
                 </Button>
               </a>
             </div>
@@ -207,6 +223,11 @@ export default function LpStaking(props) {
                   <div className={styles.value}>
                     {new BigNumber(assetInfo.dopPerBlock)
                       .times(blocksPerDay)
+                      .times(
+                        new BigNumber(assetInfo.allocPoint).div(
+                          assetInfo.totalAllocPt
+                        )
+                      )
                       .toFixed(2)}
                   </div>
                   <span className={styles.usdPrice}>
@@ -224,7 +245,9 @@ export default function LpStaking(props) {
                 <div className={`flex-column ${styles.infoWrapper}`}>
                   <div className={styles.label}>Total staked</div>
                   <div className={styles.value}>
-                    {new BigNumber(assetInfo.totalLpSupply).toString(10)}
+                    {new BigNumber(assetInfo.totalLpSupply)
+                      .dp(2, 1)
+                      .toString(10)}
                   </div>
                   <span className={styles.usdPrice}>
                     $
@@ -243,16 +266,18 @@ export default function LpStaking(props) {
                 <div className={`flex-column ${styles.infoWrapper}`}>
                   <div className={styles.label}>My Stake</div>
                   <div className={styles.value}>
-                    {new BigNumber(assetInfo.amount)
-                      .div(1e18)
+                    {new BigNumber(
+                      fromWei(assetInfo.amount, assetInfo.decimals)
+                    )
                       .dp(2, 1)
                       .toString(10)}
                   </div>
                   <span className={styles.usdPrice}>
                     $
                     {abbreviateNumberSI(
-                      new BigNumber(assetInfo.amount)
-                        .div(1e18)
+                      new BigNumber(
+                        fromWei(assetInfo.amount, assetInfo.decimals)
+                      )
                         .times(assetInfo.lpPrice || 0)
                         .toString(10),
                       2,
@@ -273,24 +298,31 @@ export default function LpStaking(props) {
                               blocksPerDay
                             )
                           )
+                          .times(
+                            new BigNumber(assetInfo.allocPoint).div(
+                              assetInfo.totalAllocPt
+                            )
+                          )
                           .toFixed(2)}
                   </div>
                   <span className={styles.usdPrice}>
                     $
-                    {abbreviateNumberSI(
-                      new BigNumber(assetInfo.amount)
-                        .div(1e18)
-                        .div(assetInfo.totalLpSupply)
-                        .times(
-                          new BigNumber(assetInfo.dopPerBlock).times(
-                            blocksPerDay
-                          )
-                        )
-                        .times(state.dopPrice || 0)
-                        .toString(10),
-                      2,
-                      2
-                    )}
+                    {new BigNumber(assetInfo.totalLpSupply).isZero()
+                      ? '0'
+                      : abbreviateNumberSI(
+                          new BigNumber(assetInfo.amount)
+                            .div(1e18)
+                            .div(assetInfo.totalLpSupply)
+                            .times(
+                              new BigNumber(assetInfo.dopPerBlock).times(
+                                blocksPerDay
+                              )
+                            )
+                            .times(state.dopPrice || 0)
+                            .toString(10),
+                          2,
+                          2
+                        )}
                   </span>
                 </div>
                 <div className={`flex-column ${styles.infoWrapper}`}>

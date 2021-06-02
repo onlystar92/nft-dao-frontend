@@ -58,7 +58,7 @@
 }
 
 .lpLinkBtn {
-    width: 71px;
+    min-width: 71px;
     height: 24px;
     background-color: var(--color-white);
     border: 1px solid var(--color-gray);

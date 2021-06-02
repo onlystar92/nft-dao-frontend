@@ -18,7 +18,7 @@ export default function LPFarm({
   library
 }: ILPFarm) {
   const fromWei = (value, decimals = 18) =>
-    decimals < 18 ? value / 10 ** decimals : library.web3.utils.fromWei(value)
+    decimals < 18 ? new BigNumber(value).div(10 ** decimals).toString() : library.web3.utils.fromWei(value)
 
   return (
     <tr
@@ -50,7 +50,7 @@ export default function LPFarm({
       <td>
         <span className={styles.mobileLabel}>Total staked</span>
         <p>
-          {farm.totalLpSupply}
+          {new BigNumber(farm.totalLpSupply).dp(2, 1).toString()}
         </p>
         <span className={styles.usdPrice}>
           ${abbreviateNumberSI(new BigNumber(farm.totalLpSupply).times(farm.lpPrice || 0).toString(10), 2, 2)}
@@ -59,10 +59,10 @@ export default function LPFarm({
       <td>
         <span className={styles.mobileLabel}>My Stake</span>
         <p>
-          {Number(fromWei(farm.amount || 0)).toFixed(2)}
+          {Number(fromWei(farm.amount || 0, farm.decimals)).toFixed(2)}
         </p>
         <span className={styles.usdPrice}>
-          ${abbreviateNumberSI(new BigNumber(fromWei(farm.amount || 0)).times(farm.lpPrice || 0).toString(10), 2, 2)}
+          ${abbreviateNumberSI(new BigNumber(fromWei(farm.amount || 0, farm.decimals)).times(farm.lpPrice || 0).toString(10), 2, 2)}
         </span>
       </td>
       <td>
