@@ -281,7 +281,7 @@ export default function Home() {
         <Header />
         <Section className="section-1">
           <h1 className="font-color-dark font-size-lg text-center">
-            NFT Liquidity & Leverage
+            NFT Liquidity &amp; Leverage
           </h1>
           <p className="font-color-dark font-size-xd text-center">
             Margin NFT | Fractions | Vaults | Trustless Loans
@@ -314,7 +314,12 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img width="66" height="66" src="/static/images/icons/uniswap.png" alt="" />
+              <img
+                width="66"
+                height="66"
+                src="/static/images/icons/uniswap.png"
+                alt=""
+              />
             </a>
             <a
               className="social m-10"
@@ -322,7 +327,12 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img width="66" height="66" src="/static/images/icons/gate.png" alt="" />
+              <img
+                width="66"
+                height="66"
+                src="/static/images/icons/gate.png"
+                alt=""
+              />
             </a>
           </div>
         </Section>
