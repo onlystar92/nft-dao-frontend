@@ -15,6 +15,7 @@ interface IBorrowModal {
   pending: boolean
   market: any
   balance: number
+  walletBalance: string
   borrowLimit: number
   totalBorrow: number
   borrowLimitUsed: number
@@ -36,6 +37,7 @@ export default function BorrowModal({
   pending,
   market,
   balance,
+  walletBalance,
   borrowLimit,
   borrowLimitUsed,
   borrowRatePerBlock,
@@ -70,7 +72,10 @@ export default function BorrowModal({
       value = value.replace(/\./g, '') + '.'
     } else {
       if (value) {
-        value = Number(value) !== 0 ? toFixed(value, 18, true) : value
+        value =
+          Number(value) !== 0
+            ? toFixed(value, market.underlyingDecimals, true)
+            : value
       }
     }
     setForm({ ...form, [e.target.name]: value.toString() })
@@ -121,7 +126,9 @@ export default function BorrowModal({
                 }`}
                 alt="asset"
               />
-              <div className={`bold ${styles.name}`}>{market.underlyingName}</div>
+              <div className={`bold ${styles.name}`}>
+                {market.underlyingName}
+              </div>
             </div>
           )}
           <div className={styles.tabs}>
@@ -163,7 +170,10 @@ export default function BorrowModal({
                         MAX SAFE
                       </div>
                     </div>
-                    <label className="flex-center justify-between" htmlFor="supplyAmount">
+                    <label
+                      className="flex-center justify-between"
+                      htmlFor="supplyAmount"
+                    >
                       <span>
                         $
                         {abbreviateNumberSI(
@@ -173,12 +183,16 @@ export default function BorrowModal({
                           market.underlyingDecimals
                         )}
                       </span>
-                      <span>Available to borrow {abbreviateNumberSI(
-                            Number(available),
-                            0,
-                            4,
-                            market.underlyingDecimals
-                          )} {market.underlyingSymbol}</span>
+                      <span>
+                        Available to borrow{' '}
+                        {abbreviateNumberSI(
+                          Number(available),
+                          0,
+                          4,
+                          market.underlyingDecimals
+                        )}{' '}
+                        {market.underlyingSymbol}
+                      </span>
                     </label>
                   </div>
                   <AssetInfo
@@ -241,7 +255,10 @@ export default function BorrowModal({
                           MAX
                         </div>
                       </div>
-                      <label className="flex-center justify-between" htmlFor="repayAmount">
+                      <label
+                        className="flex-center justify-between"
+                        htmlFor="repayAmount"
+                      >
                         <span>
                           $
                           {abbreviateNumberSI(
@@ -251,18 +268,22 @@ export default function BorrowModal({
                             market.underlyingDecimals
                           )}
                         </span>
-                        <span>Available to repay {abbreviateNumberSI(
+                        <span>
+                          Available to repay{' '}
+                          {abbreviateNumberSI(
                             Number(balance),
                             0,
                             4,
                             market.underlyingDecimals
-                          )} {market.underlyingSymbol}</span>
+                          )}{' '}
+                          {market.underlyingSymbol}
+                        </span>
                       </label>
                     </div>
                   ) : (
                     <p>
-                      To Borrow or Repay {market.underlyingSymbol} to the Drops NFT
-                      Loans, you need to enable it first.
+                      To Borrow or Repay {market.underlyingSymbol} to the Drops
+                      NFT Loans, you need to enable it first.
                     </p>
                   )}
                   <AssetInfo
@@ -287,7 +308,10 @@ export default function BorrowModal({
                     <Button
                       disabled={
                         disabled ||
-                        (allowed && (repayAmount <= 0 || repayAmount > balance))
+                        (allowed &&
+                          (repayAmount <= 0 ||
+                            (repayAmount > balance &&
+                              Number(walletBalance) < repayAmount)))
                       }
                     >
                       {allowed ? 'Repay' : 'Enable'}

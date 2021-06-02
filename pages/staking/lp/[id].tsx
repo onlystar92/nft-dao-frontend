@@ -93,7 +93,7 @@ export default function LpStaking(props) {
           } else {
             dispatch({
               type: 'txRequest',
-              payload: [type, false, ...args],
+              payload: [receipt.transactionHash, false, ...args],
             })
           }
         })

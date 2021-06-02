@@ -42,9 +42,13 @@ export default function Loans(props) {
   const network = account.network
   const toChecksumAddress = library && library.web3.utils.toChecksumAddress
   const toWei = (value, decimals = 18) =>
-    decimals < 18 ? value * 10 ** decimals : library.web3.utils.toWei(value)
+    decimals < 18
+      ? new BigNumber(value).times(10 ** decimals).toString(10)
+      : library.web3.utils.toWei(value)
   const fromWei = (value, decimals = 18) =>
-    decimals < 18 ? value / 10 ** decimals : library.web3.utils.fromWei(value)
+    decimals < 18
+      ? new BigNumber(value).div(10 ** decimals).toString(10)
+      : library.web3.utils.fromWei(value)
   const transactionMap = transactions.reduce(
     ([supplies, borrows], [hash, type, ...args]) => {
       const transaction = {
@@ -291,8 +295,7 @@ export default function Loans(props) {
   if (process.env.ENABLE_LOANS === 'false') {
     return (
       <>
-        <section className={styles.header}>
-        </section>
+        <section className={styles.header}></section>
         <section className={`${styles.content} flex flex-start justify-center`}>
           <div className={`${styles.container} limited flex`}>
             <div className="full">
@@ -323,10 +326,7 @@ export default function Loans(props) {
               )}
             </div>
             {mySupplies.length > 0 && (
-              <Table
-                classes={{ title: 'first' }}
-                labels={{}}
-              >
+              <Table classes={{ title: 'first' }} labels={{}}>
                 <table cellPadding={0} cellSpacing={0}>
                   <thead>
                     <tr>
@@ -423,16 +423,16 @@ export default function Loans(props) {
                 pending={supply && requests.supply === supply.id}
                 market={supply}
                 assetsIn={assetsIn}
-                balance={Number(
+                balance={
                   (supply && marketBalances[supply.underlyingAddress]) || '0'
-                )}
-                supplyRatePerBlock={supply && fromWei(
-                  marketSupplyRates[supply.underlyingAddress],
-                  18
-                )}
-                current={Number(
+                }
+                supplyRatePerBlock={
+                  supply &&
+                  fromWei(marketSupplyRates[supply.underlyingAddress], 18)
+                }
+                current={
                   (supply && supplyBalances[supply.underlyingAddress]) || '0'
-                )}
+                }
                 borrowLimit={totalCash}
                 borrowLimitUsed={
                   totalCash > 0 ? (totalBorrow / totalCash) * 100 : 0
@@ -440,7 +440,9 @@ export default function Loans(props) {
                 totalSupply={totalSupply}
                 totalBorrow={totalBorrow}
                 distributeApy={
-                  (supply && marketDistributeApys[supply.underlyingAddress]) && marketDistributeApys[supply.underlyingAddress][0] ||
+                  (supply &&
+                    marketDistributeApys[supply.underlyingAddress] &&
+                    marketDistributeApys[supply.underlyingAddress][0]) ||
                   '-'
                 }
                 gas={Number(gas)}
@@ -545,6 +547,9 @@ export default function Loans(props) {
                 balance={
                   (borrow && borrowBalances[borrow.underlyingAddress]) || '0'
                 }
+                walletBalance={
+                  (borrow && marketBalances[borrow.underlyingAddress]) || '0'
+                }
                 totalBorrow={totalBorrow}
                 borrowLimit={
                   borrow &&
@@ -552,15 +557,17 @@ export default function Loans(props) {
                     ? totalCash / borrow.underlyingPriceUSD
                     : 0)
                 }
-                borrowRatePerBlock={borrow && fromWei(
-                  marketBorrowRates[borrow.underlyingAddress],
-                  18
-                )}
+                borrowRatePerBlock={
+                  borrow &&
+                  fromWei(marketBorrowRates[borrow.underlyingAddress], 18)
+                }
                 borrowLimitUsed={
                   totalCash > 0 ? (totalBorrow / totalCash) * 100 : 0
                 }
                 distributeApy={
-                  (borrow && marketDistributeApys[borrow.underlyingAddress]) && marketDistributeApys[borrow.underlyingAddress][1] ||
+                  (borrow &&
+                    marketDistributeApys[borrow.underlyingAddress] &&
+                    marketDistributeApys[borrow.underlyingAddress][1]) ||
                   '-'
                 }
                 disabled={borrow && transactionMap[1][borrow.id]}

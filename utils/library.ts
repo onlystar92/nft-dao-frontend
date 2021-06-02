@@ -15,7 +15,9 @@ export function getPools(library, dispatch, dopPrice) {
   const daysPerYear = 365
 
   const fromWei = (value, decimals = 18) =>
-    decimals < 18 ? value / 10 ** decimals : library.web3.utils.fromWei(value)
+    decimals < 18
+      ? new BigNumber(value).div(10 ** decimals).toString(10)
+      : library.web3.utils.fromWei(value)
 
   poolLength()
     .then((length) => {
