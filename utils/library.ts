@@ -47,11 +47,13 @@ export function getPools(library, dispatch, dopPrice) {
             poolInfos.map(
               (info) =>
                 new Promise((resolve, reject) => {
-                  const poolType = library.addresses.Pools.find(
+                  const pool = library.addresses.Pools.find(
                     (pool) =>
                       pool.lpToken.toLowerCase() ===
                       info[0].lpToken.toLowerCase()
-                  ).type
+                  )
+                  if (!pool) return resolve(null)
+                  const poolType = pool.type
                   let methods: any
                   let requestMethos
 
@@ -176,7 +178,7 @@ export function getPools(library, dispatch, dopPrice) {
             .then((pools) => {
               dispatch({
                 type: 'pools',
-                payload: pools,
+                payload: pools.filter((item) => item),
               })
             })
             .catch((err) => console.log('getPoolDetails', err))
