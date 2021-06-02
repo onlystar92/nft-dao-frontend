@@ -235,6 +235,11 @@ export default function LpStaking(props) {
                     {abbreviateNumberSI(
                       new BigNumber(assetInfo.dopPerBlock)
                         .times(blocksPerDay)
+                        .times(
+                          new BigNumber(assetInfo.allocPoint).div(
+                            assetInfo.totalAllocPt
+                          )
+                        )
                         .times(state.dopPrice || 0)
                         .toString(10),
                       2,
@@ -316,6 +321,11 @@ export default function LpStaking(props) {
                             .times(
                               new BigNumber(assetInfo.dopPerBlock).times(
                                 blocksPerDay
+                              )
+                            )
+                            .times(
+                              new BigNumber(assetInfo.allocPoint).div(
+                                assetInfo.totalAllocPt
                               )
                             )
                             .times(state.dopPrice || 0)
