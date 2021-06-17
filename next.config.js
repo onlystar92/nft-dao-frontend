@@ -6,5 +6,6 @@ module.exports = {
     ENABLE_LOANS: process.env.ENABLE_LOANS,
     ENABLE_SWAP: process.env.ENABLE_SWAP,
     ENABLE_DROPS: process.env.ENABLE_DROPS,
+    ENABLE_STAKING_GOVERNANCE: process.env.ENABLE_STAKING_GOVERNANCE,
   },
 }

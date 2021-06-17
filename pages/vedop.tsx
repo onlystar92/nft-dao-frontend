@@ -80,8 +80,23 @@ export default function VeDop({ library, state, dispatch }) {
     e.preventDefault()
   }
 
+  if (process.env.ENABLE_STAKING_GOVERNANCE === 'false') {
+    return (
+      <>
+        <section className={styles.header}></section>
+        <section className={`${styles.content} flex flex-start justify-center`}>
+          <div className={`${styles.container} flex`}>
+            <div className="full center">
+              {process.env.ENABLE_STAKING_GOVERNANCE === 'false' ? 'Coming soon' : ''}
+            </div>
+          </div>
+        </section>
+      </>
+    )
+  }
+
   return (
-    <section className={`${styles.content}`}>
+    <section className={`flex-wrap justify-center ${styles.content}`}>
       <div className={`${styles.veDopContent}`}>
         <h3>Lock Dops for veDop </h3>
         <form onSubmit={handleSubmit} className={styles.form}>
