@@ -24,7 +24,7 @@ export default function LpStaking(props) {
       : library.web3.utils.toWei(value)
   const fromWei = (value, decimals = 18) =>
     decimals < 18
-      ? new BigNumber(value).div(10 ** decimals).toString()
+      ? new BigNumber(value).div(10 ** decimals).toFixed(decimals, 0)
       : library.web3.utils.fromWei(value)
 
   const router = useRouter()

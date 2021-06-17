@@ -18,7 +18,7 @@ export default function LPFarm({
   library
 }: ILPFarm) {
   const fromWei = (value, decimals = 18) =>
-    decimals < 18 ? new BigNumber(value).div(10 ** decimals).toString() : library.web3.utils.fromWei(value)
+    decimals < 18 ? new BigNumber(value).div(10 ** decimals).toFixed(decimals, 0) : library.web3.utils.fromWei(value)
 
   return (
     <tr

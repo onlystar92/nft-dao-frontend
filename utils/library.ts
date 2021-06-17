@@ -18,7 +18,7 @@ export function getPools(library, dispatch, dopPrice) {
 
   const fromWei = (value, decimals = 18) =>
     decimals < 18
-      ? new BigNumber(value).div(10 ** decimals).toString(10)
+      ? new BigNumber(value).div(10 ** decimals).toFixed(decimals, 0)
       : library.web3.utils.fromWei(value)
 
   Promise.all([poolLength(), dopPerBlock(), totalAllocPoint()])

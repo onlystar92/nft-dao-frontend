@@ -48,7 +48,7 @@ export function accountBalance(library, dispatch) {
   if (!library || !library.initiated) return
   const account = library.wallet.address
   const fromWei = (value, decimals = 18) =>
-    decimals < 18 ? value / 10 ** decimals : library.web3.utils.fromWei(value)
+    decimals < 18 ? new BigNumber(value).div(10 ** decimals).toFixed(decimals, 0) : library.web3.utils.fromWei(value)
   if (!addresses[library.wallet.network]) {
     return
   }
@@ -292,7 +292,7 @@ export function accountBalance(library, dispatch) {
 export function updateMarketCash(library, callback) {
   if (!library || !library.initiated) return
   const fromWei = (value, decimals = 18) =>
-    decimals < 18 ? value / 10 ** decimals : library.web3.utils.fromWei(value)
+    decimals < 18 ? new BigNumber(value).div(10 ** decimals).toFixed(decimals, 0) : library.web3.utils.fromWei(value)
   getMarkets(library.wallet.network)
     .then((markets) => {
       Promise.all(
