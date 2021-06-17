@@ -81,7 +81,7 @@ export default function SupplyMarket({
       </td>
       <td>
         <span className={styles.mobileLabel}>Collateral</span>
-        <Slider value={assetIn} onChange={() => onEnterMarket(assetIn)} />
+        {market.collateralFactor !== '0' && <Slider value={assetIn} onChange={() => onEnterMarket(assetIn)} />}
       </td>
     </tr>
   )

@@ -414,7 +414,22 @@ export default function Loans(props) {
                 network={network}
                 pending={enterMarket && requests.supply === enterMarket.id}
                 market={enterMarket}
-                disabled={enterMarket && transactionMap[0][enterMarket.id]}
+                disabled={
+                  (enterMarket && transactionMap[0][enterMarket.id]) ||
+                  (enterMarket &&
+                    enterMarket.assetIn &&
+                    new BigNumber(totalBorrow).isGreaterThan(
+                      new BigNumber(totalCash)
+                        .minus(
+                          new BigNumber(
+                            supplyBalances[enterMarket.underlyingAddress]
+                          )
+                            .times(enterMarket.collateralFactor)
+                            .times(enterMarket.underlyingPriceUSD)
+                        )
+                        .times(0.8)
+                    ))
+                }
                 onSubmit={handleEnterMarket}
                 onClose={() => setEnterMarket(null)}
               />
