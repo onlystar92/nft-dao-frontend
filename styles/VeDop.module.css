@@ -1,0 +1,102 @@
+.content {
+  flex: 1;
+  overflow: auto;
+  line-height: 1.5;
+  width: 90%;
+  margin: 100px auto;
+}
+
+.veDopContent {
+  max-width: 443px;
+  box-shadow: 0px 16px 40px rgb(0 0 0 / 8%);
+  border-radius: 16px;
+  padding: 20px;
+  margin: var(--padding-normal);
+}
+
+.veDopContent h3 {
+  margin-bottom: var(--padding-narrow) !important;
+}
+
+.inputWrapper {
+  background: var(--color-gray-1);
+  border-radius: 8px;
+  padding: 8px 8px 8px 16px;
+}
+.inputWrapper input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  padding-right: var(--padding-narrow);
+  background-color: transparent;
+  font-weight: bold;
+  font-size: var(--font-size-2x);
+  line-height: 32px;
+}
+
+.maxBtn {
+  background: var(--color-white);
+  box-shadow: var(--modal-shadow);
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-weight: 500;
+  font-size: var(--font-size-normal);
+  line-height: 24px;
+  color: var(--color-black);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.form button {
+  width: 100%;
+  background: var(--color-black);
+  border-radius: 8px;
+  padding: 16px 0px;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--color-white);
+  margin-top: var(--padding-normal);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field label {
+  margin-top: 8px;
+  margin-bottom: 24px;
+  font-size: var(--font-size-small);
+}
+
+.field label span {
+  color: var(--color-gray);
+}
+
+.lockPeriodOptions {
+  margin-bottom: 24px;
+}
+
+.lockPeriodOptions .period .circle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid var(--color-black1);
+  margin-right: 5px;
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+.lockPeriodOptions .currentLockPeriod .circle {
+  background-color: var(--color-black1);
+}
+
+.period .duration p {
+  font-size: var(--font-size-small);
+  color: var(--color-black1);
+}
+
+.period .duration p:first-child {
+  font-weight: bold;
+}

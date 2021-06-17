@@ -47,7 +47,7 @@ export default function Loans(props) {
       : library.web3.utils.toWei(value)
   const fromWei = (value, decimals = 18) =>
     decimals < 18
-      ? new BigNumber(value).div(10 ** decimals).toString(10)
+      ? new BigNumber(value).div(10 ** decimals).toFixed(decimals, 0)
       : library.web3.utils.fromWei(value)
   const transactionMap = transactions.reduce(
     ([supplies, borrows], [hash, type, ...args]) => {
@@ -237,6 +237,7 @@ export default function Loans(props) {
 
   const handleBorrowMarket = (form: any = {}) => {
     const { amount, type } = form
+
     const methods = library.methods.DToken(library.DToken(borrow))
     if (type === 'borrow') {
       // Borrow
@@ -414,7 +415,24 @@ export default function Loans(props) {
                 network={network}
                 pending={enterMarket && requests.supply === enterMarket.id}
                 market={enterMarket}
-                disabled={enterMarket && transactionMap[0][enterMarket.id]}
+                disabled={
+                  (enterMarket && transactionMap[0][enterMarket.id]) ||
+                  (enterMarket &&
+                    +borrowBalances[enterMarket.underlyingAddress] !== 0) ||
+                  (enterMarket &&
+                    enterMarket.assetIn &&
+                    new BigNumber(totalBorrow).isGreaterThan(
+                      new BigNumber(totalCash)
+                        .minus(
+                          new BigNumber(
+                            supplyBalances[enterMarket.underlyingAddress]
+                          )
+                            .times(enterMarket.collateralFactor)
+                            .times(enterMarket.underlyingPriceUSD)
+                        )
+                        .times(0.8)
+                    ))
+                }
                 onSubmit={handleEnterMarket}
                 onClose={() => setEnterMarket(null)}
               />

@@ -1,6 +1,16 @@
 .account {
   display: block;
 }
+.account .connectBtn {
+  width: 100%;
+  background: var(--color-black);
+  border-radius: 8px;
+  padding: var(--padding-narrow);
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--color-white);
+  outline: none;
+}
 
 .info {
   display: flex;

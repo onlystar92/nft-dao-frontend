@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Gravatar from 'react-gravatar'
 import { TMap } from 'types'
+import Button from 'components/Button/Button'
 import styles from './Account.module.css'
 import DopModal from 'components/Modal/DopModal'
 import { accountBalance } from 'layout'
@@ -34,10 +35,6 @@ export default function Account({
 }: IAccount) {
   const [isClicked, setIsClicked] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-  const dopMarket =
-    library &&
-    library.markets &&
-    library.markets.find((m) => m.underlyingSymbol === 'DOP')
 
   const transactionMap = transactions.reduce(
     ([claim], [hash, type, ...args]) => {
@@ -105,15 +102,15 @@ export default function Account({
   return (
     <div className={styles.account}>
       {!account.address ? (
-        <div
-          className="cursor"
+        <Button
+          className={`cursor ${styles.connectBtn}`}
           onClick={() => {
             setIsClicked(true)
             connectWallet(true)
           }}
         >
           {isClicked ? 'No account' : 'Connect wallet'}
-        </div>
+        </Button>
       ) : (
         <div className={styles.info}>
           {!loading && (

@@ -74,7 +74,11 @@ export default function SupplyModal({
         ? Math.min(
             Math.min(
               new BigNumber(totalSupply)
-                .minus(new BigNumber(totalBorrow).div(market.collateralFactor))
+                .minus(
+                  new BigNumber(totalBorrow)
+                    .div(market.collateralFactor)
+                    .div(0.8)
+                )
                 .div(market.underlyingPriceUSD)
                 .toNumber(),
               market.supplyBalance
@@ -268,7 +272,7 @@ export default function SupplyModal({
                         onClick={() =>
                           setForm({
                             ...form,
-                            withdrawAmount: available,
+                            withdrawAmount: new BigNumber(available).isNegative() ? 0 : available,
                           })
                         }
                       >
