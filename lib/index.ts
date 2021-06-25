@@ -9,6 +9,7 @@ import dToken from './ABIs/dToken.json'
 import lpToken from './ABIs/lpToken.json'
 import MasterChef from './ABIs/MasterChef.json'
 import Vesting from './ABIs/Vesting.json'
+import veDOP from './ABIs/veDOP.json'
 import { ZERO } from 'utils/constants'
 
 const DEFAULT_REFRESH = 5 * 1000
@@ -182,6 +183,10 @@ class DropsLoanLibrary {
           Vesting as any,
           addresses.Vesting3
         ),
+        VeDOP: new this.web3.eth.Contract(
+          veDOP as any,
+          addresses.VeDOP
+        ),
       }
       this.subscriptions.push(
         this.contracts.Comptroller.events.allEvents({}).on('data', onEvent)
@@ -250,6 +255,8 @@ class DropsLoanLibrary {
         },
         Comp: {
           balanceOf: call(this.contracts.Comp.methods.balanceOf),
+          getAllowance: call(this.contracts.Comp.methods.allowance),
+          approve: send(this.contracts.Comp.methods.approve),
         },
         Market: getERC20Methods,
         DToken: getDTokenMethods,
@@ -293,6 +300,9 @@ class DropsLoanLibrary {
             release: send(this.contracts.Vesting3.methods.release),
           },
         ],
+        VeDOP: {
+          create_lock: send(this.contracts.VeDOP.methods.create_lock),
+        },
         web3: {
           getBlock: (field: string = 'timestamp') =>
             new Promise((resolve, reject) =>

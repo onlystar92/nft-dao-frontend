@@ -26,15 +26,15 @@ function App({ Component, router }: AppProps) {
       <Component />
     </Layout>
   ) : (
-      <>
-        <Head>
-          <title>Drops NFT Loans</title>
-        </Head>
-        <div className="fill flex-center justify-center">
-          <img src="/assets/loading.gif" style={{ width: 50 }} />
-        </div>
-      </>
-    )
+    <>
+      <Head>
+        <title>Drops NFT Loans</title>
+      </Head>
+      <div className="fill flex-center justify-center">
+        <img src="/assets/loading.gif" style={{ width: 50 }} />
+      </div>
+    </>
+  )
 }
 
 export function getMarkets(network?: number) {
@@ -48,13 +48,14 @@ const links = {
 }
 function getSubGraph(network) {
   if (!links[network]) return Promise.resolve([])
-  return fetch(links[network], {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      query: `
+  return new Promise((resolve) =>
+    fetch(links[network], {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: `
         query marketsQuery {
           markets(first: 20) {
             id
@@ -82,22 +83,25 @@ function getSubGraph(network) {
           }
         }
       `,
-    }),
-  })
-    .then((response) => response.json())
-    .then(({ data: { markets } }) =>
-      markets
-        .map(({ name, underlyingSymbol, ...item }) => ({
-          ...item,
-          name: name.replace('Drops NFT Loans', '').trim(),
-          underlyingSymbol: underlyingSymbol.replace('(rinkeby)', '').trim(),
-        }))
-        .map(({ id, name, ...item }) => ({
-          ...item,
-          name,
-          id,
-        }))
-    )
+      }),
+    })
+      .then((response) => response.json())
+      .then(({ data: { markets } }) =>
+        markets
+          .map(({ name, underlyingSymbol, ...item }) => ({
+            ...item,
+            name: name.replace('Drops NFT Loans', '').trim(),
+            underlyingSymbol: underlyingSymbol.replace('(rinkeby)', '').trim(),
+          }))
+          .map(({ id, name, ...item }) => ({
+            ...item,
+            name,
+            id,
+          }))
+      )
+      .then(resolve)
+      .catch(() => resolve([]))
+  )
 }
 
 export default App

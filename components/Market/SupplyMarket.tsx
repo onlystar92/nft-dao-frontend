@@ -44,10 +44,6 @@ export default function SupplyMarket({
         </div>
       </td>
       <td>
-        <span className={styles.mobileLabel}>Earnings</span>
-        <span>Drops</span>
-      </td>
-      <td>
         <span className={styles.mobileLabel}>APY</span>
         <p>
           {new BigNumber(supplyRatePerBlock * blocksPerDay + 1)

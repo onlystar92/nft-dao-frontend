@@ -332,7 +332,6 @@ export default function Loans(props) {
                   <thead>
                     <tr>
                       <th>Asset</th>
-                      <th>Earning</th>
                       <th>APY</th>
                       <th>Wallet</th>
                       <th>Collateral</th>

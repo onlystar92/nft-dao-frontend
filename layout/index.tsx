@@ -59,6 +59,7 @@ export function accountBalance(library, dispatch) {
     library.web3.eth.getBalance(account),
     // library.methods.Comptroller.compAccrued(account),
     library.methods.Comp.balanceOf(account),
+    library.methods.Comp.getAllowance(account, library.addresses.VeDOP),
     library.methods.CompoundLens.getCompBalanceMetadataExt(account),
     Promise.all(
       library.markets.map((market) => {
@@ -100,12 +101,14 @@ export function accountBalance(library, dispatch) {
         _balance,
         // _rewardBalance,
         _dopBalance,
+        _dopAllowance,
         metadata,
         _markets,
       ]) => {
         const balance = toNumber(fromWei(_balance))
         const rewardBalance = toNumber(fromWei(metadata.allocated))
         const dopBalance = toNumber(fromWei(_dopBalance))
+        const dopAllowance = toNumber(fromWei(_dopAllowance))
         const marketBalances = {}
         const marketAllowances = {}
         const supplyBalances = {}
@@ -270,6 +273,7 @@ export function accountBalance(library, dispatch) {
             balance,
             rewardBalance,
             dopBalance,
+            dopAllowance,
             marketBalances,
             marketAllowances,
             marketSupplyRates,
@@ -451,7 +455,7 @@ export default function Layout({
                         router.pathname === '/vedop' ? styles.activeMenu : ''
                       }
                     >
-                      veDop
+                      veDOP
                     </div>
                   </Link>
                   <Link href="/vesting">
@@ -525,7 +529,7 @@ export default function Layout({
                                 : ''
                             }
                           >
-                            veDop
+                            veDOP
                           </div>
                         </Link>
                         <Link href="/vesting">

@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react'
 import { TMap } from 'types'
+import moment from 'moment'
 import Button from 'components/Button/Button'
 import { scanLabels } from 'components/TxLoader/TxLoader'
-import { getVestings } from 'utils/library'
 import { getEtherscan } from 'utils/links'
 import styles from 'styles/VeDop.module.css'
 import BigNumber from 'bignumber.js'
 import { toFixed } from 'utils/number'
-
-const FETCH_TIME = 15
-let poolTimer = null
 
 const defaults = {
   dopBalance: 0,
@@ -28,39 +25,20 @@ const lockPeriod = [
 export default function VeDop({ library, state, dispatch }) {
   const [form, setForm] = useState<TMap>(defaults)
   const [duration, setDuration] = useState(0)
-  const { dopBalance, dopUsdAmount, poolUsdAmount, veDopBalance } = form
-  const maxDopBalance = 50
-
-  const loadInfo = () => {
-    getVestings(library, dispatch)
-  }
-
-  useEffect(() => {
-    if (library && state.account.address) {
-      if (poolTimer) clearInterval(poolTimer)
-      poolTimer = setInterval(loadInfo, FETCH_TIME * 1000)
-      loadInfo()
-    }
-    return () => poolTimer && clearInterval(poolTimer)
-  }, [library, state.account.address])
-
   const [lockTx, setLockTx] = useState('')
+  const { dopBalance, dopUsdAmount, poolUsdAmount, veDopBalance } = form
+  const maxDopBalance = state.dopBalance || 0
+  const dopAllowance = state.dopAllowance || 0
+  const account = library ? library.wallet.address : ''
 
-  const handleLock = (id) => {
-    const { release } = library.methods.Vesting[id]
-    release({ from: state.account.address })
-      .send()
-      .on('transactionHash', function (hash) {
-        setLockTx(hash)
-      })
-      .on('receipt', function () {
-        loadInfo()
-      })
-      .on('error', (err) => {
-        console.log('claim', err)
-        setLockTx('')
-      })
-  }
+  const toWei = (value, decimals = 18) =>
+    decimals < 18
+      ? new BigNumber(value).times(10 ** decimals).toString(10)
+      : library.web3.utils.toWei(value)
+  const fromWei = (value, decimals = 18) =>
+    decimals < 18
+      ? new BigNumber(value).div(10 ** decimals).toFixed(decimals, 0)
+      : library.web3.utils.fromWei(value)
 
   const handleCalculation = () => {}
 
@@ -78,6 +56,62 @@ export default function VeDop({ library, state, dispatch }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (!library) return null
+    if (Number(dopAllowance) <= 0) {
+      // Approve
+      const methods = library.methods.Comp
+      const amount = 10 ** 10
+      methods
+        .approve(
+          library.addresses.VeDOP,
+          library.web3.utils.toWei(amount.toString()),
+          { from: account }
+        )
+        .send()
+        .on('transactionHash', function (hash) {
+          setLockTx(hash)
+        })
+        .on('receipt', function () {
+          setLockTx('')
+        })
+        .on('error', (err) => {
+          setLockTx('')
+        })
+    } else {
+      const methods = library.methods.VeDOP
+      let endDate
+      if (duration === 0) {
+        endDate = moment().add(4, 'weeks')
+      } else if (duration === 1) {
+        endDate = moment().add(52, 'weeks')
+      } else if (duration === 2) {
+        endDate = moment().add(104, 'weeks')
+      } else {
+        endDate = moment().add(208, 'weeks')
+      }
+      methods
+        .create_lock(toWei(`${dopBalance}`), endDate.unix(), {
+          from: account,
+        })
+        .send()
+        .on('transactionHash', function (hash) {
+          setLockTx(hash)
+        })
+        .on('receipt', function () {
+          setLockTx('')
+          setForm({
+            ...form,
+            dopBalance: 0,
+          })
+        })
+        .on('error', (err) => {
+          setLockTx('')
+          setForm({
+            ...form,
+            dopBalance: 0,
+          })
+        })
+    }
   }
 
   if (process.env.ENABLE_STAKING_GOVERNANCE === 'false') {
@@ -87,7 +121,9 @@ export default function VeDop({ library, state, dispatch }) {
         <section className={`${styles.content} flex flex-start justify-center`}>
           <div className={`${styles.container} flex`}>
             <div className="full center">
-              {process.env.ENABLE_STAKING_GOVERNANCE === 'false' ? 'Coming soon' : ''}
+              {process.env.ENABLE_STAKING_GOVERNANCE === 'false'
+                ? 'Coming soon'
+                : ''}
             </div>
           </div>
         </section>
@@ -98,7 +134,7 @@ export default function VeDop({ library, state, dispatch }) {
   return (
     <section className={`flex-wrap justify-center ${styles.content}`}>
       <div className={`${styles.veDopContent}`}>
-        <h3>Lock Dops for veDop </h3>
+        <h3>Lock Dops for veDOP </h3>
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.field}>
             <div className={`${styles.inputWrapper} flex-center`}>
@@ -122,7 +158,7 @@ export default function VeDop({ library, state, dispatch }) {
               </div>
             </div>
             <label className="flex-center" htmlFor="dopBalance">
-              <span>Balance: 0</span>
+              <span>Balance: {state.dopBalance || 0}</span>
             </label>
           </div>
           <div
@@ -142,27 +178,31 @@ export default function VeDop({ library, state, dispatch }) {
                 <div className={styles.duration}>
                   <p>{`${l.duration} ${l.unit}`}</p>
                   <p>1 Dop =</p>
-                  <p>0.1 veDop</p>
+                  <p>0.1 veDOP</p>
                 </div>
               </div>
             ))}
           </div>
-          <Button onClick={() => handleLock(0)}>Aprove and Create Lock</Button>
+          <Button
+            disabled={
+              lockTx ||
+              (dopAllowance && (dopBalance <= 0 || dopBalance > maxDopBalance))
+            }
+          >
+            {dopAllowance ? 'Create Lock' : 'Enable'}
+          </Button>
         </form>
         {lockTx && (
-          <tr>
-            <td colSpan={2} className="center">
-              <a
-                href={getEtherscan(lockTx, state.account.network)}
-                target="_blank"
-              >
-                View on {scanLabels[state.account.network] || 'Etherscan'}
-              </a>
-            </td>
-          </tr>
+          <a
+            className={styles.txScan}
+            href={getEtherscan(lockTx, state.account.network)}
+            target="_blank"
+          >
+            View on {scanLabels[state.account.network] || 'Etherscan'}
+          </a>
         )}
       </div>
-      <div className={`${styles.veDopContent}`}>
+      <div className={`${styles.veDopContent} ${styles.boostContent}`}>
         <h3>Dop Boost Calculator</h3>
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.field}>
@@ -195,7 +235,7 @@ export default function VeDop({ library, state, dispatch }) {
           </div>
           <div className={styles.field}>
             <label className="flex-center" htmlFor="veDopBalance">
-              <span>Your veDop:</span>
+              <span>Your veDOP:</span>
             </label>
             <div className={`${styles.inputWrapper} flex-center`}>
               <input
