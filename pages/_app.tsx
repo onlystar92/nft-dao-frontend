@@ -37,7 +37,7 @@ function App({ Component, router }: AppProps) {
   )
 }
 
-export function getMarkets(network?: number) {
+export function getMarkets(network?: number): Promise<any[]> {
   return network
     ? getSubGraph(network)
     : Promise.all([getSubGraph(1), getSubGraph(4)])
@@ -46,7 +46,7 @@ export function getMarkets(network?: number) {
 const links = {
   4: 'https://api.thegraph.com/subgraphs/name/defi-cloud/drops-nft-loans-rinkeby',
 }
-function getSubGraph(network) {
+function getSubGraph(network): Promise<any[]> {
   if (!links[network]) return Promise.resolve([])
   return new Promise((resolve) =>
     fetch(links[network], {

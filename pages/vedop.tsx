@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { TMap } from 'types'
 import moment from 'moment'
 import Button from 'components/Button/Button'
