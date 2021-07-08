@@ -189,7 +189,7 @@ const Section = styled.div`
   }
 
   &.section-7 {
-    background: url("/static/images/bg/bg-5.png") #FFF;
+    // background: url("/static/images/bg/bg-5.png") #FFF;
     background-repeat: no-repeat;
     background-position: top right;
     display: flex;
@@ -281,33 +281,33 @@ export default function Home() {
         <Header />
         <Section className="section-1">
           <h1 className="font-color-dark font-size-lg text-center">
-            NFT Liquidity &amp; Leverage
+            Loans for NFT and DeFi assets
           </h1>
           <p className="font-color-dark font-size-xd text-center">
-            Margin NFT | Fractions | Vaults | Trustless Loans
+            Get more leverage out of your assets for loans and yield-farming
           </p>
           <div className="d-flex justify-content-center">
             <a
-              href="https://docsend.com/view/nc56ckqmy7zvjv9n"
-              target="_blank"
+              href="https://drops.co/loans"
               className="link-button  dark m-10 font-button"
               rel="noopener noreferrer"
+              style={{ marginTop: 25, marginBottom: 25 }}
             >
-              Pitch Deck
+              Launch App
             </a>
-            <a
+            {/* <a
               href="https://docsend.com/view/e9nq2waxia63hrq7"
               target="_blank"
               className="link-button  light m-10 font-button"
               rel="noopener noreferrer"
             >
               WHITEPAPER
-            </a>
+            </a> */}
           </div>
           <p className="font-color-dark font-size-xd available-on-icon-header text-center">
             Available on
           </p>
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center" style={{ marginTop: 10 }}>
             <a
               className="social m-10"
               href="https://v2.info.uniswap.org/pair/0x00aa1c57e894c4010fe44cb840ae56432d7ea1d1"
@@ -334,11 +334,23 @@ export default function Home() {
                 alt=""
               />
             </a>
+            <a
+              className="social m-10"
+              href="https://www.jbex.cc/exchange/DOP1/USDT"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                height="66"
+                src="/static/images/icons/jubi.png"
+                alt=""
+              />
+            </a>
           </div>
         </Section>
         <Section className="section-2" />
         <Section className="section-3">
-          <h2 className="font-color-dark font-size-lg">How It Works</h2>
+          <h2 className="font-color-dark font-size-lg">What can you do at Drops?</h2>
           <div className="section-3-content">
             {dataHowItWorks.map((d, index) => (
               <HowItWorks
@@ -348,39 +360,6 @@ export default function Home() {
                 data={d}
               />
             ))}
-          </div>
-          <div className="supported-projects text-center">
-            <h3 className="text-bold-small">SUPPORTED PROJECTS</h3>
-            <img
-              className="m-10"
-              src="/static/images/tokens/doki.png"
-              alt=""
-              height="24"
-            />
-            <img
-              className="m-10"
-              src="/static/images/tokens/meme.png"
-              alt=""
-              height="24"
-            />
-            <img
-              className="m-10"
-              src="/static/images/tokens/eth-men.png"
-              alt=""
-              height="24"
-            />
-            <img
-              className="m-10"
-              src="/static/images/tokens/ndr.png"
-              alt=""
-              height="24"
-            />
-            <img
-              className="m-10"
-              src="/static/images/tokens/marble.png"
-              alt=""
-              height="24"
-            />
           </div>
         </Section>
         {/* <Section className="section-4">
@@ -410,7 +389,7 @@ export default function Home() {
         </Section>
         <Section className="section-5">
           <h2 className="font-color-dark font-size-lg text-center">
-            Also Featuring
+            NFT Lending Pools
           </h2>
           <div className="section-5-content">
             {dataMoreNFTs.map((d, index) => (
@@ -422,7 +401,7 @@ export default function Home() {
             ))}
           </div>
         </Section>
-        <Section className="section-6">
+        {/* <Section className="section-6">
           <h2 className="font-color-dark font-size-lg text-center">Our Team</h2>
           <div className="section-6-content">
             {dataTeam.map((d, index) => (
@@ -434,7 +413,7 @@ export default function Home() {
               />
             ))}
           </div>
-        </Section>
+        </Section> */}
         {/* <Section className="section-7">
           <h2 className="font-color-dark font-size-lg text-center">Apply as an artist</h2>
           // <p className="font-color-dark font-size-md text-center">Apply  Duis libero elit, pulvinar vitae turpis non,<br/>scelerisque tempus felis</p>
