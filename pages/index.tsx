@@ -289,7 +289,6 @@ export default function Home() {
           <div className="d-flex justify-content-center">
             <a
               href="https://drops.co/loans"
-              target="_blank"
               className="link-button  dark m-10 font-button"
               rel="noopener noreferrer"
               style={{ marginTop: 25, marginBottom: 25 }}
