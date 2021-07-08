@@ -308,7 +308,7 @@ export default function Home() {
           <p className="font-color-dark font-size-xd available-on-icon-header text-center">
             Available on
           </p>
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center" style={{ marginTop: 10 }}>
             <a
               className="social m-10"
               href="https://v2.info.uniswap.org/pair/0x00aa1c57e894c4010fe44cb840ae56432d7ea1d1"
@@ -332,6 +332,18 @@ export default function Home() {
                 width="66"
                 height="66"
                 src="/static/images/icons/gate.png"
+                alt=""
+              />
+            </a>
+            <a
+              className="social m-10"
+              href="https://www.jbex.cc/exchange/DOP1/USDT"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                height="66"
+                src="/static/images/icons/jubi.png"
                 alt=""
               />
             </a>
