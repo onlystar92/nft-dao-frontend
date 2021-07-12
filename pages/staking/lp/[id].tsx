@@ -137,23 +137,26 @@ export default function LpStaking(props) {
           toWei(amount, Number(assetInfo.decimals)),
           { from: account }
         )
-        handleTransaction('stake', assetInfo.symbol)(transaction.send(), () => {
-          // setIsOpen(false)
-        })
+        handleTransaction('stake', assetInfo.symbol)(
+          transaction.send(),
+          () => {}
+        )
       } else if (type === 'claim') {
         const transaction = deposit(assetInfo.id, '0', { from: account })
-        handleTransaction('stake', assetInfo.symbol)(transaction.send(), () => {
-          // setIsOpen(false)
-        })
+        handleTransaction('stake', assetInfo.symbol)(
+          transaction.send(),
+          () => {}
+        )
       } else {
         const transaction = withdraw(
           assetInfo.id,
           toWei(amount, Number(assetInfo.decimals)),
           { from: account }
         )
-        handleTransaction('stake', assetInfo.symbol)(transaction.send(), () => {
-          // setIsOpen(false)
-        })
+        handleTransaction('stake', assetInfo.symbol)(
+          transaction.send(),
+          () => {}
+        )
       }
     }
   }

@@ -1,10 +1,9 @@
 import BigNumber from 'bignumber.js'
 import Slider from 'components/Slider/Slider'
-import { abbreviateNumberSI } from 'utils/number'
+import { abbreviateNumberSI, toShow } from 'utils/number'
 import styles from './Market.module.css'
 
 interface ISupplyMarket {
-  isMyMarkets?: boolean
   market: any
   balance: string
   assetsIn: string[]
@@ -14,7 +13,6 @@ interface ISupplyMarket {
 }
 
 export default function SupplyMarket({
-  isMyMarkets,
   market,
   balance,
   assetsIn,
@@ -46,23 +44,24 @@ export default function SupplyMarket({
       <td>
         <span className={styles.mobileLabel}>APY</span>
         <p>
-          {new BigNumber(supplyRatePerBlock * blocksPerDay + 1)
-            .pow(daysPerYear)
-            .minus(1)
-            .times(100)
-            .dp(2, 1)
-            .toString(10)}
+          {toShow(
+            new BigNumber(supplyRatePerBlock * blocksPerDay + 1)
+              .pow(daysPerYear)
+              .minus(1)
+              .times(100)
+              .dp(2, 1)
+              .toString(10),
+            2
+          )}
           %
         </p>
-        {/* {isMyMarkets && (
-          <p className={styles.textOpacity}>{market.underlyingSymbol}</p>
-        )} */}
       </td>
       <td>
         <span className={styles.mobileLabel}>Wallet</span>
         <div>
           <p>
-            {abbreviateNumberSI(Number(balance), 0, 2)} {market.underlyingSymbol}
+            {abbreviateNumberSI(Number(balance), 0, 2)}{' '}
+            {market.underlyingSymbol}
           </p>
           <p className={styles.balanceUsd}>
             $
@@ -77,7 +76,9 @@ export default function SupplyMarket({
       </td>
       <td>
         <span className={styles.mobileLabel}>Collateral</span>
-        {market.collateralFactor !== '0' && <Slider value={assetIn} onChange={() => onEnterMarket(assetIn)} />}
+        {market.collateralFactor !== '0' && (
+          <Slider value={assetIn} onChange={() => onEnterMarket(assetIn)} />
+        )}
       </td>
     </tr>
   )

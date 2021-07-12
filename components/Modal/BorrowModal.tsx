@@ -310,7 +310,7 @@ export default function BorrowModal({
                         disabled ||
                         (allowed &&
                           (repayAmount <= 0 ||
-                            repayAmount > balance ||
+                            +repayAmount > +balance ||
                             new BigNumber(repayAmount).isGreaterThan(
                               walletBalance
                             )))

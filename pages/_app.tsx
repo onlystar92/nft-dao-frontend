@@ -44,6 +44,7 @@ export function getMarkets(network?: number): Promise<any[]> {
 }
 
 const links = {
+  1: 'https://api.thegraph.com/subgraphs/name/defi-cloud/drops-nft-loans',
   4: 'https://api.thegraph.com/subgraphs/name/defi-cloud/drops-nft-loans-rinkeby',
 }
 function getSubGraph(network): Promise<any[]> {

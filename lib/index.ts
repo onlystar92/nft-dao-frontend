@@ -221,6 +221,8 @@ class DropsLoanLibrary {
           borrowBalanceCurrent: call(contract.methods.borrowBalanceCurrent),
           supplyRatePerBlock: call(contract.methods.supplyRatePerBlock),
           borrowRatePerBlock: call(contract.methods.borrowRatePerBlock),
+          totalSupply: call(contract.methods.totalSupply),
+          totalBorrows: call(contract.methods.totalBorrows),
         }
       const getLpTokenMethods = (contract: any) =>
         contract && {
@@ -244,14 +246,6 @@ class DropsLoanLibrary {
           enterMarkets: send(this.contracts.Comptroller.methods.enterMarkets),
           exitMarket: send(this.contracts.Comptroller.methods.exitMarket),
           claimComp: send(this.contracts.Comptroller.methods.claimComp),
-        },
-        CompoundLens: {
-          getCompBalanceMetadataExt: (account) =>
-            call(this.contracts.CompoundLens.methods.getCompBalanceMetadataExt)(
-              addresses.Comp,
-              addresses.Unitroller,
-              account
-            ),
         },
         Comp: {
           balanceOf: call(this.contracts.Comp.methods.balanceOf),

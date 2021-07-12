@@ -3,7 +3,6 @@ import Web3Modal from 'web3modal'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import DropsLoanLibrary from 'lib/index'
 import { addresses } from 'utils/constants'
-import { accountBalance } from 'layout'
 
 let web3Modal
 
@@ -63,7 +62,6 @@ export default function useWallet(dispatch, markets) {
       default: {
         if (event.event && events.includes(event.event)) {
           console.log(event)
-          // accountBalance(library, dispatch)
         }
         break
       }

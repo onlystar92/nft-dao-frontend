@@ -1,4 +1,3 @@
-// import Link from 'next/link'
 import styles from 'styles/Home.module.css'
 import styled from 'styled-components'
 import AnnounceCap from 'components/Home/AnnounceCap'
@@ -9,7 +8,6 @@ import TeamMember from 'components/Home/TeamMember'
 import Footer from 'components/Home/Footer'
 import {
   dataHowItWorks,
-  /*dataUpcomingDrops,*/
   dataMoreNFTs,
   dataTeam,
 } from 'helpers/dummy'
@@ -362,15 +360,6 @@ export default function Home() {
             ))}
           </div>
         </Section>
-        {/* <Section className="section-4">
-          <h2 className="font-color-dark font-size-lg">UPCOMING DROPS</h2>
-          <div className="section-4-content">
-            {dataUpcomingDrops.map((d, index) => <UpcomingDrops className="section-4-item" key={`upcoming-drops-${index}`} data={d} />)}
-          </div>
-          <div className="text-center">
-            <Button className="m-10" onClick={() => { }} type="light">VIEW ALL</Button>
-          </div>
-        </Section> */}
         <Section className="section-4">
           <h2 className="font-color-dark font-size-lg text-center">
             More Utility For Your NFTs
@@ -510,14 +499,6 @@ export default function Home() {
             />
           </div>
         </Section>
-        {/* <Section className="section-10">
-          <h2 className="font-color-dark font-size-lg text-center">Don't Miss a Drop</h2>
-          <p className="font-color-dark font-size-md text-center">We are committed to processing the information in order to<br/>contact you and talk about your project. </p>
-          <div className="subscribe">
-            <SubscribeInput />
-          </div>
-        </Section>
-        <Section className="section-11" /> */}
         <Footer />
       </div>
     </div>
