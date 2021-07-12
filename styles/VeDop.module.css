@@ -1,113 +1,163 @@
+.header {
+  padding: 90px 0 0;
+}
+
 .content {
   flex: 1;
-  overflow: auto;
   line-height: 1.5;
-  width: 90%;
-  margin: 100px auto;
 }
 
-.veDopContent {
-  max-width: 443px;
-  box-shadow: 0px 16px 40px rgb(0 0 0 / 8%);
+.container {
+  padding: var(--padding-narrow) var(--padding-normal);
+  margin-top: 0;
+}
+
+.assetInfo {
+  flex: 1;
+  border: 1px solid var(--color-gray-1);
+  box-sizing: border-box;
   border-radius: 16px;
-  padding: 20px;
-  margin: var(--padding-normal);
+  padding: var(--padding-normal);
+  margin-right: var(--padding-normal);
 }
 
-.boostContent {
-  filter: blur(4px);
+.assetTitle {
+  margin-bottom: 40px;
 }
 
-.veDopContent h3 {
-  margin-bottom: var(--padding-narrow) !important;
-}
-
-.inputWrapper {
-  background: var(--color-gray-1);
-  border-radius: 8px;
-  padding: 8px 8px 8px 16px;
-}
-.inputWrapper input {
-  width: 100%;
-  height: 100%;
-  border: none;
-  outline: none;
-  padding-right: var(--padding-narrow);
-  background-color: transparent;
+.assetName {
   font-weight: bold;
-  font-size: var(--font-size-2x);
-  line-height: 32px;
-}
-
-.maxBtn {
-  background: var(--color-white);
-  box-shadow: var(--modal-shadow);
-  border-radius: 4px;
-  padding: 8px 16px;
-  font-weight: 500;
-  font-size: var(--font-size-normal);
-  line-height: 24px;
+  font-size: 48px;
   color: var(--color-black);
-  cursor: pointer;
-  white-space: nowrap;
 }
 
-.form button {
-  width: 100%;
-  background: var(--color-black);
-  border-radius: 8px;
-  padding: 16px 0px;
-  font-weight: 500;
-  font-size: 20px;
-  color: var(--color-white);
-  margin-top: var(--padding-normal);
+.infoWrapper {
+  min-width: 208px;
 }
 
-.field {
-  display: flex;
-  flex-direction: column;
-}
-
-.field label {
-  margin-top: 8px;
-  margin-bottom: 24px;
-  font-size: var(--font-size-small);
-}
-
-.field label span {
+.label {
+  font-size: var(--font-size-normal);
   color: var(--color-gray);
 }
 
-.lockPeriodOptions {
-  margin-bottom: 24px;
-}
-
-.lockPeriodOptions .period .circle {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 1px solid var(--color-black1);
-  margin-right: 5px;
-  margin-top: 3px;
-  cursor: pointer;
-}
-
-.lockPeriodOptions .currentLockPeriod .circle {
-  background-color: var(--color-black1);
-}
-
-.period .duration p {
-  font-size: var(--font-size-small);
-  color: var(--color-black1);
-}
-
-.period .duration p:first-child {
+.value {
+  font-size: var(--font-size-2x);
   font-weight: bold;
 }
 
-.txScan {
-  display: block;
-  text-align: center;
-  margin-top: 24px;
-  text-decoration: underline;
+.veDOPManage {
+  display: none;
+  background: var(--color-white);
+  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.16);
+  padding: 30px 24px;
+  margin-top: 100px;
+}
+
+.veDOPManage > div {
+  font-weight: bold;
+  font-size: var(--font-size-3x);
+  color: var(--color-black);
+}
+
+.veDOPManage button {
+  width: 256px;
+  height: 56px;
+  background: var(--color-black1);
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--color-white);
+}
+
+@media all and (max-width: 1260px) {
+  .infoWrapper {
+      min-width: 180px;
+  }
+}
+
+@media all and (max-width: 1024px) {
+  .assetInfo {
+      margin-right: 0px;
+  }
+  .veDOPForm {
+      display: none;
+  }
+  .veDOPModal {
+      position: fixed;
+      display: flex;
+      width: 100%;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-black-04);
+      z-index: 10;
+  }
+  .veDOPManage {
+      display: flex;
+  }
+}
+
+@media all and (max-width: 767px) {
+  .mobileLpLinkBtn {
+      display: block;
+  }
+  .assetName {
+      font-size: var(--font-size-2x);
+  }
+  .assetInfo {
+      border: none;
+  }
+  .assetInfo button {
+      display: none;
+  }
+  .container {
+    flex-direction: column;
+    top: 0;
+  }
+  .assetTitle {
+      margin-bottom: 24px;
+  }
+  .infoDetail {
+      padding: 8px 16px;
+      border: 1px solid var(--color-gray-1);
+      box-sizing: border-box;
+      border-radius: 8px;
+  }
+  .infoDetail > div {
+      flex-direction: column;
+  }
+  .divider {
+      display: none;
+  }
+  .assetInfo .infoWrapper {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 8px 0px;
+  }
+  .assetInfo .infoWrapper:not(:last-child) {
+      border-bottom: 1px solid var(--color-gray-1);
+  }
+  .value {
+      font-size: var(--font-size-normal);
+      color: var(--color-black);
+      font-weight: normal;
+  }
+}
+
+@media all and (max-width: 567px) {
+  .veDOPManage {
+      justify-content: center;
+  }
+
+  .veDOPManage > div {
+      display: none;
+  }
+
+  .veDOPManage button {
+      width: 100%;
+      max-width: 312px;
+  }
 }

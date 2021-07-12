@@ -4,9 +4,8 @@ export const dopAddress = '0x6bB61215298F296C55b19Ad842D3Df69021DA2ef'
 export const addresses = {
   1: {
     Comp: '0x6bB61215298F296C55b19Ad842D3Df69021DA2ef',
-    CompoundLens: '0x1c5Ff4dd91A2dAc3eFCF6f299270355d64F6cA04',
-    Comptroller: '0x2F39426a9f441A73B7a228022469a6D65EbA406E',
-    Unitroller: '0xADF2cD7FDEA763156114D665e4bbb31123FA3c3b',
+    CompoundLens: '0x460DC2778951b6e1743aaa95Cf313fDFd61f1ecA',
+    Unitroller: '0x79b56CB219901DBF42bB5951a0eDF27465F96206',
     MasterChef: '0x8A78011bf2c42df82cC05F198109Ea024B554df9',
     Pools: [
       {
@@ -34,9 +33,8 @@ export const addresses = {
   },
   4: {
     Comp: '0x7CeBC7A14ff1399C53Fe1d0b19CC4388b5eA7433',
-    CompoundLens: '0x77D7d7Bf9DAD0029e177095e26e04f56106e906C',
-    Comptroller: '0x0B24cB99262D734Cb2f971c82C0Dd942424CFCF2',
-    Unitroller: '0x265646763F6E83899304Ac269b4165dd263Cd7a1',
+    CompoundLens: '0xA3d5F59F082CD28Bd432C8015E5E645a5fd9673b',
+    Unitroller: '0x808bBE50247667b512535e21AD694f03Ee37B24D',
     MasterChef: '0xA0a72392Da1d4507dd50b11234AD7B59A63c1e64',
     Pools: [
       {

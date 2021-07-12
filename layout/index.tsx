@@ -27,40 +27,30 @@ const networkLabels = {
   97: 'Binance Testnet',
 }
 
-function detectHeaderPosition() {
-  const main = window.scrollY
-  const header = document.querySelector(`.${styles.header}`)
-  if (!header) return
-  const popup = document.querySelector(`.${styles.popup}`)
-  const isOver = header.classList.contains(styles.hidden)
-  const maxFix = header['offsetHeight'] * 1.5
-  if (!isOver && main > maxFix) {
-    header.classList.add(styles.hidden)
-    popup['style'].top = '0'
-  }
-  if (isOver && main < maxFix) {
-    header.classList.remove(styles.hidden)
-    popup['style'].top = '-100%'
-  }
-}
-
 export function accountBalance(library, dispatch) {
   if (!library || !library.initiated) return
   const account = library.wallet.address
   const fromWei = (value, decimals = 18) =>
-    decimals < 18 ? new BigNumber(value).div(10 ** decimals).toFixed(decimals, 0) : library.web3.utils.fromWei(value)
+    decimals < 18
+      ? new BigNumber(value).div(10 ** decimals).toFixed(decimals, 0)
+      : library.web3.utils.fromWei(value)
   if (!addresses[library.wallet.network]) {
     return
   }
-  const dopMarket = library.markets.find((m) => m.underlyingSymbol === 'DOP')
+  // const dopMarket = library.markets.find((m) => m.underlyingSymbol === 'DOP')
   Promise.all([
     getTokenPriceUSD(addresses[1].Comp),
     library.methods.Comptroller.getAssetsIn(account),
     library.web3.eth.getBalance(account),
-    // library.methods.Comptroller.compAccrued(account),
     library.methods.Comp.balanceOf(account),
     library.methods.Comp.getAllowance(account, library.addresses.VeDOP),
-    library.methods.CompoundLens.getCompBalanceMetadataExt(account),
+    library.contracts.CompoundLens.methods
+      .getCompBalanceMetadataExt(
+        library.addresses.Comp,
+        library.addresses.Unitroller,
+        account
+      )
+      .call(),
     Promise.all(
       library.markets.map((market) => {
         const { underlyingAddress: address } = market
@@ -86,10 +76,14 @@ export function accountBalance(library, dispatch) {
                 library.web3.utils.toChecksumAddress(market.id)
               ),
               Number(market.exchangeRate),
+              Number(market.totalSupply),
+              dTokenMethods.totalBorrows(),
             ])
           : Promise.resolve([
               ...new Array(7).fill(['0']),
               Number(market.exchangeRate),
+              Number(market.totalSupply),
+              Number(market.totalBorrows),
             ])
       })
     ),
@@ -99,7 +93,6 @@ export function accountBalance(library, dispatch) {
         dopPrice,
         assetsIn,
         _balance,
-        // _rewardBalance,
         _dopBalance,
         _dopAllowance,
         metadata,
@@ -132,10 +125,8 @@ export function accountBalance(library, dispatch) {
           library && library.web3.utils.toChecksumAddress
 
         library.markets.forEach((market, idx) => {
-          const {
-            underlyingAddress: address,
-            underlyingPriceUSD: price,
-          } = market
+          const { underlyingAddress: address, underlyingPriceUSD: price } =
+            market
           marketBalances[address] =
             address !== ZERO
               ? fromWei(_markets[idx][0], market.underlyingDecimals)
@@ -204,40 +195,39 @@ export function accountBalance(library, dispatch) {
             new BigNumber(_markets[idx][6]).div(10 ** 18).toString(10)
           )
 
+          const marketSupply = new BigNumber(_markets[idx][7]).times(
+            _markets[idx][8]
+          )
           const supplyDopApy =
-            !compSpeed || totalSupply.isZero()
+            !compSpeed || marketSupply.isZero()
               ? '0'
               : new BigNumber(100)
                   .times(
-                    new BigNumber(
-                      new BigNumber(1).plus(
-                        new BigNumber(dopMarket.underlyingPriceUSD)
+                    new BigNumber(1)
+                      .plus(
+                        new BigNumber(dopPrice)
                           .times(compSpeed)
                           .times(blocksPerDay)
-                          .div(
-                            new BigNumber(
-                              new BigNumber(totalSupply)
-                                .times(_markets[idx][6])
-                                .times(price)
-                            )
-                          )
+                          .div(marketSupply.times(price))
                       )
-                    )
                       .pow(365)
                       .minus(1)
                   )
                   .toString(10)
+          const marketBorrows = new BigNumber(_markets[idx][9]).div(
+            10 ** market.underlyingDecimals
+          )
           const borrowDopApy =
-            !compSpeed || totalBorrow.isZero()
+            !compSpeed || marketBorrows.isZero()
               ? '0'
               : new BigNumber(100)
                   .times(
                     new BigNumber(
                       new BigNumber(1).plus(
-                        new BigNumber(dopMarket.underlyingPriceUSD)
+                        new BigNumber(dopPrice)
                           .times(compSpeed)
                           .times(blocksPerDay)
-                          .div(new BigNumber(totalBorrow).times(price))
+                          .div(new BigNumber(marketBorrows).times(price))
                       )
                     )
                       .pow(365)
@@ -296,7 +286,9 @@ export function accountBalance(library, dispatch) {
 export function updateMarketCash(library, callback) {
   if (!library || !library.initiated) return
   const fromWei = (value, decimals = 18) =>
-    decimals < 18 ? new BigNumber(value).div(10 ** decimals).toFixed(decimals, 0) : library.web3.utils.fromWei(value)
+    decimals < 18
+      ? new BigNumber(value).div(10 ** decimals).toFixed(decimals, 0)
+      : library.web3.utils.fromWei(value)
   getMarkets(library.wallet.network)
     .then((markets) => {
       Promise.all(
@@ -333,11 +325,6 @@ export default function Layout({
   const [restored, setRestored] = useState(false)
   const [isCollapse, setIsCollapse] = useState(false)
   const netMarkets = (library && markets[library.wallet.network]) || []
-
-  // useEffect(() => {
-  //   window.addEventListener('scroll', detectHeaderPosition)
-  //   return () => window.removeEventListener('scroll', detectHeaderPosition)
-  // }, [])
 
   useEffect(() => {
     if (route !== '/' && !library) {
@@ -413,14 +400,6 @@ export default function Layout({
       ) : (
         <main className={`${styles.main} flex-column justify-between`}>
           <header className={styles.header}>
-            {/* <div className="relative">
-              {library && library.wallet.network !== 1 && (
-                <div className={styles.note}>
-                  Note: You are currently connected to{' '}
-                  {networkLabels[library.wallet.network] || 'Unknown'}
-                </div>
-              )}
-            </div> */}
             <div className="flex-center justify-between limited">
               <Link href="/">
                 <img
@@ -467,24 +446,6 @@ export default function Layout({
                       Vesting
                     </div>
                   </Link>
-                  {/* <Link href="/swaps">
-                      <div
-                        className={
-                          router.pathname === '/swaps' ? styles.activeMenu : ''
-                        }
-                      >
-                        Swap NFT
-                    </div>
-                    </Link>
-                    <Link href="/drops">
-                      <div
-                        className={
-                          router.pathname === '/drops' ? styles.activeMenu : ''
-                        }
-                      >
-                        Drops
-                      </div>
-                    </Link> */}
                 </div>
                 <div className={styles.mobileMenu}>
                   <div className={styles.collapseContent} id="collapse-content">
@@ -563,18 +524,6 @@ export default function Layout({
               </div>
             </div>
           </header>
-          {/* <header className={styles.popup}>
-            <div className="flex-center justify-between limited">
-              <Link href="/">
-                <img
-                  className={`${styles.logo} cursor`}
-                  src="/logo.png"
-                  alt="Drops NFT Loans"
-                />
-              </Link>
-              <div className="account">8xv3...aE0c</div>
-            </div>
-          </header> */}
           {library && networks.includes(state.account.network) ? (
             React.cloneElement(children, {
               state,

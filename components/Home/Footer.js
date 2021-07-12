@@ -271,18 +271,9 @@ const Footer = () => {
           <div className="footer-content-section get-in-touch">
             <div className="footer-content-section-title">Get in touch</div>
             <a href="mailto:info@drops.is">info@drops.co</a>
-            {/* <p>Address lorem ipsum dolo sit amet pratas<br />lhadala malah penak tenan</p> */}
           </div>
         </div>
         <div className="footer-content-right">
-          {/* <div className="footer-content-section info">
-            <img className="footer-content-section-title" src="/static/images/logo/logo-white.png" width="109" height="23" alt="" />
-            <div className="footer-content-section-title" >Info</div>
-            <Link to="/" className="footer-content-link">Home</Link>
-            <Link to="/" className="footer-content-link">Stake & earn</Link>
-            <Link to="/" className="footer-content-link">Drop</Link>
-            <Link to="/" className="footer-content-link">My Wallet</Link>
-          </div> */}
           <div className="footer-content-section legal">
             <div className="footer-content-section-title">Legal</div>
             <Link href="/">
@@ -295,11 +286,9 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-copyright">
-        {/* <Link to="/" className="footer-copyright-text">Privacy policy</Link> */}
         <span className="footer-copyright-text">
           © {new Date().getFullYear()}. DROPS
         </span>
-        {/* <Link to="/" className="footer-copyright-text">Term of use</Link> */}
       </div>
     </FooterWrapper>
   )

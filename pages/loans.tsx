@@ -8,7 +8,6 @@ import CollateralModal from 'components/Modal/CollateralModal'
 import SupplyModal from 'components/Modal/SupplyModal'
 import BorrowModal from 'components/Modal/BorrowModal'
 import { ZERO } from 'utils/constants'
-import { abbreviateNumberSI } from 'utils/number'
 import { accountBalance } from 'layout'
 import styles from 'styles/Loans.module.css'
 
@@ -37,7 +36,6 @@ export default function Loans(props) {
     library,
     markets,
   } = props
-  // const markets = []
   const from = { from: account.address }
   const network = account.network
   const toChecksumAddress = library && library.web3.utils.toChecksumAddress
@@ -343,7 +341,6 @@ export default function Loans(props) {
                       .map((market) => (
                         <SupplyMarket
                           key={market.id}
-                          isMyMarkets={true}
                           market={market}
                           assetsIn={assetsIn}
                           balance={
@@ -375,7 +372,6 @@ export default function Loans(props) {
                 <thead>
                   <tr>
                     <th>Asset</th>
-                    <th>Earning</th>
                     <th>APY</th>
                     <th>Wallet</th>
                     <th>Collateral</th>

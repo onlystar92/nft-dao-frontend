@@ -239,6 +239,21 @@ button {
   border-right: 1px solid var(--color-divider);
 }
 
+.rc-slider-rail {
+  background-color: var(--color-lightgray) !important;
+}
+
+.rc-slider-track {
+  background-color: var(--color-blue) !important;
+}
+
+.rc-slider-handle {
+  width: 16px !important;
+  height: 16px !important;
+  border: solid 2px var(--color-blue) !important;
+  background-color: var(--color-blue) !important;
+}
+
 @media all and (max-width: 567px) {
   .limited {
     width: 100%;

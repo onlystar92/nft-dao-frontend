@@ -38,17 +38,3 @@
   color: var(--color-gray);
   font-weight: normal;
 }
-
-.tokenIcon {
-  width: 32px;
-  height: 32px;
-  margin-left: var(--padding-narrow);
-  margin-right: calc(var(--padding-normal) * 1.5);
-}
-
-@media all and (max-width: 767px) {
-  .tokenIcon {
-    margin-left: var(--padding-narrow);
-    margin-right: var(--padding-narrow);
-  }
-}

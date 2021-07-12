@@ -1,4 +1,3 @@
-// import Link from 'next/link'
 import styles from 'styles/Home.module.css'
 import styled from 'styled-components'
 import AnnounceCap from 'components/Home/AnnounceCap'
@@ -9,7 +8,6 @@ import TeamMember from 'components/Home/TeamMember'
 import Footer from 'components/Home/Footer'
 import {
   dataHowItWorks,
-  /*dataUpcomingDrops,*/
   dataMoreNFTs,
   dataTeam,
 } from 'helpers/dummy'
@@ -383,15 +381,6 @@ export default function Home() {
             />
           </div>
         </Section>
-        {/* <Section className="section-4">
-          <h2 className="font-color-dark font-size-lg">UPCOMING DROPS</h2>
-          <div className="section-4-content">
-            {dataUpcomingDrops.map((d, index) => <UpcomingDrops className="section-4-item" key={`upcoming-drops-${index}`} data={d} />)}
-          </div>
-          <div className="text-center">
-            <Button className="m-10" onClick={() => { }} type="light">VIEW ALL</Button>
-          </div>
-        </Section> */}
         <Section className="section-4">
           <h2 className="font-color-dark font-size-lg text-center">
             More Utility For Your NFTs
@@ -435,14 +424,6 @@ export default function Home() {
             ))}
           </div>
         </Section>
-        {/* <Section className="section-7">
-          <h2 className="font-color-dark font-size-lg text-center">Apply as an artist</h2>
-          // <p className="font-color-dark font-size-md text-center">Apply  Duis libero elit, pulvinar vitae turpis non,<br/>scelerisque tempus felis</p>
-          <div className="d-flex justify-content-center">
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeIu6-kRK_Owq4w5z8OfSz3YMXvlB1A_flAxDyxLJ6PMRaXww/viewform?usp=sf_link"
-              target="_blank" className="link-button m-10 font-button" rel="noopener noreferrer">APPLY</a>
-          </div>
-        </Section> */}
         <Section className="section-7">
           <h2 className="font-color-dark font-size-lg text-center">
             Investors
@@ -531,14 +512,6 @@ export default function Home() {
             />
           </div>
         </Section>
-        {/* <Section className="section-10">
-          <h2 className="font-color-dark font-size-lg text-center">Don't Miss a Drop</h2>
-          <p className="font-color-dark font-size-md text-center">We are committed to processing the information in order to<br/>contact you and talk about your project. </p>
-          <div className="subscribe">
-            <SubscribeInput />
-          </div>
-        </Section>
-        <Section className="section-11" /> */}
         <Footer />
       </div>
     </div>

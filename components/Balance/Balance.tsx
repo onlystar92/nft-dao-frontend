@@ -1,4 +1,4 @@
-import { abbreviateNumberSI } from 'utils/number'
+import { abbreviateNumberSI, toShow } from 'utils/number'
 import styles from './Balance.module.css'
 
 interface IBalance {
@@ -7,12 +7,7 @@ interface IBalance {
   netAPY: number
 }
 
-export default function Balance({
-  totalCash,
-  totalBorrow,
-  netAPY,
-}: IBalance) {
-
+export default function Balance({ totalCash, totalBorrow, netAPY }: IBalance) {
   const borrowPercent = totalCash > 0 ? (totalBorrow / totalCash) * 100 : 0
   return (
     <div className={styles.balance}>
@@ -21,7 +16,13 @@ export default function Balance({
         <div className={styles.infoWrapper}>
           <div className={styles.label}>Net APY</div>
           <div className={`bold ${styles.value}`}>
-            {netAPY !== 0 ? `${(netAPY.toString() === 'Infinity' ? '< 0.01' : netAPY.toFixed(2))} %` : '...'}
+            {netAPY !== 0
+              ? `${
+                  netAPY.toString() === 'Infinity'
+                    ? '< 0.01'
+                    : toShow(netAPY, 2)
+                } %`
+              : '...'}
           </div>
         </div>
         <div className={styles.divider} />
@@ -50,7 +51,13 @@ export default function Balance({
         <div className={`flex-center justify-between ${styles.infoWrapper}`}>
           <div className={styles.label}>Net APY</div>
           <div className={`bold ${styles.value}`}>
-            {netAPY !== 0 ? `${(netAPY.toString() === 'Infinity' ? '< 0.01' : netAPY.toFixed(2))} %` : '...'}
+            {netAPY !== 0
+              ? `${
+                  netAPY.toString() === 'Infinity'
+                    ? '< 0.01'
+                    : toShow(netAPY, 2)
+                } %`
+              : '...'}
           </div>
         </div>
         <div className={`flex-center justify-between ${styles.infoWrapper}`}>

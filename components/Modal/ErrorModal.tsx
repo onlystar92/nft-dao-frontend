@@ -1,4 +1,3 @@
-// import { useEffect } from 'react'
 import Modal from './Modal'
 import styles from './Modal.module.css'
 
@@ -13,13 +12,6 @@ export default function ErrorModal({
   onClose,
   closeOnEscape,
 }: IErrorModal) {
-  // useEffect(() => {
-  //   if (errMessage) {
-  //     let audio = new Audio('/assets/error.mp3');
-  //     audio.play();
-  //   }
-  // }, [errMessage])
-  
   return (
     <Modal
       show={!!errMessage}

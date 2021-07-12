@@ -1,0 +1,20 @@
+.sliderContent {
+  width: 100%;
+}
+
+.sliderContent input {
+  width: 100%;
+  outline: none;
+  background: var(--color-gray-1);
+  border-radius: 8px 8px 0px 0px;
+  padding: 12px 16px;
+  text-align: right;
+  font-weight: bold;
+  font-size: 24px;
+  color: var(--color-black);
+  border: none;
+}
+
+.rcSlider {
+  margin-top: -5px;
+}

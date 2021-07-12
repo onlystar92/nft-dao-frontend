@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import { abbreviateNumberSI } from 'utils/number'
+import { abbreviateNumberSI, toShow } from 'utils/number'
 import styles from './Market.module.css'
 
 interface IBorrowMarket {
@@ -42,12 +42,15 @@ export default function BorrowMarket({
       </td>
       <td>
         <p>
-          {new BigNumber(borrowRatePerBlock * blocksPerDay + 1)
-            .pow(daysPerYear)
-            .minus(1)
-            .times(100)
-            .dp(2, 1)
-            .toString(10)}
+          {toShow(
+            new BigNumber(borrowRatePerBlock * blocksPerDay + 1)
+              .pow(daysPerYear)
+              .minus(1)
+              .times(100)
+              .dp(2, 1)
+              .toString(10),
+            2
+          )}
           %
         </p>
       </td>

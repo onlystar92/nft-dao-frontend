@@ -241,7 +241,7 @@ export default function SupplyModal({
                       disabled={
                         disabled ||
                         (allowed &&
-                          (supplyAmount <= 0 || supplyAmount > maxSupply))
+                          (supplyAmount <= 0 || +supplyAmount > +maxSupply))
                       }
                     >
                       {!allowed && <img src="/assets/lock.svg" />}{' '}

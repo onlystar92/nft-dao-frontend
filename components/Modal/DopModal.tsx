@@ -51,7 +51,7 @@ export default function DopModal({
                   <span>DOP Balance</span>
                 </div>
                 <div>
-                  <p className="text-right">
+                  {/* <p className="text-right">
                     {new BigNumber(rewardBalance).dp(4, 1).toString(10)}
                   </p>
                   <p className="text-right">
@@ -60,7 +60,7 @@ export default function DopModal({
                       .times(price)
                       .dp(2, 1)
                       .toString(10)}
-                  </p>
+                  </p> */}
                 </div>
               </div>
               <div className={`${styles.info} flex justify-between`}>
