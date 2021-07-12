@@ -1,18 +1,18 @@
 export const dataHowItWorks = [
   {
-    title: `Pool NFTs to mint dNFT (ERC20) tokens`,
+    title: "Borrow against DeFi and NFT related assets",
     description:
-      "Access instant fungible liquidity backed by NFT assets, using the dNFT Fractionalization protocol.",
+      "Reduce the opportunity cost of holding governance, liquidity tokens by supplying them as collateral to earn additional yield.",
   },
   {
-    title: "Take out an NFT-backed loan",
+    title: "NFT as collateral",
     description:
-      "Borrow crypto trustlessly, using your dNFT tokens as collateral.",
+      "Use NFTs as collateral to obtain trustless loans. Lending is powered by permissionless NFT Lending Pools.",
   },
   {
-    title: "Yield farm using your NFTs",
+    title: "Earn with idle assets",
     description:
-      "Participate in real yield-farming strategies via dNFT Vaults and earn a return on your assets.",
+      "Supply your stablecoins, governance tokens to fungible or NFT lending pools and earn attractive APYs.",
   },
 ];
 
@@ -40,23 +40,18 @@ export const dataUpcomingDrops = [
 export const dataMoreNFTs = [
   {
     image: "/static/images/bg/bg-p-1.png",
-    title: "Simple NFT Staking",
-    description: "Stake NFTs to earn dPoints, which can be used as coupons within the platform."
+    title: "Pool Creators",
+    description: "Anyone can create an NFT Lending Pool by specifying accepted NFTs and amounts that can be borrowed against them."
   },
   {
     image: "/static/images/bg/bg-p-2.png",
-    title: "L2 Scaling with Polygon and Biconomy",
-    description: "Quick and gasless transactions with a seamless user experience. Powered by Polygon and Biconomy."
+    title: "Lenders",
+    description: "Users looking for yield can supply liquidity to NFT lending pools and back assets they believe in."
   },
   {
     image: "/static/images/bg/bg-p-1.png",
-    title: "Fair NFT distribution",
-    description: "Participate in “drops” raffles for a fair chance in NFT releases. No more getting front-run by bots and whales."
-  },
-  {
-    image: "/static/images/bg/bg-p-2.png",
-    title: "Powered by the DOP token",
-    description: "DOP the native token of the Drops ecosystem. Vote with DOP, stake DOP, earn DOP as cashback rewards!"
+    title: "Borrowers",
+    description: "Collectors can supply NFT with stablecoins and get matched with the best rates lending pool."
   },
 ];
 
