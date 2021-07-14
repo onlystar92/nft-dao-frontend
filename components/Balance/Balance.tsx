@@ -14,7 +14,7 @@ export default function Balance({ TVL, totalCash, totalBorrow, netAPY }: IBalanc
   return (
     <div className={styles.balance}>
       <div className={`bold ${styles.loansTitle}`}>
-        {TVL ? `$${abbreviateNumberSI(TVL.toString(10), 2, 2)}` : ''}
+        TVL: {TVL ? `$${abbreviateNumberSI(TVL.toString(10), 2, 2)}` : ''}
       </div>
       <div className={`flex-center ${styles.info}`}>
         <div className={styles.infoWrapper}>
