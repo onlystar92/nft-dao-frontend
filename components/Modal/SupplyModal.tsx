@@ -214,7 +214,7 @@ export default function SupplyModal({
                   ) : (
                     <p>
                       To Supply or Repay {market.underlyingSymbol} to the Drops
-                      NFT Loans, you need to enable it first.
+                      Loans, you need to enable it first.
                     </p>
                   )}
                   <AssetInfo
@@ -272,7 +272,11 @@ export default function SupplyModal({
                         onClick={() =>
                           setForm({
                             ...form,
-                            withdrawAmount: new BigNumber(available).isNegative() ? 0 : available,
+                            withdrawAmount: new BigNumber(
+                              available
+                            ).isNegative()
+                              ? 0
+                              : available,
                           })
                         }
                       >

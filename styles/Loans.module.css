@@ -2,6 +2,22 @@
   padding: 108px 0 var(--padding-wide);
 }
 
+.disclaimer {
+  position: relative;
+  background: var(--color-white);
+  box-shadow: var(--box-shadow-borrow-limit);
+  border-radius: 16px;
+  padding: var(--padding-normal);
+  margin-bottom: var(--padding-normal);
+}
+
+.disclaimer img {
+  position: absolute;
+  height: 18px;
+  top: calc(var(--padding-normal) / 2);
+  right: calc(var(--padding-normal) / 2);
+}
+
 @media all and (max-width: 767px) {
   .header {
     padding: 80px 0px 30px;

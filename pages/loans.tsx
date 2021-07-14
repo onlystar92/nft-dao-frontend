@@ -30,6 +30,7 @@ export default function Loans(props) {
       totalSupply,
       totalCash,
       totalBorrow,
+      TVL,
       netAPY,
     },
     dispatch,
@@ -77,6 +78,9 @@ export default function Loans(props) {
   const [enterMarket, setEnterMarket] = useState(null)
   const [supply, setSupply] = useState(null)
   const [borrow, setBorrow] = useState(null)
+  const [disclaimer, setDisclaimer] = useState(
+    !window.localStorage.getItem('disclaimer') ? true : false
+  )
 
   function getGas() {
     if (library) {
@@ -123,42 +127,41 @@ export default function Loans(props) {
     }
   }, [supply, library])
 
-  const handleTransaction = (type, ...args) => (
-    transaction,
-    callback = () => {}
-  ) => {
-    dispatch({
-      type: 'txRequest',
-      payload: [type, true, ...args],
-    })
-    transaction
-      .on('transactionHash', function (hash) {
-        dispatch({
-          type: 'txHash',
-          payload: [hash, false, type, ...args],
-        })
+  const handleTransaction =
+    (type, ...args) =>
+    (transaction, callback = () => {}) => {
+      dispatch({
+        type: 'txRequest',
+        payload: [type, true, ...args],
       })
-      .on('receipt', function (receipt) {
-        dispatch({
-          type: 'txHash',
-          payload: [receipt.transactionHash, true, type, callback()],
-        })
-        accountBalance(library, dispatch)
-      })
-      .on('error', (err, receipt) => {
-        if (receipt) {
+      transaction
+        .on('transactionHash', function (hash) {
           dispatch({
             type: 'txHash',
-            payload: [receipt.transactionHash, true, type],
+            payload: [hash, false, type, ...args],
           })
-        } else {
+        })
+        .on('receipt', function (receipt) {
           dispatch({
-            type: 'txRequest',
-            payload: [type, false, ...args],
+            type: 'txHash',
+            payload: [receipt.transactionHash, true, type, callback()],
           })
-        }
-      })
-  }
+          accountBalance(library, dispatch)
+        })
+        .on('error', (err, receipt) => {
+          if (receipt) {
+            dispatch({
+              type: 'txHash',
+              payload: [receipt.transactionHash, true, type],
+            })
+          } else {
+            dispatch({
+              type: 'txRequest',
+              payload: [type, false, ...args],
+            })
+          }
+        })
+    }
 
   const getAssetsIn = () => {
     const methods = library.methods.Comptroller
@@ -310,7 +313,23 @@ export default function Loans(props) {
     <>
       <section className={styles.header}>
         <div className={`limited`}>
-          <Balance {...{ totalCash, totalBorrow, netAPY }} />
+          {disclaimer && (
+            <div className={styles.disclaimer}>
+              This is Beta of Drops Loans v1. It is provided "as is" and we
+              don't make any warranties, including that Drops is error-free or
+              secure. Use it at your own risk.
+              <img
+                className="cursor"
+                src="/assets/close.svg"
+                alt="close"
+                onClick={() => {
+                  window.localStorage.setItem('disclaimer', 'true')
+                  setDisclaimer(false)
+                }}
+              />
+            </div>
+          )}
+          <Balance {...{ TVL, totalCash, totalBorrow, netAPY }} />
         </div>
       </section>
       <section className={`${styles.content} flex flex-start justify-center`}>

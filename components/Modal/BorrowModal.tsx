@@ -283,7 +283,7 @@ export default function BorrowModal({
                   ) : (
                     <p>
                       To Borrow or Repay {market.underlyingSymbol} to the Drops
-                      NFT Loans, you need to enable it first.
+                      Loans, you need to enable it first.
                     </p>
                   )}
                   <AssetInfo
