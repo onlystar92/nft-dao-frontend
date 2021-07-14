@@ -10,9 +10,19 @@
   color: var(--color-black);
   font-size: 150%;
   text-align: center;
+  font-weight: bold;
+  margin-top: 15px !important;
+  margin-bottom: 40px !important;
 }
 
 .loader img {
   width: 50%;
+  max-width: 100px;
   margin: var(--padding-normal);
+}
+
+.loader button {
+  background-color: transparent;
+  color: #0047FF;
+  font-size: 120%;
 }
