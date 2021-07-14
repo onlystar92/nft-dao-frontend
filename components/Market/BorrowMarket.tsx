@@ -9,6 +9,7 @@ interface IBorrowMarket {
   totalCash?: number
   borrowRatePerBlock: number
   onBorrow: Function
+  distributeApy: number
 }
 
 export default function BorrowMarket({
@@ -18,6 +19,7 @@ export default function BorrowMarket({
   totalCash,
   borrowRatePerBlock,
   onBorrow,
+  distributeApy,
 }: IBorrowMarket) {
   const blocksPerDay = 4 * 60 * 24
   const daysPerYear = 365
@@ -46,7 +48,7 @@ export default function BorrowMarket({
             new BigNumber(borrowRatePerBlock * blocksPerDay + 1)
               .pow(daysPerYear)
               .minus(1)
-              .times(100)
+              .times(100).times(-1).plus(distributeApy)
               .dp(2, 1)
               .toString(10),
             2

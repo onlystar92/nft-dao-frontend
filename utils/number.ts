@@ -36,6 +36,6 @@ export const toFixed = (number, decimals, string = false) => {
 
 export const toShow = (num, decimals) => {
   return new BigNumber(num).isGreaterThan(10 ** 9)
-    ? 'Infinity'
+    ? '∞'
     : toFixed(num, decimals, true).toString()
 }

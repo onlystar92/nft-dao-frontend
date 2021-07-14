@@ -375,6 +375,7 @@ export default function Loans(props) {
                           onEnterMarket={(assetIn) =>
                             setEnterMarket({ ...market, assetIn })
                           }
+                          distributeApy={marketDistributeApys[market.underlyingAddress][0]}
                         />
                       ))}
                   </tbody>
@@ -417,6 +418,7 @@ export default function Loans(props) {
                         onEnterMarket={(assetIn) =>
                           setEnterMarket({ ...market, assetIn })
                         }
+                        distributeApy={marketDistributeApys[market.underlyingAddress][0]}
                       />
                     ))}
                 </tbody>
@@ -526,6 +528,7 @@ export default function Loans(props) {
                           onBorrow={() =>
                             setBorrow({ ...market, borrowBalance: -1 })
                           }
+                          distributeApy={marketDistributeApys[market.underlyingAddress][1]}
                         />
                       ))}
                   </tbody>
@@ -564,6 +567,7 @@ export default function Loans(props) {
                         onBorrow={() =>
                           setBorrow({ ...market, borrowBalance: -1 })
                         }
+                        distributeApy={marketDistributeApys[market.underlyingAddress][1]}
                       />
                     ))}
                 </tbody>

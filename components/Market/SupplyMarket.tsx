@@ -10,6 +10,7 @@ interface ISupplyMarket {
   supplyRatePerBlock: number
   onSupply: Function
   onEnterMarket: Function
+  distributeApy: number
 }
 
 export default function SupplyMarket({
@@ -19,6 +20,7 @@ export default function SupplyMarket({
   supplyRatePerBlock,
   onSupply,
   onEnterMarket,
+  distributeApy,
 }: ISupplyMarket) {
   const assetIn = assetsIn.some((item) => item.toLowerCase() === market.id)
   const blocksPerDay = 4 * 60 * 24
@@ -48,7 +50,7 @@ export default function SupplyMarket({
             new BigNumber(supplyRatePerBlock * blocksPerDay + 1)
               .pow(daysPerYear)
               .minus(1)
-              .times(100)
+              .times(100).plus(distributeApy)
               .dp(2, 1)
               .toString(10),
             2
