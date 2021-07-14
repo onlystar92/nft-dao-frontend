@@ -37,44 +37,43 @@ export default function vedop(props) {
     new Array(4).fill({})
   )
 
-  const handleTransaction = (type, ...args) => (
-    transaction,
-    callback = () => {}
-  ) => {
-    dispatch({
-      type: 'txRequest',
-      payload: [type, true, ...args],
-    })
-    transaction
-      .on('transactionHash', function (hash) {
-        dispatch({
-          type: 'txHash',
-          payload: [hash, false, type, ...args],
-        })
+  const handleTransaction =
+    (type, ...args) =>
+    (transaction, callback = () => {}) => {
+      dispatch({
+        type: 'txRequest',
+        payload: [type, true, ...args],
       })
-      .on('receipt', function (receipt) {
-        dispatch({
-          type: 'txHash',
-          payload: [receipt.transactionHash, true, type, callback()],
-        })
-      })
-      .on('error', (err, receipt) => {
-        if (err && err.message) {
-          console.log(err.message)
-        }
-        if (receipt) {
+      transaction
+        .on('transactionHash', function (hash) {
           dispatch({
             type: 'txHash',
-            payload: [receipt.transactionHash, true, type],
+            payload: [hash, false, type, ...args],
           })
-        } else {
+        })
+        .on('receipt', function (receipt) {
           dispatch({
-            type: 'txRequest',
-            payload: [type, false, ...args],
+            type: 'txHash',
+            payload: [receipt.transactionHash, true, type, callback()],
           })
-        }
-      })
-  }
+        })
+        .on('error', (err, receipt) => {
+          if (err && err.message) {
+            console.log(err.message)
+          }
+          if (receipt) {
+            dispatch({
+              type: 'txHash',
+              payload: [receipt.transactionHash, true, type],
+            })
+          } else {
+            dispatch({
+              type: 'txRequest',
+              payload: [type, false, ...args],
+            })
+          }
+        })
+    }
 
   const handleVeDOP = (form) => {
     console.log('form', form)
@@ -111,6 +110,19 @@ export default function vedop(props) {
         )
       }
     }
+  }
+
+  if (process.env.ENABLE_STAKING_GOVERNANCE === 'false') {
+    return (
+      <>
+        <section className={styles.header}></section>
+        <section className={`${styles.content} flex flex-start justify-center`}>
+          <div className={`${styles.container} limited flex`}>
+            <div className="full">Coming soon</div>
+          </div>
+        </section>
+      </>
+    )
   }
 
   return (
