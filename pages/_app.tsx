@@ -28,7 +28,7 @@ function App({ Component, router }: AppProps) {
   ) : (
     <>
       <Head>
-        <title>Drops NFT Loans</title>
+        <title>Drops Loans</title>
       </Head>
       <div className="fill flex-center justify-center">
         <img src="/assets/loading.gif" style={{ width: 50 }} />

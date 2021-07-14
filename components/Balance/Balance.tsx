@@ -1,17 +1,21 @@
 import { abbreviateNumberSI, toShow } from 'utils/number'
+import BigNumber from 'bignumber.js'
 import styles from './Balance.module.css'
 
 interface IBalance {
+  TVL: BigNumber,
   totalCash: number
   totalBorrow: number
   netAPY: number
 }
 
-export default function Balance({ totalCash, totalBorrow, netAPY }: IBalance) {
+export default function Balance({ TVL, totalCash, totalBorrow, netAPY }: IBalance) {
   const borrowPercent = totalCash > 0 ? (totalBorrow / totalCash) * 100 : 0
   return (
     <div className={styles.balance}>
-      <div className={`bold ${styles.loansTitle}`}>Loans</div>
+      <div className={`bold ${styles.loansTitle}`}>
+        {TVL ? `$${abbreviateNumberSI(TVL.toString(10), 2, 2)}` : ''}
+      </div>
       <div className={`flex-center ${styles.info}`}>
         <div className={styles.infoWrapper}>
           <div className={styles.label}>Net APY</div>

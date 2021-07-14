@@ -117,6 +117,7 @@ export function accountBalance(library, dispatch) {
         let borrowEarning = new BigNumber(0)
         let totalDopSupplyEarning = new BigNumber(0)
         let totalDopBorrowEarning = new BigNumber(0)
+        let TVL = new BigNumber(0)
         let netApy = new BigNumber(0)
         const blocksPerDay = 4 * 60 * 24
         const daysPerYear = 365
@@ -234,6 +235,7 @@ export function accountBalance(library, dispatch) {
                       .minus(1)
                   )
                   .toString(10)
+          TVL = TVL.plus((marketSupply.times(price)).minus(marketBorrows.times(price)))
           totalDopSupplyEarning = totalDopSupplyEarning
             .plus(supplyDopApy)
             .times(totalSupply)
@@ -269,6 +271,7 @@ export function accountBalance(library, dispatch) {
             marketSupplyRates,
             marketBorrowRates,
             marketDistributeApys,
+            TVL,
             supplyBalances,
             borrowBalances,
             totalSupply: totalSupply.toNumber(),
@@ -376,7 +379,7 @@ export default function Layout({
   return (
     <>
       <Head>
-        <title>Drops NFT Loans</title>
+        <title>Drops Loans</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <meta
           name="viewport"
