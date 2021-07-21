@@ -10,6 +10,7 @@ import lpToken from './ABIs/lpToken.json'
 import MasterChef from './ABIs/MasterChef.json'
 import Vesting from './ABIs/Vesting.json'
 import veDOP from './ABIs/veDOP.json'
+import Guage from './ABIs/Guage.json'
 import { ZERO } from 'utils/constants'
 
 const DEFAULT_REFRESH = 5 * 1000
@@ -187,6 +188,10 @@ class DropsLoanLibrary {
           veDOP as any,
           addresses.VeDOP
         ),
+        Guage: new this.web3.eth.Contract(
+          Guage as any,
+          addresses.Guage
+        ),
       }
       this.subscriptions.push(
         this.contracts.Comptroller.events.allEvents({}).on('data', onEvent)
@@ -295,7 +300,15 @@ class DropsLoanLibrary {
           },
         ],
         VeDOP: {
+          balanceOf: call(this.contracts.VeDOP.methods.balanceOf),
+          supply: call(this.contracts.VeDOP.methods.supply),
+          locked: call(this.contracts.VeDOP.methods.locked),
           create_lock: send(this.contracts.VeDOP.methods.create_lock),
+          increase_amount: send(this.contracts.VeDOP.methods.increase_amount),
+          increase_unlock_time: send(this.contracts.VeDOP.methods.increase_unlock_time),
+        },
+        Guage: {
+          vote: send(this.contracts.Guage.methods.vote),
         },
         web3: {
           getBlock: (field: string = 'timestamp') =>

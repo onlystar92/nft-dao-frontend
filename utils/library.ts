@@ -222,3 +222,23 @@ export function getVestingInfo(vIndex, library) {
     vIndex,
   ])
 }
+
+export function getVeDOPInfo(library, dispatch) {
+  const { balanceOf, supply, locked } = library.methods.VeDOP
+  const account = library.wallet.address
+  Promise.all([
+    balanceOf(account),
+    locked(account),
+    supply(),
+  ]).then((infos) => {
+    dispatch({
+      type: 'veDOPInfo',
+      payload: {
+        veDOPBalance: infos[0],
+        lockedDOP: infos[1][0],
+        lockTime: infos[1][1],
+        totalLockedDOP: infos[2]
+      },
+    })
+  })
+}

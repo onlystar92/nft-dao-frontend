@@ -137,6 +137,10 @@ button.active {
   border: none;
 }
 
+.increaseBtn {
+  margin-bottom: var(--padding-narrow);
+}
+
 .lockDate {
   width: 100%;
   margin-bottom: 16px;

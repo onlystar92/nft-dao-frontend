@@ -15,6 +15,8 @@ interface IVeDOPForm {
   market: any
   vaults: any
   dopBalance: number
+  veDOPBalance: number
+  lockTime: number
   disabled: string
   allowed: boolean
   onSubmit: Function
@@ -33,12 +35,16 @@ const lockPeriod = [
   { duration: 208, unit: 'years' },
 ]
 
+let actionType = ''
+
 export default function VeDOPForm({
   network,
   pending,
   market,
   vaults,
   dopBalance,
+  veDOPBalance,
+  lockTime,
   disabled,
   allowed,
   onSubmit,
@@ -74,9 +80,9 @@ export default function VeDOPForm({
   const handleSubmit = (e) => {
     e.preventDefault()
     if (tab === 'lock') {
-      onSubmit({ amount: dopAmount, lockDate, type: tab })
-    } else if (tab === 'Vote') {
-      onSubmit({ amount: 0, type: tab })
+      onSubmit({ amount: dopAmount, lockDate, type: tab, actionType })
+    } else if (tab === 'vote') {
+      onSubmit({ selectedVaults, type: tab })
     } else if (tab === 'claim') {
       onSubmit({ amount: (market.pendingDop || 0).toString(10), type: tab })
     }
@@ -172,6 +178,19 @@ export default function VeDOPForm({
                       </span>
                     </label>
                   </div>
+                  {!new BigNumber(veDOPBalance || 0).isZero() && (
+                    <Button
+                      className={styles.increaseBtn}
+                      onClick={() => {
+                        actionType = 'INCREASE_LOCK_BALANCE'
+                      }}
+                      disabled={
+                        allowed && (dopAmount <= 0 || dopAmount > maxDopBalance)
+                      }
+                    >
+                      Increase Lock Balance
+                    </Button>
+                  )}
                   <div
                     className={`flex-center justify-between ${styles.lockDate}`}
                   >
@@ -180,14 +199,23 @@ export default function VeDOPForm({
                       type="date"
                       id="lockDate"
                       name="lockDate"
-                      value={moment().add(lockDate, 'weeks').format('YYYY-MM-DD')}
-                      onChange={(e) =>{
-                        const diff = Math.ceil(moment(e.target.value).diff(moment(), 'seconds') / (7 *24*60*60))
-                        if (diff > 0){
-                        setForm({
-                          ...form,
-                          lockDate: diff,
-                        })}
+                      value={(lockTime ? moment(lockTime * 1000) : moment())
+                        .add(lockDate, 'weeks')
+                        .format('YYYY-MM-DD')}
+                      onChange={(e) => {
+                        const diff = Math.ceil(
+                          moment(e.target.value).diff(
+                            lockTime ? moment(lockTime * 1000) : moment(),
+                            'seconds'
+                          ) /
+                            (7 * 24 * 60 * 60)
+                        )
+                        if (diff > 0) {
+                          setForm({
+                            ...form,
+                            lockDate: diff,
+                          })
+                        }
                       }}
                     />
                   </div>
@@ -197,30 +225,46 @@ export default function VeDOPForm({
                     {lockPeriod.map((l, index) => (
                       <div
                         className={`flex-all center cursor ${styles.period} ${
-                          duration === l.duration ? styles.currentLockPeriod : ''
+                          duration === l.duration
+                            ? styles.currentLockPeriod
+                            : ''
                         }`}
                         key={index}
                         onClick={() => setDuration(l.duration)}
                       >
-                        {`${l.duration / (l.unit === 'month' ? 4 : 52)} ${l.unit}`}
+                        {`${l.duration / (l.unit === 'month' ? 4 : 52)} ${
+                          l.unit
+                        }`}
                       </div>
                     ))}
                   </div>
-                  <div
+                  {/* <div
                     className={`flex-center justify-between ${styles.receiveVeDOP}`}
                   >
                     <span>You will receive</span>
                     <span>10 veDOP</span>
-                  </div>
-                  <Button
-                    disabled={
-                      allowed &&
-                      (dopAmount <= 0 ||
-                        dopAmount > maxDopBalance)
-                    }
-                  >
-                    {allowed ? 'Create Lock' : 'Enable'}
-                  </Button>
+                  </div> */}
+                  {new BigNumber(veDOPBalance || 0).isZero() ? (
+                    <Button
+                      onClick={() => {
+                        actionType = 'LOCK_BALANCE'
+                      }}
+                      disabled={
+                        allowed && (dopAmount <= 0 || dopAmount > maxDopBalance)
+                      }
+                    >
+                      {allowed ? 'Create Lock' : 'Enable'}
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => {
+                        actionType = 'INCREASE_LOCK_TIME'
+                      }}
+                      // disabled={}
+                    >
+                      Increase Lock Time
+                    </Button>
+                  )}
                 </>
               )}
               {tab === 'claim' && (
@@ -285,7 +329,15 @@ export default function VeDOPForm({
                     </div>
                   </div>
                   <div className="flex">
-                    <Button disabled={disabled || votesLeft !== 0}>Vote</Button>
+                    <Button
+                      disabled={
+                        disabled ||
+                        votesLeft !== 0 ||
+                        new BigNumber(veDOPBalance || 0).isZero()
+                      }
+                    >
+                      Vote
+                    </Button>
                   </div>
                 </>
               )}

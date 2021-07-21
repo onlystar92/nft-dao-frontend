@@ -13,8 +13,8 @@ export const initState = {
   totalSupply: 0,
   totalCash: 0,
   totalBorrow: 0,
-  borrowLimit: 0.5,
   netAPY: 0,
+  veDOPInfo: {}
 }
 
 const LOCAL_KEY = 'drops-loans'
@@ -67,7 +67,6 @@ export function reducer(state, action) {
         totalSupply: 0,
         totalCash: 0,
         totalBorrow: 0,
-        borrowLimit: 0.5,
         netAPY: 0,
       }
     }
@@ -79,6 +78,8 @@ export function reducer(state, action) {
       return { ...state, pools: action.payload }
     case 'vesting':
       return { ...state, vesting: action.payload }
+    case 'veDOPInfo':
+      return { ...state, veDOPInfo: action.payload }
     case 'allowance':
       return {
         ...state,

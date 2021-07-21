@@ -1,20 +1,41 @@
 import { abbreviateNumberSI, toShow } from 'utils/number'
 import BigNumber from 'bignumber.js'
 import styles from './Balance.module.css'
+import Highlight from 'components/Highlight/Highlight'
 
 interface IBalance {
-  TVL: BigNumber,
+  TVL: BigNumber
   totalCash: number
   totalBorrow: number
   netAPY: number
 }
 
-export default function Balance({ TVL, totalCash, totalBorrow, netAPY }: IBalance) {
+export default function Balance({
+  TVL,
+  totalCash,
+  totalBorrow,
+  netAPY,
+}: IBalance) {
   const borrowPercent = totalCash > 0 ? (totalBorrow / totalCash) * 100 : 0
+  let barBg = ''
+
+  if (borrowPercent >= 80) {
+    barBg = 'red'
+  } else if (borrowPercent >= 60) {
+    barBg = 'yellow'
+  } else {
+    barBg = 'blue'
+  }
+
   return (
     <div className={styles.balance}>
       <div className={`bold ${styles.loansTitle}`}>
-        TVL: {TVL ? `$${abbreviateNumberSI(TVL.toString(10), 2, 2)}` : ''}
+        TVL:{' '}
+        {TVL ? (
+          <Highlight value={`$${abbreviateNumberSI(TVL.toString(10), 6, 6)}`} />
+        ) : (
+          ''
+        )}
       </div>
       <div className={`flex-center ${styles.info}`}>
         <div className={styles.infoWrapper}>
@@ -39,11 +60,13 @@ export default function Balance({ TVL, totalCash, totalBorrow, netAPY }: IBalanc
         <div className={styles.status}>
           <div className={`flex-center ${styles.progress}`}>
             <span
-              className={styles.bar}
-              style={{ width: `${Math.min(borrowPercent, 100)}%` }}
+              className={`${styles.bar}`}
+              style={{ width: `${100 - Math.min(borrowPercent, 100)}%` }}
             />
             <div
-              className={`bold ${styles.percent}`}
+              className={`bold ${styles.percent} ${
+                styles[`percent_${barBg}`]
+              } ${styles[`bar_${barBg}`]}`}
               style={{ left: `calc(${Math.min(borrowPercent, 100)}% - 31px)` }}
             >
               {borrowPercent.toFixed(2)}%

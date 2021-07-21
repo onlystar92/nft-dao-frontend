@@ -10,6 +10,8 @@ import BorrowModal from 'components/Modal/BorrowModal'
 import { ZERO } from 'utils/constants'
 import { accountBalance } from 'layout'
 import styles from 'styles/Loans.module.css'
+import { abbreviateNumberSI } from 'utils/number'
+import Highlight from 'components/Highlight/Highlight'
 
 let gasInterval = null
 
@@ -338,7 +340,13 @@ export default function Loans(props) {
             <div className={`bold ${styles.supplyTitle}`}>
               Supply
               {totalSupply ? (
-                <span>${new BigNumber(totalSupply).dp(2).toString(10)}</span>
+                <Highlight
+                  value={`$${abbreviateNumberSI(
+                    new BigNumber(totalSupply).toString(10),
+                    6,
+                    6
+                  )}`}
+                />
               ) : (
                 ''
               )}
@@ -350,7 +358,7 @@ export default function Loans(props) {
                     <tr>
                       <th>Asset</th>
                       <th>APY</th>
-                      <th>Wallet</th>
+                      <th>Supplied</th>
                       <th>Collateral</th>
                     </tr>
                   </thead>
@@ -375,7 +383,9 @@ export default function Loans(props) {
                           onEnterMarket={(assetIn) =>
                             setEnterMarket({ ...market, assetIn })
                           }
-                          distributeApy={marketDistributeApys[market.underlyingAddress][0]}
+                          distributeApy={
+                            marketDistributeApys[market.underlyingAddress][0]
+                          }
                         />
                       ))}
                   </tbody>
@@ -418,7 +428,9 @@ export default function Loans(props) {
                         onEnterMarket={(assetIn) =>
                           setEnterMarket({ ...market, assetIn })
                         }
-                        distributeApy={marketDistributeApys[market.underlyingAddress][0]}
+                        distributeApy={
+                          marketDistributeApys[market.underlyingAddress][0]
+                        }
                       />
                     ))}
                 </tbody>
@@ -493,7 +505,13 @@ export default function Loans(props) {
             <div className={`bold ${styles.borrowTitle}`}>
               Borrow
               {totalBorrow ? (
-                <span>${new BigNumber(totalBorrow).dp(2).toString(10)}</span>
+                <Highlight
+                  value={`$${abbreviateNumberSI(
+                    new BigNumber(totalBorrow).toString(10),
+                    6,
+                    6
+                  )}`}
+                />
               ) : (
                 ''
               )}
@@ -505,7 +523,7 @@ export default function Loans(props) {
                     <tr>
                       <th>Asset</th>
                       <th>APY/Accrued</th>
-                      <th>Wallet</th>
+                      <th>Borrowed</th>
                       <th>% Of Limit</th>
                     </tr>
                   </thead>
@@ -528,7 +546,9 @@ export default function Loans(props) {
                           onBorrow={() =>
                             setBorrow({ ...market, borrowBalance: -1 })
                           }
-                          distributeApy={marketDistributeApys[market.underlyingAddress][1]}
+                          distributeApy={
+                            marketDistributeApys[market.underlyingAddress][1]
+                          }
                         />
                       ))}
                   </tbody>
@@ -567,7 +587,9 @@ export default function Loans(props) {
                         onBorrow={() =>
                           setBorrow({ ...market, borrowBalance: -1 })
                         }
-                        distributeApy={marketDistributeApys[market.underlyingAddress][1]}
+                        distributeApy={
+                          marketDistributeApys[market.underlyingAddress][1]
+                        }
                       />
                     ))}
                 </tbody>

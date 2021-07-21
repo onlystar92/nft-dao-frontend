@@ -1,0 +1,8 @@
+.hightLight {
+  color: var(--color-black);
+}
+
+.hightLight span {
+  font-size: 80%;
+  opacity: 0.5;
+}

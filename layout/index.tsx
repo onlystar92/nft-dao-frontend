@@ -100,7 +100,7 @@ export function accountBalance(library, dispatch) {
       ]) => {
         const balance = toNumber(fromWei(_balance))
         const rewardBalance = toNumber(fromWei(metadata.allocated))
-        const dopBalance = toNumber(fromWei(_dopBalance))
+        const dopBalance = fromWei(_dopBalance)
         const dopAllowance = toNumber(fromWei(_dopAllowance))
         const marketBalances = {}
         const marketAllowances = {}
@@ -193,7 +193,10 @@ export function accountBalance(library, dispatch) {
           )
           // Distribution APY Calculation
           const compSpeed = Number(
-            new BigNumber(_markets[idx][6]).div(10 ** 18).toString(10)
+            new BigNumber(_markets[idx][6])
+              .div(10 ** 18)
+              .times(0.5)
+              .toString(10)
           )
 
           const marketSupply = new BigNumber(_markets[idx][7]).times(
@@ -235,13 +238,21 @@ export function accountBalance(library, dispatch) {
                       .minus(1)
                   )
                   .toString(10)
-          TVL = TVL.plus((marketSupply.times(price)).minus(marketBorrows.times(price)))
-          totalDopSupplyEarning = totalDopSupplyEarning
-            .plus(supplyDopApy)
-            .times(totalSupply)
-          totalDopBorrowEarning = totalDopBorrowEarning
-            .plus(borrowDopApy)
-            .times(totalBorrow)
+          TVL = TVL.plus(
+            marketSupply.times(price).minus(marketBorrows.times(price))
+          )
+          totalDopSupplyEarning = totalDopSupplyEarning.plus(
+            new BigNumber(supplyDopApy)
+              .times(supplyBalances[address])
+              .times(price)
+              .div(100)
+          )
+          totalDopBorrowEarning = totalDopBorrowEarning.plus(
+            new BigNumber(borrowDopApy)
+              .times(borrowBalances[address])
+              .times(price)
+              .div(100)
+          )
           marketDistributeApys[address] = [supplyDopApy, borrowDopApy]
         })
 
@@ -440,15 +451,6 @@ export default function Layout({
                       veDOP
                     </div>
                   </Link>
-                  <Link href="/vesting">
-                    <div
-                      className={
-                        router.pathname === '/vesting' ? styles.activeMenu : ''
-                      }
-                    >
-                      Vesting
-                    </div>
-                  </Link>
                 </div>
                 <div className={styles.mobileMenu}>
                   <div className={styles.collapseContent} id="collapse-content">
@@ -494,17 +496,6 @@ export default function Layout({
                             }
                           >
                             veDOP
-                          </div>
-                        </Link>
-                        <Link href="/vesting">
-                          <div
-                            className={
-                              router.pathname === '/vesting'
-                                ? styles.activeMenu
-                                : ''
-                            }
-                          >
-                            Vesting
                           </div>
                         </Link>
                       </div>
@@ -571,45 +562,34 @@ export default function Layout({
                       router.pathname === '/staking' ? styles.activeMenu : ''
                     }
                   >
-                    Stake & earn
+                    Staking
                   </div>
                 </Link>
-                <Link href="/drops">
+                <Link href="/loans">
                   <div
                     className={
-                      router.pathname === '/drops' ? styles.activeMenu : ''
+                      router.pathname === '/loans' ? styles.activeMenu : ''
                     }
                   >
-                    Drops
+                    Loans
                   </div>
                 </Link>
-                <Link href="/wallet">
+                <Link href="/vedop">
                   <div
                     className={
-                      router.pathname === '/wallet' ? styles.activeMenu : ''
+                      router.pathname === '/vedop' ? styles.activeMenu : ''
                     }
                   >
-                    My Wallet
+                    veDOP
                   </div>
                 </Link>
-                <Link href="/terms-use">
+                <Link href="/vesting">
                   <div
                     className={
-                      router.pathname === '/terms-use' ? styles.activeMenu : ''
+                      router.pathname === '/vesting' ? styles.activeMenu : ''
                     }
                   >
-                    Terms of Use
-                  </div>
-                </Link>
-                <Link href="/privacy-policy">
-                  <div
-                    className={
-                      router.pathname === '/privacy-policy'
-                        ? styles.activeMenu
-                        : ''
-                    }
-                  >
-                    Privacy Policy
+                    Vesting
                   </div>
                 </Link>
               </div>

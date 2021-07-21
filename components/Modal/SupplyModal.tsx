@@ -194,7 +194,7 @@ export default function SupplyModal({
                           $
                           {abbreviateNumberSI(
                             Number(balance) * market.underlyingPriceUSD,
-                            0,
+                            2,
                             2,
                             market.underlyingDecimals
                           )}
@@ -203,7 +203,7 @@ export default function SupplyModal({
                           Available to supply{' '}
                           {abbreviateNumberSI(
                             Number(balance),
-                            0,
+                            4,
                             4,
                             market.underlyingDecimals
                           )}{' '}
@@ -291,7 +291,7 @@ export default function SupplyModal({
                         $
                         {abbreviateNumberSI(
                           Number(available) * market.underlyingPriceUSD,
-                          0,
+                          2,
                           2,
                           market.underlyingDecimals
                         )}
@@ -300,7 +300,7 @@ export default function SupplyModal({
                         Available to withdraw{' '}
                         {abbreviateNumberSI(
                           Number(available),
-                          0,
+                          4,
                           4,
                           market.underlyingDecimals
                         )}{' '}

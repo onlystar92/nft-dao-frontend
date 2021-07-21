@@ -38,7 +38,7 @@
 
 .container {
   position: relative;
-  padding: var(--padding-narrow) var(--padding-normal);
+  padding: var(--padding-narrow) var(--padding-normal) var(--padding-wide);
   margin-top: 0;
 }
 
@@ -53,7 +53,7 @@
   margin-bottom: 16px;
 }
 
-.supplyTitle span{
+.supplyTitle > span{
   margin-left: 16px;
   color: var(--color-blue);
 }
@@ -62,7 +62,7 @@
   padding-left: 12px;
 }
 
-.borrowTitle span {
+.borrowTitle > span {
   margin-left: 16px;
   color: var(--color-red);
 }

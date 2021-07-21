@@ -1,3 +1,4 @@
+import Highlight from 'components/Highlight/Highlight'
 import { abbreviateNumberSI, toShow } from 'utils/number'
 import styles from './AssetInfo.module.css'
 
@@ -46,12 +47,13 @@ export default function AssetInfo({
             <span>
               {infoType === 'supply' ? 'Borrow Limit' : 'Borrow Balance'}
             </span>
-            <span>
-              $
-              {infoType === 'supply'
-                ? (borrowLimit || Number(0)).toFixed(2)
-                : abbreviateNumberSI(borrowBalance, 7, 7)}
-            </span>
+            <Highlight
+              value={`$${
+                infoType === 'supply'
+                  ? abbreviateNumberSI(borrowLimit, 2, 2)
+                  : abbreviateNumberSI(borrowBalance, 2, 2)
+              }`}
+            />
           </div>
           <div className={`${styles.info} flex justify-between`}>
             <span>Borrow Limit Used</span>
