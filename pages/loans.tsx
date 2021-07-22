@@ -10,8 +10,6 @@ import BorrowModal from 'components/Modal/BorrowModal'
 import { ZERO } from 'utils/constants'
 import { accountBalance } from 'layout'
 import styles from 'styles/Loans.module.css'
-import { abbreviateNumberSI } from 'utils/number'
-import Highlight from 'components/Highlight/Highlight'
 
 let gasInterval = null
 
@@ -339,17 +337,9 @@ export default function Loans(props) {
           <div className="full">
             <div className={`bold ${styles.supplyTitle}`}>
               Supply
-              {totalSupply ? (
-                <Highlight
-                  value={`$${abbreviateNumberSI(
-                    new BigNumber(totalSupply).toString(10),
-                    6,
-                    6
-                  )}`}
-                />
-              ) : (
-                ''
-              )}
+              <span>
+                {totalSupply ? new BigNumber(totalSupply).toFormat(6) : ''}
+              </span>
             </div>
             {mySupplies.length > 0 && (
               <Table classes={{ title: 'first' }} labels={{}}>
@@ -505,13 +495,7 @@ export default function Loans(props) {
             <div className={`bold ${styles.borrowTitle}`}>
               Borrow
               {totalBorrow ? (
-                <Highlight
-                  value={`$${abbreviateNumberSI(
-                    new BigNumber(totalBorrow).toString(10),
-                    6,
-                    6
-                  )}`}
-                />
+                <span>{new BigNumber(totalBorrow).toFormat(6)}</span>
               ) : (
                 ''
               )}

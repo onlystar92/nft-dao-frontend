@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js'
 import Slider from 'components/Slider/Slider'
-import Highlight from 'components/Highlight/Highlight'
 import { abbreviateNumberSI, toShow } from 'utils/number'
 import styles from './Market.module.css'
 
@@ -67,17 +66,15 @@ export default function SupplyMarket({
         <span className={styles.mobileLabel}>Wallet</span>
         <div>
           <p>
-            <Highlight
-              value={abbreviateNumberSI(Number(balance), 6, 6)}
-              unit={market.underlyingSymbol}
-            />
+            {abbreviateNumberSI(Number(balance), 2, 2)}{' '}
+            {market.underlyingSymbol}
           </p>
           <p className={styles.balanceUsd}>
             $
             {abbreviateNumberSI(
               Number(balance) * market.underlyingPriceUSD,
-              6,
-              6,
+              2,
+              2,
               market.underlyingDecimals
             )}
           </p>

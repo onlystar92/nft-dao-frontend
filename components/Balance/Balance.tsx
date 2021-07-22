@@ -1,7 +1,6 @@
 import { abbreviateNumberSI, toShow } from 'utils/number'
 import BigNumber from 'bignumber.js'
 import styles from './Balance.module.css'
-import Highlight from 'components/Highlight/Highlight'
 
 interface IBalance {
   TVL: BigNumber
@@ -22,7 +21,7 @@ export default function Balance({
   if (borrowPercent >= 80) {
     barBg = 'red'
   } else if (borrowPercent >= 60) {
-    barBg = 'yellow'
+    barBg = 'blue'
   } else {
     barBg = 'blue'
   }
@@ -30,12 +29,7 @@ export default function Balance({
   return (
     <div className={styles.balance}>
       <div className={`bold ${styles.loansTitle}`}>
-        TVL:{' '}
-        {TVL ? (
-          <Highlight value={`$${abbreviateNumberSI(TVL.toString(10), 6, 6)}`} />
-        ) : (
-          ''
-        )}
+        TVL: {TVL ? `$${abbreviateNumberSI(TVL.toString(10), 2, 2)}` : ''}
       </div>
       <div className={`flex-center ${styles.info}`}>
         <div className={styles.infoWrapper}>
