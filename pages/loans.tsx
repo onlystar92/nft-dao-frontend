@@ -337,9 +337,11 @@ export default function Loans(props) {
           <div className="full">
             <div className={`bold ${styles.supplyTitle}`}>
               Supply
-              <span>
-                {totalSupply ? new BigNumber(totalSupply).toFormat(6) : ''}
-              </span>
+              {totalSupply ? (
+                <span>${new BigNumber(totalSupply).toFormat(6)}</span>
+              ) : (
+                ''
+              )}
             </div>
             {mySupplies.length > 0 && (
               <Table classes={{ title: 'first' }} labels={{}}>
@@ -495,7 +497,7 @@ export default function Loans(props) {
             <div className={`bold ${styles.borrowTitle}`}>
               Borrow
               {totalBorrow ? (
-                <span>{new BigNumber(totalBorrow).toFormat(6)}</span>
+                <span>${new BigNumber(totalBorrow).toFormat(6)}</span>
               ) : (
                 ''
               )}
