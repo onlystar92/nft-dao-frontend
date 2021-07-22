@@ -42,21 +42,37 @@
 .progress {
   position: relative;
   height: 8px;
-  background: var(--color-divider);
-  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-blue) 0%,
+    var(--color-yellow) 60%,
+    var(--color-red) 100%
+  );
+  border-radius: 5px;
 }
 
 .bar {
   position: absolute;
   height: 8px;
-  left: 0;
-  border-radius: 2px;
-  background-color: var(--color-blue);
+  right: 0;
+  border-radius: 5px;
+  background: var(--color-divider);
+}
+
+.bar_red {
+  background: var(--color-red);
+}
+
+.bar_yellow {
+  background: var(--color-yellow);
+}
+
+.bar_blue {
+  background: var(--color-blue);
 }
 
 .percent {
   position: absolute;
-  background: var(--color-blue);
   box-shadow: var(--box-shadow-borrow-limit-btn);
   border-radius: 12px;
   padding: 4px 12px;
@@ -65,9 +81,21 @@
   color: var(--color-white);
 }
 
+.percent_red {
+  background: var(--color-red);
+}
+
+.percent_yellow {
+  background: var(--color-yellow);
+}
+
+.percent_blue {
+  background: var(--color-blue);
+}
+
 .mobileInfo {
   display: none;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: var(--common-shadow);
   border-radius: 16px;
   padding: 16px;
@@ -86,7 +114,7 @@
   .infoWrapper .label {
     font-size: var(--font-size-normal);
   }
-  
+
   .infoWrapper .value {
     font-size: var(--font-size-normal);
   }

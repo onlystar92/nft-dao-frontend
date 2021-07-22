@@ -48,23 +48,28 @@ export default function BorrowMarket({
             new BigNumber(borrowRatePerBlock * blocksPerDay + 1)
               .pow(daysPerYear)
               .minus(1)
-              .times(100).times(-1).plus(distributeApy)
+              .times(100)
+              // .times(-1)
+              // .plus(distributeApy)
               .dp(2, 1)
               .toString(10),
             2
           )}
           %
         </p>
+        <p className={styles.balanceUsd}>
+          {toShow(new BigNumber(distributeApy), 2)}% (DOP)
+        </p>
       </td>
       <td>
         <p>
-          {abbreviateNumberSI(Number(balance), 0, 2)} {market.underlyingSymbol}
+          {abbreviateNumberSI(Number(balance), 2, 2)} {market.underlyingSymbol}
         </p>
         <p className={styles.balanceUsd}>
           $
           {abbreviateNumberSI(
             Number(balance) * market.underlyingPriceUSD,
-            0,
+            2,
             2,
             market.underlyingDecimals
           )}
@@ -95,7 +100,7 @@ export default function BorrowMarket({
             $
             {abbreviateNumberSI(
               Number(market.cash) * market.underlyingPriceUSD,
-              0,
+              2,
               2,
               market.underlyingDecimals
             )}

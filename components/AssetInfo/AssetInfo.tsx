@@ -46,12 +46,11 @@ export default function AssetInfo({
             <span>
               {infoType === 'supply' ? 'Borrow Limit' : 'Borrow Balance'}
             </span>
-            <span>
-              $
-              {infoType === 'supply'
-                ? (borrowLimit || Number(0)).toFixed(2)
-                : abbreviateNumberSI(borrowBalance, 7, 7)}
-            </span>
+            <span>{`$${
+              infoType === 'supply'
+                ? abbreviateNumberSI(borrowLimit, 2, 2)
+                : abbreviateNumberSI(borrowBalance, 2, 2)
+            }`}</span>
           </div>
           <div className={`${styles.info} flex justify-between`}>
             <span>Borrow Limit Used</span>

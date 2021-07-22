@@ -337,11 +337,9 @@ export default function Loans(props) {
           <div className="full">
             <div className={`bold ${styles.supplyTitle}`}>
               Supply
-              {totalSupply ? (
-                <span>${new BigNumber(totalSupply).dp(2).toString(10)}</span>
-              ) : (
-                ''
-              )}
+              <span>
+                {totalSupply ? new BigNumber(totalSupply).toFormat(6) : ''}
+              </span>
             </div>
             {mySupplies.length > 0 && (
               <Table classes={{ title: 'first' }} labels={{}}>
@@ -350,7 +348,7 @@ export default function Loans(props) {
                     <tr>
                       <th>Asset</th>
                       <th>APY</th>
-                      <th>Wallet</th>
+                      <th>Supplied</th>
                       <th>Collateral</th>
                     </tr>
                   </thead>
@@ -375,7 +373,9 @@ export default function Loans(props) {
                           onEnterMarket={(assetIn) =>
                             setEnterMarket({ ...market, assetIn })
                           }
-                          distributeApy={marketDistributeApys[market.underlyingAddress][0]}
+                          distributeApy={
+                            marketDistributeApys[market.underlyingAddress][0]
+                          }
                         />
                       ))}
                   </tbody>
@@ -418,7 +418,9 @@ export default function Loans(props) {
                         onEnterMarket={(assetIn) =>
                           setEnterMarket({ ...market, assetIn })
                         }
-                        distributeApy={marketDistributeApys[market.underlyingAddress][0]}
+                        distributeApy={
+                          marketDistributeApys[market.underlyingAddress][0]
+                        }
                       />
                     ))}
                 </tbody>
@@ -493,7 +495,7 @@ export default function Loans(props) {
             <div className={`bold ${styles.borrowTitle}`}>
               Borrow
               {totalBorrow ? (
-                <span>${new BigNumber(totalBorrow).dp(2).toString(10)}</span>
+                <span>{new BigNumber(totalBorrow).toFormat(6)}</span>
               ) : (
                 ''
               )}
@@ -505,7 +507,7 @@ export default function Loans(props) {
                     <tr>
                       <th>Asset</th>
                       <th>APY/Accrued</th>
-                      <th>Wallet</th>
+                      <th>Borrowed</th>
                       <th>% Of Limit</th>
                     </tr>
                   </thead>
@@ -528,7 +530,9 @@ export default function Loans(props) {
                           onBorrow={() =>
                             setBorrow({ ...market, borrowBalance: -1 })
                           }
-                          distributeApy={marketDistributeApys[market.underlyingAddress][1]}
+                          distributeApy={
+                            marketDistributeApys[market.underlyingAddress][1]
+                          }
                         />
                       ))}
                   </tbody>
@@ -567,7 +571,9 @@ export default function Loans(props) {
                         onBorrow={() =>
                           setBorrow({ ...market, borrowBalance: -1 })
                         }
-                        distributeApy={marketDistributeApys[market.underlyingAddress][1]}
+                        distributeApy={
+                          marketDistributeApys[market.underlyingAddress][1]
+                        }
                       />
                     ))}
                 </tbody>

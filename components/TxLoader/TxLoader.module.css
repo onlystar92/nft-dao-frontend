@@ -5,6 +5,15 @@
   align-items: center;
 }
 
+.loader .loadingAnimation {
+  width: 80px;
+  height: 80px;
+  background-image: url('/assets/tx_pending.gif');
+  border-radius: 50%;
+  background-size: contain;
+  padding: 8px;
+}
+
 .loader p {
   text-transform: uppercase;
   color: var(--color-black);

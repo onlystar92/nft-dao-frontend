@@ -33,6 +33,8 @@ const defaults = {
   repayAmount: 0,
 }
 
+const BORRW_MANTISSA = 1
+
 export default function BorrowModal({
   pending,
   market,
@@ -58,11 +60,11 @@ export default function BorrowModal({
   const borrowed = (borrowLimit * (100 - borrowLimitUsed)) / 100
   const available = market
     ? new BigNumber(borrowed)
-        .times(0.5)
+        .times(BORRW_MANTISSA)
         .isGreaterThan(new BigNumber(market.cash))
       ? new BigNumber(market.cash)
       : new BigNumber(borrowed)
-          .times(0.5)
+          .times(BORRW_MANTISSA)
           .dp(market.underlyingDecimals, 1)
           .toString(10)
     : 0
@@ -163,7 +165,9 @@ export default function BorrowModal({
                         onClick={() =>
                           setForm({
                             ...form,
-                            borrowAmount: available,
+                            borrowAmount: new BigNumber(available)
+                              .times(0.8)
+                              .toFixed(market.underlyingDecimals),
                           })
                         }
                       >
@@ -178,19 +182,29 @@ export default function BorrowModal({
                         $
                         {abbreviateNumberSI(
                           Number(available) * market.underlyingPriceUSD,
-                          0,
+                          2,
                           2,
                           market.underlyingDecimals
                         )}
                       </span>
                       <span>
                         Available to borrow{' '}
-                        {abbreviateNumberSI(
-                          Number(available),
-                          0,
-                          4,
-                          market.underlyingDecimals
-                        )}{' '}
+                        <span
+                          className="bold cursor"
+                          onClick={() =>
+                            setForm({
+                              ...form,
+                              borrowAmount: available,
+                            })
+                          }
+                        >
+                          {abbreviateNumberSI(
+                            Number(available),
+                            4,
+                            4,
+                            market.underlyingDecimals
+                          )}
+                        </span>{' '}
                         {market.underlyingSymbol}
                       </span>
                     </label>
@@ -263,7 +277,7 @@ export default function BorrowModal({
                           $
                           {abbreviateNumberSI(
                             Number(balance) * market.underlyingPriceUSD,
-                            0,
+                            2,
                             2,
                             market.underlyingDecimals
                           )}
@@ -272,7 +286,7 @@ export default function BorrowModal({
                           Available to repay{' '}
                           {abbreviateNumberSI(
                             Number(balance),
-                            0,
+                            4,
                             4,
                             market.underlyingDecimals
                           )}{' '}

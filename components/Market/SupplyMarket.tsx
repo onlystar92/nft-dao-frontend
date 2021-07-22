@@ -50,26 +50,30 @@ export default function SupplyMarket({
             new BigNumber(supplyRatePerBlock * blocksPerDay + 1)
               .pow(daysPerYear)
               .minus(1)
-              .times(100).plus(distributeApy)
+              .times(100)
+              // .plus(distributeApy)
               .dp(2, 1)
               .toString(10),
             2
           )}
           %
         </p>
+        <p className={styles.balanceUsd}>
+          {toShow(new BigNumber(distributeApy), 2)}% (DOP)
+        </p>
       </td>
       <td>
         <span className={styles.mobileLabel}>Wallet</span>
         <div>
           <p>
-            {abbreviateNumberSI(Number(balance), 0, 2)}{' '}
+            {abbreviateNumberSI(Number(balance), 2, 2)}{' '}
             {market.underlyingSymbol}
           </p>
           <p className={styles.balanceUsd}>
             $
             {abbreviateNumberSI(
               Number(balance) * market.underlyingPriceUSD,
-              0,
+              2,
               2,
               market.underlyingDecimals
             )}

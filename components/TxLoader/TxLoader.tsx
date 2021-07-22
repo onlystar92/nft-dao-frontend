@@ -18,7 +18,9 @@ export default function TxLoader({ hash, network }: ITxLoader) {
   const text = hash ? 'Transaction pending...' : 'Waiting confirmation...'
   return (
     <div className={styles.loader}>
-      <img src="/assets/tx_pending.png" />
+      <div className={`flex-all ${styles.loadingAnimation}`}>
+        <img src="/assets/clock.svg" />
+      </div>
       <p>{text}</p>
       {hash && <Button href={getEtherscan(hash, network)} className="padded">View on {scanLabels[network] || 'Etherscan'}</Button>}
     </div>
