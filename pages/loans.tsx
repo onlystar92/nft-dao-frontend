@@ -349,7 +349,7 @@ export default function Loans(props) {
                   <thead>
                     <tr>
                       <th>Asset</th>
-                      <th>APY</th>
+                      <th>APY / DOP</th>
                       <th>Supplied</th>
                       <th>Collateral</th>
                     </tr>
@@ -394,7 +394,7 @@ export default function Loans(props) {
                 <thead>
                   <tr>
                     <th>Asset</th>
-                    <th>APY</th>
+                    <th>APY / DOP</th>
                     <th>Wallet</th>
                     <th>Collateral</th>
                   </tr>
@@ -508,7 +508,7 @@ export default function Loans(props) {
                   <thead>
                     <tr>
                       <th>Asset</th>
-                      <th>APY/Accrued</th>
+                      <th>APY / DOP</th>
                       <th>Borrowed</th>
                       <th>% Of Limit</th>
                     </tr>
@@ -551,7 +551,7 @@ export default function Loans(props) {
                 <thead>
                   <tr>
                     <th>Asset</th>
-                    <th>APY</th>
+                    <th>APY / DOP</th>
                     <th>Wallet</th>
                     <th>Liquidity</th>
                   </tr>

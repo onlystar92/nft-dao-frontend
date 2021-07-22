@@ -14,8 +14,8 @@
 }
 
 .balanceUsd {
-  font-size: 12px;
-  color: var(--color-gray);
+  font-size: 13px;
+  color: var(--color-black1);
 
   display: flex;
   align-items: center;
