@@ -59,7 +59,8 @@ export default function SupplyMarket({
           %
         </p>
         <p className={styles.balanceUsd}>
-          {toShow(new BigNumber(distributeApy), 2)}% (DOP)
+          <img src="/assets/token.png" />
+          &nbsp;{toShow(new BigNumber(distributeApy), 2)}%
         </p>
       </td>
       <td>
