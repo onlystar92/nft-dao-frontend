@@ -165,7 +165,9 @@ export default function BorrowModal({
                         onClick={() =>
                           setForm({
                             ...form,
-                            borrowAmount: available,
+                            borrowAmount: new BigNumber(available)
+                              .times(0.8)
+                              .toFixed(market.underlyingDecimals),
                           })
                         }
                       >
@@ -187,12 +189,22 @@ export default function BorrowModal({
                       </span>
                       <span>
                         Available to borrow{' '}
-                        {abbreviateNumberSI(
-                          Number(available),
-                          4,
-                          4,
-                          market.underlyingDecimals
-                        )}{' '}
+                        <span
+                          className="bold cursor"
+                          onClick={() =>
+                            setForm({
+                              ...form,
+                              borrowAmount: available,
+                            })
+                          }
+                        >
+                          {abbreviateNumberSI(
+                            Number(available),
+                            4,
+                            4,
+                            market.underlyingDecimals
+                          )}
+                        </span>{' '}
                         {market.underlyingSymbol}
                       </span>
                     </label>
