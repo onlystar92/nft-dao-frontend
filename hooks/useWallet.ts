@@ -33,7 +33,7 @@ export default function useWallet(dispatch, markets) {
       walletconnect: {
         package: WalletConnectProvider, // required
         options: {
-          infuraId: '74d05a47b2814d4da023f4839fafbe9b', // Required
+          infuraId: 'f76b988b6d8649e8bae2f840a110d80f', // Required
         },
       },
     }

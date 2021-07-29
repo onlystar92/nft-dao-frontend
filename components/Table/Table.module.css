@@ -2,6 +2,10 @@
   text-align: left;
 }
 
+.table table {
+  white-space: nowrap;
+}
+
 .first {
   margin-right: 12px;
 }
