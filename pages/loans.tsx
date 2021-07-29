@@ -313,7 +313,7 @@ export default function Loans(props) {
     <>
       <section className={styles.header}>
         <div className={`limited`}>
-          {disclaimer && (
+          {disclaimer && false && (
             <div className={styles.disclaimer}>
               This is Beta of Drops Loans v1. It is provided "as is" and we
               don't make any warranties, including that Drops is error-free or
