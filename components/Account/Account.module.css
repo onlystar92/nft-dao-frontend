@@ -20,11 +20,16 @@
   padding: 8px;
   border-radius: 40px;
   border: 1px solid var(--color-divider);
+  min-height: 46px;
+}
+
+.info a {
+  display: flex;
 }
 
 .info img {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
 }
 

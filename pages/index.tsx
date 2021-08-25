@@ -1,59 +1,155 @@
+import Link from 'next/link'
 import styles from 'styles/Home.module.css'
 import styled from 'styled-components'
+import Button from 'components/Button/Button'
 import AnnounceCap from 'components/Home/AnnounceCap'
 import Header from 'components/Home/Header'
 import HowItWorks from 'components/Home/HowItWorks'
 import MoreUtility from 'components/Home/MoreUtility'
+import SupportNFTs from 'components/Home/SupportNFTs'
 import TeamMember from 'components/Home/TeamMember'
 import Footer from 'components/Home/Footer'
 import {
   dataHowItWorks,
   dataMoreNFTs,
+  dataSupportNFTS,
   dataTeam,
+  dataInvestor,
+  dataPartner,
 } from 'helpers/dummy'
 import { useEffect } from 'react'
 
 const Section = styled.div`
-  padding: 60px 20%;
-  width: 100vw;
-  max-width: 100%;
-
-  @media screen and (max-width: 1920px) {
-    padding 60px 15%;
-  }
-
-  @media screen and (max-width: 1440px) {
-    padding 60px;
-  }
-
-  @media screen and (max-width: 768px) {
-    padding 60px 20px;
+  &.limited {
+    max-width: 1440px;
   }
 
   &.section-1 {
-    background: url("/static/images/bg/bg-1.png") #FBF9F8;
+    position: relative;
+    min-height: 600px;
+    background: url("/static/images/bg/bg-1.png");
     background-repeat: no-repeat;
-    background-position: top right;
-    height: calc(100vh - 156px);
+    background-size: 100% 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    padding: 64px 64px 0px;
 
-    .available-on-icon-header {
-      text-transform: none;
-      margin-bottom: 0;
+    .title {
+      max-width: 620px;
+      font-weight: bold;
+      font-size: 80px;
+      color: var(--color-white);
+      letter-spacing: -0.04em;
+      margin: 0;
+      z-index: 1;
+
+      @media screen and (max-width: 1024px) {
+        font-size: 64px;
+      }
+      @media screen and (max-width: 768px) {
+        font-size: 40px;
+      }
+    }
+
+    p {
+      font-weight: bold;
+      font-size: 40px;
+      letter-spacing: -0.04em;
+      color: var(--color-gold);
+      margin-top: 40px;
+      margin-bottom; 64px;
+      z-index: 1;
+
+      @media screen and (max-width: 768px) {
+        font-size: 32px;
+      }
+      @media screen and (max-width: 360px) {
+        font-size: 24px;
+      }
+    }
+
+    button {
+      width: 208px;
+      height: 80px;
+      background: var(--color-white);
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 24px;
+      letter-spacing: -0.04em;
+      color: var(--color-black);
+      z-index: 1;
     }
   }
 
   &.section-2 {
-    background: url("/static/images/bg/bg-2.png") #FBF9F8;
-    background-repeat: no-repeat;
-    background-position: bottom left;
-    height: 50px;
+    position: relative;
+    @media screen and (max-width: 360px) {
+      display: none;
+    }
+    &::before {
+      content: ' ';
+      position: absolute;
+      background: url(/static/images/bg/bg-3.png);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      width: 100%;
+      height: 125px;
+      top: -45px;
+      left: 0;
+    }
+
+    .scroll-down {
+      z-index: 1;
+      margin-top: 0px;
+      margin-right: 80px;
+
+      @media screen and (max-width: 1280px) {
+        margin-right: 40px;
+      }
+      @media screen and (max-width: 1024px) {
+        margin-right: 10px;
+      }
+      @media screen and (max-width: 768px) {
+        margin-top: -14px;
+      }
+      img {
+        margin-right: 17px;
+        @media screen and (max-width: 768px) {
+          margin-right: 4px;
+        }
+      }
+      span {
+        font-weight: bold;
+        font-size: 24px;
+        letter-spacing: -0.04em;
+        color: var(--color-white);
+
+        @media screen and (max-width: 1024px) {
+          font-size: 20px;
+        }
+        @media screen and (max-width: 568px) {
+          font-size: 10px;
+        }
+      }
+    }
   }
 
   &.section-3 {
-    background: #FFF;
+    margin-top: 60px;
+
+    .title {
+      max-width: 633px;
+      font-weight: bold;
+      font-size: 80px;
+      letter-spacing: -0.04em;
+      color: var(--color-black);
+      @media screen and (max-width: 1024px) {
+        font-size: 64px;
+      }
+      @media screen and (max-width: 768px) {
+        font-size: 40px;
+      }
+    }
 
     .section-3-content {
       display: flex;
@@ -66,94 +162,37 @@ const Section = styled.div`
     }
 
     .section-3-item {
-      width: 30%;
+      width: 32%;
 
       @media screen and (max-width: 768px) {
         width: 100%;
       }
-    }
-
-    .supported-projects {
-      margin-top: 60px;
-
-      @media screen and (max-width: 768px) {
-        margin-top: 15px;
-      }
-    }
-  }
-
-  &.section-4 {
-    background: #FBF9F8;
-    padding-bottom: 60px;
-
-    .section-4-content {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      margin-bottom: 60px;
-      text-align: center;
-      font-family: Montserrat;
-      font-style: normal;
-      font-weight: 300;
-      font-size: 16px;
-      line-height: 28px;
-
-      padding: 0 160px;
-      letter-spacing: 0.1em;
-
-      @media screen and (max-width: 768px) {
-        flex-direction: column;
-        font-size: 14px;
-        padding: 0;
-      }
-
-      @media screen and (min-width: 769px) and (max-width: 1200px) {
-        padding: 0 80px;
-      }
-
-      &--first {
-        margin-bottom: 20px;
-      }
-    }
-
-    .section-4-item {
-      width: 30%;
-
-      @media screen and (max-width: 768px) {
-        width: 100%;
-      }
-    }
-
-    .supported-projects {
-      margin-top: 60px;
     }
   }
 
   &.section-5 {
-    background: url("/static/images/bg/bg-3.png") #FFF;
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: 100%;
     padding-top: 60px;
-    padding-bottom: 440px;
 
-    @media screen and (max-width: 1920px) {
-      padding-bottom: 240px;
-    }
-
-    @media screen and (max-width: 768px) {
-      padding-bottom: 120px;
+    .title {
+      font-weight: bold;
+      font-size: 80px;
+      letter-spacing: -0.04em;
+      color: var(--color-black);
+      @media screen and (max-width: 1024px) {
+        font-size: 64px;
+      }
+      @media screen and (max-width: 768px) {
+        font-size: 40px;
+      }
     }
 
     .section-5-content {
       display: flex;
-      flex-flow: row wrap;
-      justify-content: space-between;
+      flex-direction: column;
     }
 
     .section-5-item {
-      width: 45%;
-      margin-bottom: 34px;
+      margin-bottom: 24px;
 
       @media screen and (max-width: 768px) {
         width: 100%;
@@ -162,108 +201,151 @@ const Section = styled.div`
   }
 
   &.section-6 {
-    background: #FBF9F8;
-    padding-bottom: 60px;
+    background: #FFF;
+
+    .title {
+      max-width: 730px;
+      font-weight: bold;
+      font-size: 80px;
+      letter-spacing: -0.04em;
+      color: var(--color-black);
+      @media screen and (max-width: 1024px) {
+        font-size: 64px;
+      }
+      @media screen and (max-width: 768px) {
+        font-size: 40px;
+      }
+    }
 
     .section-6-content {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      margin-bottom: 60px;
 
       @media screen and (max-width: 768px) {
         flex-direction: column;
-        align-items: center;
       }
     }
 
     .section-6-item {
-      width: 18%;
+      width: 32%;
+
       @media screen and (max-width: 768px) {
-        width: 80%;
-        margin-bottom: 23px;
+        width: 100%;
       }
     }
   }
 
-  &.section-7 {
-    // background: url("/static/images/bg/bg-5.png") #FFF;
+  &.section-10 {
+    position: relative;
+    height: 423px;
+    background: url("/static/images/bg/bg-8.png");
     background-repeat: no-repeat;
-    background-position: top right;
+    background-size: 100% 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding-top: 140px;
+    padding: 64px 64px 0px;
+    margin-top: 152px;
 
-    .investor-img {
-      margin: 1rem;
+    @media screen and (max-width: 768px) {
+      height: 264px;
+      padding: 48px 48px 0px;
+      margin-top: 60px;
+    }
+
+    @media screen and (max-width: 360px) {
+      height: 460px;
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: 80px;
+      color: var(--color-white);
+      letter-spacing: -0.04em;
+      margin: 0;
+      z-index: 1;
+      margin-bottom: 64px;
+
+      @media screen and (max-width: 1280px) {
+        margin-bottom: 32px;
+      }
+
+      @media screen and (max-width: 1024px) {
+        font-size: 64px;
+      }
+      @media screen and (max-width: 768px) {
+        font-size: 40px;
+      }
+    }
+
+    button {
+      width: 208px;
+      height: 80px;
+      background: var(--color-white);
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 24px;
+      letter-spacing: -0.04em;
+      color: var(--color-black);
+      z-index: 1;
     }
   }
 
-  &.section-8 {
-    background: url("/static/images/bg/bg-4.png") #FFF;
-    background-repeat: no-repeat;
-    background-position: bottom left;
-    background-size: contain;
-    height: 150px;
-  }
-
-   &.section-9 {
-    background: #FBF9F8;
+  &.section-9,
+  &.section-8,
+  &.section-7 {
     display: flex;
     flex-direction: column;
-    justify-content: center;  
-    padding-top: 140px;
+
+    .title {
+      font-weight: bold;
+      font-size: 80px;
+      letter-spacing: -0.04em;
+      color: var(--color-black);
+      @media screen and (max-width: 1024px) {
+        font-size: 64px;
+      }
+      @media screen and (max-width: 768px) {
+        font-size: 40px;
+      }
+    }
 
     .partner-img {
-      margin: 1rem;
-    }
-  }
-
-  &.section-10 {
-    background: url("/static/images/bg/bg-6.png") #FFF;
-    background-repeat: no-repeat;
-    background-position: bottom left;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-top: 140px;
-    padding-bottom: 140px;
-
-    @media screen and (max-width: 768px) {
-      padding-top: 130px;
-      background: url("/static/images/bg/bg-5.png") #FFF;
-      background-repeat: no-repeat;
-      background-position: top right;
-      background-size: 50%;
-      padding-bottom: 0px;
-    }
-
-    .subscribe {
-      margin-top: 26px;
-      display: flex;
-      justify-content: center;
-    }
-  }
-
-  &.section-11 {
-    display: none;
-    
-    @media screen and (max-width: 768px) {
-      display: block;
-      background: url("/static/images/bg/bg-4.png") #FFF;
-      background-repeat: no-repeat;
-      background-position: bottom left;
-      background-size: contain;
-      height: 150px;
+      width: 100%;
+      cursor: pointer;
     }
   }
 
   .section-images {
     display: flex;
     flex-wrap: wrap;
-    text-align: center;
-    justify-content: center;
+    justify-content: flex-start;
+
+    .partner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 198px;
+      height: 80px;
+      border: 1px solid #EDEDED;
+      box-sizing: border-box;
+      border-radius: 16px;
+      padding: 6px 21px;
+      margin: 12px;
+
+      @media screen and (max-width: 1024px) {
+        width: 166px;
+        height: 72px;
+      }
+      @media screen and (max-width: 768px) {
+        width: 224px;
+        height: 80px;
+      }
+      @media screen and (max-width: 576px) {
+        width: calc(50% - 24px);
+        height: 92px;
+      }
+    }
   }
 `
 
@@ -277,78 +359,26 @@ export default function Home() {
       <div className={styles.content}>
         <AnnounceCap />
         <Header />
-        <Section className="section-1">
-          <h1 className="font-color-dark font-size-lg text-center">
-            Loans for NFT and DeFi assets
-          </h1>
-          <p className="font-color-dark font-size-xd text-center">
-            Get more leverage out of your assets for loans and yield-farming
-          </p>
-          <div className="d-flex justify-content-center">
-            <a
-              href="https://drops.co/loans"
-              className="link-button  dark m-10 font-button"
-              rel="noopener noreferrer"
-              style={{ marginTop: 25, marginBottom: 25 }}
-            >
-              Launch App
-            </a>
-            {/* <a
-              href="https://docsend.com/view/e9nq2waxia63hrq7"
-              target="_blank"
-              className="link-button  light m-10 font-button"
-              rel="noopener noreferrer"
-            >
-              WHITEPAPER
-            </a> */}
-          </div>
-          <p className="font-color-dark font-size-xd available-on-icon-header text-center">
-            Available on
-          </p>
-          <div className="d-flex justify-content-center" style={{ marginTop: 10 }}>
-            <a
-              className="social m-10"
-              href="https://v2.info.uniswap.org/pair/0x00aa1c57e894c4010fe44cb840ae56432d7ea1d1"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                width="66"
-                height="66"
-                src="/static/images/icons/uniswap.png"
-                alt=""
-              />
-            </a>
-            <a
-              className="social m-10"
-              href="https://gate.io/trade/DOP_USDT"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                width="66"
-                height="66"
-                src="/static/images/icons/gate.png"
-                alt=""
-              />
-            </a>
-            <a
-              className="social m-10"
-              href="https://www.jbex.cc/exchange/DOP1/USDT"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                height="66"
-                src="/static/images/icons/jubi.png"
-                alt=""
-              />
-            </a>
+        <Section className="section-1 limited">
+          <h1 className="title">Loans for NFT and DeFi assets</h1>
+          <p>Market: $1,000,000</p>
+          <Link href="/loans">
+            <Button>Launch app</Button>
+          </Link>
+        </Section>
+        <Section className="flex-center justify-end section-2 limited">
+          <div className="flex-center cursor scroll-down" onClick={() => {
+            window.scrollTo({
+              top: document.body.scrollHeight,
+              behavior: 'smooth',
+            })
+          }}>
+            <img src="/static/images/icons/scroll-down.png" alt="scrolldown" />
+            <span>Scroll down</span>
           </div>
         </Section>
-        <Section className="section-2" />
-        <Section className="section-3">
-          <h2 className="font-color-dark font-size-lg">What can you do at Drops?</h2>
+        <Section className="section-3 limited">
+          <h2 className="title">What can you do at Drops?</h2>
           <div className="section-3-content">
             {dataHowItWorks.map((d, index) => (
               <HowItWorks
@@ -360,143 +390,81 @@ export default function Home() {
             ))}
           </div>
         </Section>
-        <Section className="section-4">
-          <h2 className="font-color-dark font-size-lg text-center">
-            More Utility For Your NFTs
-          </h2>
-          <div className="section-4-content section-4-content--first">
-            Drops brings DeFi-style infrastructure to NFTs, adding much-needed
-            utility to idle NFT assets. Users can leverage their NFTs to obtain
-            loans and earn real yield, reducing the opportunity cost of holding
-            NFTs long-term.
-          </div>
-          <div className="section-4-content">
-            The Drops infrastructure will become increasingly important as we
-            witness the rise of “financial” NFTs - an expansion of the space
-            beyond digital artwork into more tangible financial instruments.
-          </div>
-        </Section>
-        <Section className="section-5">
-          <h2 className="font-color-dark font-size-lg text-center">
-            NFT Lending Pools
-          </h2>
+        <Section className="section-5 limited">
+          <h2 className="title">NFT Lending Pools</h2>
           <div className="section-5-content">
             {dataMoreNFTs.map((d, index) => (
               <MoreUtility
                 className="section-5-item"
                 key={`upcoming-drops-${index}`}
                 data={d}
+                idx={index}
               />
             ))}
           </div>
         </Section>
-        {/* <Section className="section-6">
-          <h2 className="font-color-dark font-size-lg text-center">Our Team</h2>
+        <Section className="section-6 limited">
+          <h2 className="title">Supporting a wide range of NFTs</h2>
           <div className="section-6-content">
-            {dataTeam.map((d, index) => (
-              <TeamMember
+            {dataSupportNFTS.map((d, index) => (
+              <SupportNFTs
                 className="section-6-item"
-                bg={index % 5}
-                key={`team-member-${index}`}
+                key={`how-it-works-${index}`}
+                bg={index % 3}
                 data={d}
               />
             ))}
           </div>
-        </Section> */}
-        {/* <Section className="section-7">
-          <h2 className="font-color-dark font-size-lg text-center">Apply as an artist</h2>
-          // <p className="font-color-dark font-size-md text-center">Apply  Duis libero elit, pulvinar vitae turpis non,<br/>scelerisque tempus felis</p>
-          <div className="d-flex justify-content-center">
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeIu6-kRK_Owq4w5z8OfSz3YMXvlB1A_flAxDyxLJ6PMRaXww/viewform?usp=sf_link"
-              target="_blank" className="link-button m-10 font-button" rel="noopener noreferrer">APPLY</a>
-          </div>
-        </Section> */}
-        <Section className="section-7">
-          <h2 className="font-color-dark font-size-lg text-center">
-            Investors
-          </h2>
+        </Section>
+        <Section className="section-10 limited">
+          <h1 className="title">Put your assets to work</h1>
+          <Link href="/loans">
+            <Button>Launch app</Button>
+          </Link>
+        </Section>
+        <Section className="section-7 limited">
+          <h2 className="title">Our team</h2>
           <div className="section-images">
-            <img
-              className="investor-img"
-              src="/static/images/investors/investor-1.png"
-              alt=""
-            />
-            <img
-              className="investor-img"
-              src="/static/images/investors/investor-2.png"
-              alt=""
-            />
-            <img
-              className="investor-img"
-              src="/static/images/investors/investor-3.png"
-              alt=""
-            />
-            <img
-              className="investor-img"
-              src="/static/images/investors/investor-4.png"
-              alt=""
-            />
-            <img
-              className="investor-img"
-              src="/static/images/investors/investor-5.png"
-              alt=""
-            />
-            <img
-              className="investor-img"
-              src="/static/images/investors/investor-6.png"
-              alt=""
-            />
-            <img
-              className="investor-img"
-              src="/static/images/investors/investor-7.png"
-              alt=""
-            />
-            <img
-              className="investor-img"
-              src="/static/images/investors/investor-8.png"
-              alt=""
-            />
+            {dataTeam.map((d, index) => (
+              <TeamMember
+                className="section-8-item"
+                key={`how-it-works-${index}`}
+                bg={index % 3}
+                data={d}
+              />
+            ))}
           </div>
         </Section>
-        <Section className="section-8" />
-        <Section className="section-9">
-          <h2 className="font-color-dark font-size-lg text-center">Partners</h2>
+        <Section className="section-8 limited">
+          <h2 className="title">Investors</h2>
           <div className="section-images">
-            <img
-              className="partner-img"
-              src="/static/images/partners/partner-1.png"
-              alt=""
-            />
-            <img
-              className="partner-img"
-              src="/static/images/partners/partner-2.png"
-              alt=""
-            />
-            <img
-              className="partner-img"
-              src="/static/images/partners/partner-3.png"
-              alt=""
-            />
-            <img
-              className="partner-img"
-              src="/static/images/partners/partner-4.png"
-              alt=""
-            />
-            <img
-              className="partner-img"
-              src="/static/images/partners/partner-5.png"
-              alt=""
-            />
-            <img
-              className="partner-img"
-              src="/static/images/partners/partner-6.png"
-              alt=""
-            />
-            <img
-              className="partner-img"
-              src="/static/images/partners/partner-7.png"
-              alt=""
-            />
+            {dataInvestor.map((investor) => (
+              <div className="partner" key={investor.image}>
+                <a href={investor.url} target="_blank">
+                  <img
+                    className="partner-img"
+                    src={investor.image}
+                    alt=""
+                  />
+                </a>
+              </div>
+            ))}
+          </div>
+        </Section>
+        <Section className="section-9 limited">
+          <h2 className="title">Partners</h2>
+          <div className="section-images">
+            {dataPartner.map((partner) => (
+              <div className="partner" key={partner.image}>
+                <a href={partner.url} target="_blank">
+                  <img
+                    className="partner-img"
+                    src={partner.image}
+                    alt=""
+                  />
+                </a>
+              </div>
+            ))}
           </div>
         </Section>
         <Footer />
