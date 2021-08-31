@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import BigNumber from 'bignumber.js'
 import styles from 'styles/Home.module.css'
 import styled from 'styled-components'
 import Button from 'components/Button/Button'
@@ -17,7 +18,7 @@ import {
   dataInvestor,
   dataPartner,
 } from 'helpers/dummy'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const Section = styled.div`
   &.limited {
@@ -35,7 +36,7 @@ const Section = styled.div`
     padding: 64px 64px 0px;
 
     .title {
-      max-width: 620px;
+      max-width: 1165px;
       font-weight: bold;
       font-size: 80px;
       color: var(--color-white);
@@ -51,13 +52,22 @@ const Section = styled.div`
       }
     }
 
+    .subtitle {
+      max-width: 700px;
+      font-size: 20px;
+      font-weight: normal;
+      color: var(--color-white);
+      margin-top: 16px;
+      margin-bottom: 24px;
+    }
+
     p {
       font-weight: bold;
       font-size: 40px;
       letter-spacing: -0.04em;
       color: var(--color-gold);
-      margin-top: 40px;
-      margin-bottom; 64px;
+      margin-top: 0px;
+      margin-bottom; 40px;
       z-index: 1;
 
       @media screen and (max-width: 768px) {
@@ -103,6 +113,10 @@ const Section = styled.div`
       margin-top: 0px;
       margin-right: 80px;
 
+      @media screen and (min-width: 2500px) {
+        margin-top: -40px;
+      }
+
       @media screen and (max-width: 1280px) {
         margin-right: 40px;
       }
@@ -114,6 +128,9 @@ const Section = styled.div`
       }
       img {
         margin-right: 17px;
+        -moz-animation: bounce 2s infinite;
+        -webkit-animation: bounce 2s infinite;
+        animation: bounce 2s infinite;
         @media screen and (max-width: 768px) {
           margin-right: 4px;
         }
@@ -132,8 +149,19 @@ const Section = styled.div`
         }
       }
     }
-  }
 
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-10px);
+      }
+      60% {
+        transform: translateY(-5px);
+      }
+    }
+  }
   &.section-3 {
     margin-top: 60px;
 
@@ -204,7 +232,7 @@ const Section = styled.div`
     background: #FFF;
 
     .title {
-      max-width: 730px;
+      max-width: 800px;
       font-weight: bold;
       font-size: 80px;
       letter-spacing: -0.04em;
@@ -314,6 +342,9 @@ const Section = styled.div`
       width: 100%;
       cursor: pointer;
     }
+    .investor-img {
+      width: 100%;
+    }
   }
 
   .section-images {
@@ -350,7 +381,17 @@ const Section = styled.div`
 `
 
 export default function Home() {
+  const [status, setStatus] = useState({ TVL : 0 })
+
+  const getStatus = async() => {
+    const res = await fetch('https://drops.co/status')
+    const data = await res.json()
+    setStatus(data)
+  }
+
+  console.log('status', status)
   useEffect(() => {
+    getStatus()
     document.body.classList.add('home')
     return () => document.body.classList.remove('home')
   }, [])
@@ -360,25 +401,26 @@ export default function Home() {
         <AnnounceCap />
         <Header />
         <Section className="section-1 limited">
-          <h1 className="title">Loans for NFT and DeFi assets</h1>
-          <p>Market: $1,000,000</p>
+          <h1 className="title">
+            Get more value from your DeFi & NFT assets with Drops
+          </h1>
+          <h2 className="subtitle">
+            Put your DeFi & NFT portfolio to work by using them to borrow funds
+            or earn attractive returns lending to others.
+          </h2>
+          <p>TVL: ${new BigNumber(status.TVL || 0).toFormat(0)}</p>
           <Link href="/loans">
             <Button>Launch app</Button>
           </Link>
         </Section>
         <Section className="flex-center justify-end section-2 limited">
-          <div className="flex-center cursor scroll-down" onClick={() => {
-            window.scrollTo({
-              top: document.body.scrollHeight,
-              behavior: 'smooth',
-            })
-          }}>
+          <div className="flex-center scroll-down">
             <img src="/static/images/icons/scroll-down.png" alt="scrolldown" />
             <span>Scroll down</span>
           </div>
         </Section>
         <Section className="section-3 limited">
-          <h2 className="title">What can you do at Drops?</h2>
+          <h2 className="title">What can you do at Drops</h2>
           <div className="section-3-content">
             {dataHowItWorks.map((d, index) => (
               <HowItWorks
@@ -391,7 +433,7 @@ export default function Home() {
           </div>
         </Section>
         <Section className="section-5 limited">
-          <h2 className="title">NFT Lending Pools</h2>
+          <h2 className="title">How NFT loans work?</h2>
           <div className="section-5-content">
             {dataMoreNFTs.map((d, index) => (
               <MoreUtility
@@ -404,7 +446,7 @@ export default function Home() {
           </div>
         </Section>
         <Section className="section-6 limited">
-          <h2 className="title">Supporting a wide range of NFTs</h2>
+          <h2 className="title">Use popular NFTs to borrow & earn</h2>
           <div className="section-6-content">
             {dataSupportNFTS.map((d, index) => (
               <SupportNFTs
@@ -440,13 +482,7 @@ export default function Home() {
           <div className="section-images">
             {dataInvestor.map((investor) => (
               <div className="partner" key={investor.image}>
-                <a href={investor.url} target="_blank">
-                  <img
-                    className="partner-img"
-                    src={investor.image}
-                    alt=""
-                  />
-                </a>
+                <img className="investor-img" src={investor.image} alt="" />
               </div>
             ))}
           </div>
@@ -457,11 +493,7 @@ export default function Home() {
             {dataPartner.map((partner) => (
               <div className="partner" key={partner.image}>
                 <a href={partner.url} target="_blank">
-                  <img
-                    className="partner-img"
-                    src={partner.image}
-                    alt=""
-                  />
+                  <img className="partner-img" src={partner.image} alt="" />
                 </a>
               </div>
             ))}
