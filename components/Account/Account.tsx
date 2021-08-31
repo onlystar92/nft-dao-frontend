@@ -122,7 +122,7 @@ export default function Account({
                 infura={library.web3.currentProvider}
                 network={account.network}
                 address={account.address}
-                placeholder="https://raw.githubusercontent.com/Crypto-Utilitybia/react-bcravatar/main/example/public/avataaars.png"
+                placeholder="/assets/avatar.png"
               ></BCRAvatar>
               {/* <Gravatar
                 email={`user.${account.address.substr(
