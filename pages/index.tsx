@@ -381,7 +381,7 @@ const Section = styled.div`
 `
 
 export default function Home() {
-  const [status, setStatus] = useState({ TVL : 0 })
+  const [status, setStatus] = useState({ totalSupply : 0 })
 
   const getStatus = async() => {
     const res = await fetch('https://drops.co/status')
@@ -389,7 +389,6 @@ export default function Home() {
     setStatus(data)
   }
 
-  console.log('status', status)
   useEffect(() => {
     getStatus()
     document.body.classList.add('home')
@@ -408,7 +407,7 @@ export default function Home() {
             Put your DeFi & NFT portfolio to work by using them to borrow funds
             or earn attractive returns lending to others.
           </h2>
-          <p>TVL: ${new BigNumber(status.TVL || 0).toFormat(0)}</p>
+          <p>TVL: ${new BigNumber(status.totalSupply || 0).toFormat(0)}</p>
           <Link href="/loans">
             <Button>Launch app</Button>
           </Link>
