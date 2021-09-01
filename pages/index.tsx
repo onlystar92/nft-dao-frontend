@@ -271,12 +271,14 @@ const Section = styled.div`
     background-repeat: no-repeat;
     background-size: 100% 100%;
     display: flex;
-    flex-direction: column;
     padding: 64px 64px 0px;
     margin-top: 152px;
 
+    @media screen and (max-width: 1024px) {
+      height: auto;
+      flex-direction: column;
+    }
     @media screen and (max-width: 768px) {
-      height: 264px;
       padding: 48px 48px 0px;
       margin-top: 60px;
     }
@@ -287,7 +289,7 @@ const Section = styled.div`
 
     .title {
       font-weight: bold;
-      font-size: 80px;
+      font-size: 60px;
       color: var(--color-white);
       letter-spacing: -0.04em;
       margin: 0;
@@ -316,6 +318,14 @@ const Section = styled.div`
       letter-spacing: -0.04em;
       color: var(--color-black);
       z-index: 1;
+    }
+
+    img {
+      height: 85%;
+      @media screen and (max-width: 1024px) {
+        margin-left: -40px;
+        margin-top: 24px;
+      }
     }
   }
 
@@ -457,11 +467,14 @@ export default function Home() {
             ))}
           </div>
         </Section>
-        <Section className="section-10 limited">
-          <h1 className="title">Put your assets to work</h1>
-          <Link href="/loans">
-            <Button>Launch app</Button>
-          </Link>
+        <Section className="flex justify-between section-10 limited">
+          <div>
+            <h1 className="title">Put your assets to work</h1>
+            <Link href="/loans">
+              <Button>Launch app</Button>
+            </Link>
+          </div>
+          <img src="/static/images/bg/company.png" />
         </Section>
         <Section className="section-7 limited">
           <h2 className="title">Our team</h2>
