@@ -10,7 +10,7 @@ import 'vendor/home.scss'
 function App({ Component, router }: AppProps) {
   const [markets, setMarkets] = useState(null)
   console.log(markets)
-  const cleanCash = (market) => ({ ...market, cash: 0 })
+  const cleanCash = (market) => ({ ...market, origin: market.cash, cash: 0 })
   useEffect(() => {
     getMarkets()
       .then(([markets, rinkebyMarkets]) =>

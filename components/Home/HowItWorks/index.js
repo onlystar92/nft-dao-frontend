@@ -5,56 +5,63 @@ import cn from "classnames";
 
 const HowItWorks = ({ className, bg, data }) => (
   <HowItWorksWrapper className={cn(className, `bg-${bg}`)}>
-    <span className="font-size-xd font-color-dark">{data.title}</span>
-    <p className="font-size-md font-color-dark">{data.description}</p>
+    <img src={data.iconUrl} alt="card logo" />
+    <span>{data.title}</span>
+    <p>{data.description}</p>
   </HowItWorksWrapper>
 );
 
 const HowItWorksWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 53px;
-  padding-top: 54px;
-  height: 254px;
-  
+  padding: 47px 40px;
+  width: 100%;
+
+  img {
+    width: 80px;
+    height: 80px;
+  }
+
+  span {
+    font-weight: bold;
+    font-size: 32px;
+    letter-spacing: -0.04em;
+    color: var(--color-white);
+    margin-top: 24px;
+    margin-bottom: 16px;
+  }
+
+  p {
+    font-size: 20px;
+    color: var(--color-white);
+    @media screen and (max-width: 768px) {
+      margin: 0;
+    }  
+  }
+
   @media screen and (max-width: 768px) {
-    padding-left: 34px;
-    padding-top: 16px;
-    margin-bottom: 28px;
-    height: 200px;
+    margin-bottom: 24px;
   }
 
   &.bg-0 {
-    background: url("/static/images/bg/bg-c-1.png");
+    background: url("/static/images/bg/bg-5.png");
     background-position: top left;
     background-repeat: no-repeat;
-    background-size: contain;
-
-    @media screen and (max-width: 768px) {
-      background-size: 150px;
-    }
+    background-size: 100% 100%;
   }
 
   &.bg-1 {
-    background: url("/static/images/bg/bg-c-2.png");
+    background: url("/static/images/bg/bg-6.png");
     background-position: top left;
     background-repeat: no-repeat;
-    background-size: contain;
-
-    @media screen and (max-width: 768px) {
-      background-size: 150px;
-    }
+    background-size: 100% 100%;
   }
 
   &.bg-2 {
-    background: url("/static/images/bg/bg-c-3.png");
+    background: url("/static/images/bg/bg-7.png");
     background-position: top left;
     background-repeat: no-repeat;
-    background-size: contain;
-
-    @media screen and (max-width: 768px) {
-      background-size: 150px;
-    }
+    background-size: 100% 100%;
   }
 `;
 

@@ -14,7 +14,7 @@ export const initState = {
   totalCash: 0,
   totalBorrow: 0,
   netAPY: 0,
-  veDOPInfo: {}
+  veDOPInfo: {},
 }
 
 const LOCAL_KEY = 'drops-loans'
@@ -55,7 +55,11 @@ export function reducer(state, action) {
       return {
         ...state,
         account: wallet,
-        markets: markets.map((market) => ({ ...market, cash: 0 })),
+        markets: markets.map((market) => ({
+          ...market,
+          origin: market.cash,
+          cash: 0,
+        })),
         transactions,
         balance: 0,
         requests: {},

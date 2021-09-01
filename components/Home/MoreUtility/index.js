@@ -2,23 +2,46 @@ import React from "react";
 
 import styled from "styled-components";
 
-const MoreUtility = ({ className, data }) => (
-  <MoreUtilityWrapper className={className}>
-    <img className="more-utility-img" src={data.image} alt="" />
-    <div className="more-utility-content">
-      <div className="more-utility-title">{data.title}</div>
-      <div className="more-utility-description">{data.description}</div>
+const MoreUtility = ({ className, data, idx }) => (
+  <MoreUtilityWrapper className={className} style={{ marginLeft: 100 * idx }}>
+    <div className="more-utility-img">
+      <img src={data.image} alt="utility" />
     </div>
+    <div className="more-utility-title">{data.title}</div>
+    <div className="more-utility-description">{data.description}</div>
   </MoreUtilityWrapper>
 );
 
 const MoreUtilityWrapper = styled.div`
+  width: fit-content;
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1px solid #EDEDED;
+  box-sizing: border-box;
+  border-radius: 16px;
+  padding: 24px;
+
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+    margin-left: 0px !important;
+  }
+
+  @media screen and (max-width: 576px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
   .more-utility-img {
-    width: 96px;
-    height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    min-height: 80px;
+    background: radial-gradient(100% 106.05% at 0% 100%, #4C3897 0%, #6C53C6 100%);
+    border-radius: 16px;
 
     @media screen and (max-width: 768px) {
       width: 66px;
@@ -26,36 +49,31 @@ const MoreUtilityWrapper = styled.div`
     }
   }
 
-  .more-utility-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    margin-left: 33px;
-
-    @media screen and (max-width: 768px) {
-      margin-left: 14px;
-    }
-  }
-
   .more-utility-title {
-    font-family: "Montserrat";
-    font-style: normal;
-    font-weight: 800;
-    font-size: 20px;
-    line-height: 28px;
-    text-transform: uppercase;
+    min-width: 150px;
+    font-weight: bold;
+    font-size: 24px;
+    letter-spacing: -0.04em;
+    color: var(--color-black);
+    margin-left: 40px;
+    margin-right: 75px;
 
     @media screen and (max-width: 768px) {
       font-size: 22px;
     }
+
+    @media screen and (max-width: 576px) {
+      margin-left: 0px;
+      margin-right: 0px;
+      margin-top: 24px;
+      margin-bottom: 8px;
+    }
   }
 
   .more-utility-description {
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 300;
+    max-width: 685px;
     font-size: 16px;
-    line-height: 28px;
+    color: var(--color-black);
 
     @media screen and (max-width: 768px) {
       font-size: 14px;

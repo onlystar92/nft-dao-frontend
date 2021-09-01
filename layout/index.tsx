@@ -238,8 +238,11 @@ export function accountBalance(library, dispatch) {
                       .minus(1)
                   )
                   .toString(10)
+          // TVL = TVL.plus(
+          //   marketSupply.times(price).minus(marketBorrows.times(price))
+          // )
           TVL = TVL.plus(
-            marketSupply.times(price).minus(marketBorrows.times(price))
+            new BigNumber(market.origin || market.cash).times(price)
           )
           totalDopSupplyEarning = totalDopSupplyEarning.plus(
             new BigNumber(supplyDopApy)
@@ -310,7 +313,7 @@ export function updateMarketCash(library, callback) {
           const dTokenMethods = library.methods.DToken(library.DToken(market))
           return Promise.all([
             Promise.resolve(market),
-            dTokenMethods ? dTokenMethods.getCash() : Promise.resolve('0'),
+            dTokenMethods ? dTokenMethods.getCash() : Promise.resolve(market.cash),
           ])
         })
       )
@@ -318,6 +321,7 @@ export function updateMarketCash(library, callback) {
           callback(
             cashes.map((data: any) => ({
               ...data[0],
+              origin: data[0].cash,
               cash: fromWei(data[1], data[0].underlyingDecimals),
             }))
           )

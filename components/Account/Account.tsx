@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
-import Gravatar from 'react-gravatar'
 import { TMap } from 'types'
 import Button from 'components/Button/Button'
 import styles from './Account.module.css'
 import DopModal from 'components/Modal/DopModal'
 import { accountBalance } from 'layout'
+
+import Web3 from 'web3'
+import { BCRAvatar } from 'react-bcravatar'
+// import Gravatar from 'react-gravatar'
 
 interface IAccount {
   dopPrice: number
@@ -53,42 +56,41 @@ export default function Account({
     new Array(1).fill({})
   )
 
-  const handleTransaction = (type, ...args) => (
-    transaction,
-    callback = () => {}
-  ) => {
-    dispatch({
-      type: 'txRequest',
-      payload: [type, true, ...args],
-    })
-    transaction
-      .on('transactionHash', function (hash) {
-        dispatch({
-          type: 'txHash',
-          payload: [hash, false, type, ...args],
-        })
+  const handleTransaction =
+    (type, ...args) =>
+    (transaction, callback = () => {}) => {
+      dispatch({
+        type: 'txRequest',
+        payload: [type, true, ...args],
       })
-      .on('receipt', function (receipt) {
-        dispatch({
-          type: 'txHash',
-          payload: [receipt.transactionHash, true, type, callback()],
-        })
-        accountBalance(library, dispatch)
-      })
-      .on('error', (err, receipt) => {
-        if (receipt) {
+      transaction
+        .on('transactionHash', function (hash) {
           dispatch({
             type: 'txHash',
-            payload: [receipt.transactionHash, true, type],
+            payload: [hash, false, type, ...args],
           })
-        } else {
+        })
+        .on('receipt', function (receipt) {
           dispatch({
-            type: 'txRequest',
-            payload: [type, false, ...args],
+            type: 'txHash',
+            payload: [receipt.transactionHash, true, type, callback()],
           })
-        }
-      })
-  }
+          accountBalance(library, dispatch)
+        })
+        .on('error', (err, receipt) => {
+          if (receipt) {
+            dispatch({
+              type: 'txHash',
+              payload: [receipt.transactionHash, true, type],
+            })
+          } else {
+            dispatch({
+              type: 'txRequest',
+              payload: [type, false, ...args],
+            })
+          }
+        })
+    }
 
   const handleClaimDop = () => {
     const from = { from: account.address }
@@ -114,8 +116,15 @@ export default function Account({
       ) : (
         <div className={styles.info}>
           {!loading && (
-            <div className="flex-center cursor" onClick={() => setIsOpen(true)}>
-              <Gravatar
+            <div className="flex-center cursor">
+              <BCRAvatar
+                Web3={Web3}
+                infura={library.web3.currentProvider}
+                network={account.network}
+                address={account.address}
+                placeholder="/assets/avatar.png"
+              ></BCRAvatar>
+              {/* <Gravatar
                 email={`user.${account.address.substr(
                   0,
                   4
@@ -124,13 +133,13 @@ export default function Account({
                   e.stopPropagation()
                   connectWallet(true)
                 }}
-              />
-              <p className="border-right">
+              /> */}
+              <p className="border-right" onClick={() => connectWallet(true)}>
                 <span>ETH</span>
                 <br />
                 {Number(balance).toFixed(4)}
               </p>
-              <p>
+              <p onClick={() => setIsOpen(true)}>
                 <span>DOP</span>
                 <br />
                 {Number(dopBalance || 0).toFixed(0)}
