@@ -411,7 +411,7 @@ export default function Home() {
         <Header />
         <Section className="section-1 limited">
           <h1 className="title">
-            Get more value from your DeFi & NFT assets with Drops
+            Get more value from your NFT & DeFi assets
           </h1>
           <h2 className="subtitle">
             Put your DeFi & NFT portfolio to work by using them to borrow funds
