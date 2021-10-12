@@ -29,7 +29,7 @@ export default function Balance({
   return (
     <div className={styles.balance}>
       <div className={`bold ${styles.loansTitle}`}>
-        TVL: {TVL ? `$${abbreviateNumberSI(TVL.toString(10), 2, 2)}` : ''}
+        Total Supply: {TVL ? `$${abbreviateNumberSI(TVL.toString(10), 2, 2)}` : ''}
       </div>
       <div className={`flex-center ${styles.info}`}>
         <div className={styles.infoWrapper}>

@@ -238,12 +238,12 @@ export function accountBalance(library, dispatch) {
                       .minus(1)
                   )
                   .toString(10)
-          // TVL = TVL.plus(
-          //   marketSupply.times(price).minus(marketBorrows.times(price))
-          // )
           TVL = TVL.plus(
-            new BigNumber(market.origin || market.cash).times(price)
+            marketSupply.times(price)
           )
+          // TVL = TVL.plus(
+          //   new BigNumber(market.origin || market.cash).times(price)
+          // )
           totalDopSupplyEarning = totalDopSupplyEarning.plus(
             new BigNumber(supplyDopApy)
               .times(supplyBalances[address])
