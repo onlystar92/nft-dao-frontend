@@ -101,6 +101,9 @@
   padding: 16px;
 }
 @media all and (max-width: 567px) {
+  .loansTitle {
+    font-size: calc(var(--font-size-2x));
+  }
   .info {
     display: none;
   }
