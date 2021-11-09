@@ -7,6 +7,8 @@ import StakingForm from 'components/Staking/StakingForm'
 import styles from './LpStaking.module.css'
 import { getPools } from 'utils/library'
 import { abbreviateNumberSI } from 'utils/number'
+import Modal from '../../../components/Mailchimp/ui/Modal/Modal';
+import MailchimpForm from "../../../components/Mailchimp/MailchimpForm/MailchimpForm";
 
 const FETCH_TIME = 15
 let poolTimer = null
@@ -390,6 +392,7 @@ export default function LpStaking(props) {
           Manage
         </Button>
       </section>
+      <Modal><MailchimpForm /></Modal>
     </>
   )
 }

@@ -13,6 +13,7 @@ import { reducer, initState } from './store'
 import styles from './Layout.module.css'
 import { getMarkets } from 'pages/_app'
 import { getTokenPriceUSD } from 'utils/uniswap'
+import SubscribeButton from 'components/Mailchimp/ui/SubscribeButton/SubscribeButton'
 
 const FETCH_TIME = 15
 let balanceTimer = null
@@ -560,6 +561,17 @@ export default function Layout({
                     Home
                   </div>
                 </Link>
+                <a 
+                  href="https://blog.drops.co/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div
+                    className={router.pathname === 'https://blog.drops.co/' ? styles.activeMenu : ''}
+                  >
+                    Blog
+                  </div>
+                </a>
                 <Link href="/staking">
                   <div
                     className={
@@ -597,8 +609,8 @@ export default function Layout({
                   </div>
                 </Link>
               </div>
-              <div className="flex-center">
-                <div className={styles.socials}>
+              <div className={styles.socials}>
+                <div className={styles.socials_network}>
                   <a
                     href="https://twitter.com/dropsnft"
                     target="_blank"
@@ -624,6 +636,7 @@ export default function Layout({
                     <img src="/assets/socials/medium.svg" alt="medium" />
                   </a>
                 </div>
+                <SubscribeButton />
               </div>
             </div>
           </footer>

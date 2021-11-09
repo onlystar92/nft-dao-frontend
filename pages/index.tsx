@@ -10,6 +10,9 @@ import MoreUtility from 'components/Home/MoreUtility'
 import SupportNFTs from 'components/Home/SupportNFTs'
 import TeamMember from 'components/Home/TeamMember'
 import Footer from 'components/Home/Footer'
+import Modal from '../components/Mailchimp/ui/Modal/Modal';
+import MailchimpForm from "../components/Mailchimp/MailchimpForm/MailchimpForm";
+
 import {
   dataHowItWorks,
   dataMoreNFTs,
@@ -512,6 +515,7 @@ export default function Home() {
           </div>
         </Section>
         <Footer />
+        <Modal><MailchimpForm /></Modal>
       </div>
     </div>
   )
