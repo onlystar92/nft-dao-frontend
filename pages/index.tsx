@@ -324,7 +324,7 @@ const Section = styled.div`
     }
 
     img {
-      height: 85%;
+      max-height: 85%;
       @media screen and (max-width: 1024px) {
         margin-left: -40px;
         margin-top: 24px;

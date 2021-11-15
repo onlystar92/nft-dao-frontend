@@ -253,6 +253,10 @@ export default function LpStaking(props) {
                   </span>
                 </div>
                 <div className={`flex-column ${styles.infoWrapper}`}>
+                  <div className={styles.label}>APY</div>
+                  <div className={styles.value}>{assetInfo.apy || 0}%</div>
+                </div>
+                <div className={`flex-column ${styles.infoWrapper}`}>
                   <div className={styles.label}>Total staked</div>
                   <div className={styles.value}>
                     {new BigNumber(assetInfo.totalLpSupply)

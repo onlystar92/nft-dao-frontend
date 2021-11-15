@@ -21,6 +21,11 @@
   align-items: center;
 }
 
+.ltv {
+  font-size: 13px;
+  color: var(--color-black1);
+}
+
 .balanceUsd img {
   width: 16px !important;
   height: 16px !important;

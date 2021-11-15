@@ -120,7 +120,7 @@ export function accountBalance(library, dispatch) {
         let totalDopBorrowEarning = new BigNumber(0)
         let TVL = new BigNumber(0)
         let netApy = new BigNumber(0)
-        const blocksPerDay = 4 * 60 * 24
+        const blocksPerDay = 60 / 13.4 * 60 * 24
         const daysPerYear = 365
 
         const toChecksumAddress =
@@ -447,7 +447,7 @@ export default function Layout({
                       Loans
                     </div>
                   </Link>
-                  <Link href="/vedop">
+                  {/* <Link href="/vedop">
                     <div
                       className={
                         router.pathname === '/vedop' ? styles.activeMenu : ''
@@ -455,7 +455,7 @@ export default function Layout({
                     >
                       veDOP
                     </div>
-                  </Link>
+                  </Link> */}
                 </div>
                 <div className={styles.mobileMenu}>
                   <div className={styles.collapseContent} id="collapse-content">
@@ -492,7 +492,7 @@ export default function Layout({
                             Loans
                           </div>
                         </Link>
-                        <Link href="/vedop">
+                        {/* <Link href="/vedop">
                           <div
                             className={
                               router.pathname === '/vedop'
@@ -502,7 +502,7 @@ export default function Layout({
                           >
                             veDOP
                           </div>
-                        </Link>
+                        </Link> */}
                       </div>
                     </Collapse>
                   </div>
@@ -590,7 +590,7 @@ export default function Layout({
                     Loans
                   </div>
                 </Link>
-                <Link href="/vedop">
+                {/* <Link href="/vedop">
                   <div
                     className={
                       router.pathname === '/vedop' ? styles.activeMenu : ''
@@ -598,7 +598,7 @@ export default function Layout({
                   >
                     veDOP
                   </div>
-                </Link>
+                </Link> */}
                 <Link href="/vesting">
                   <div
                     className={
@@ -608,6 +608,13 @@ export default function Layout({
                     Vesting
                   </div>
                 </Link>
+                <a
+                    href="https://docs.drops.co"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Docs
+                  </a>
               </div>
               <div className={styles.socials}>
                 <div className={styles.socials_network}>

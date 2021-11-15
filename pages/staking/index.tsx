@@ -45,12 +45,12 @@ export default function Staking({ library, state, dispatch }) {
               >
                 Stake LP
               </Button>
-              <Button
+              {/* <Button
                 className={tab === 'stake_nft' ? styles.active : ''}
                 onClick={() => tab !== 'stake_nft' && setTab('stake_nft')}
               >
                 Stake NFT
-              </Button>
+              </Button> */}
             </div>
           </div>
           {tab === 'stake_lp' && (
