@@ -7,6 +7,8 @@ import Button from 'components/Button/Button'
 import VeDOPForm from 'components/VeDOP/VeDOPForm'
 import useTicker from 'hooks/useTicker'
 import styles from 'styles/VeDop.module.css'
+import Modal from '../components/Mailchimp/ui/Modal/Modal';
+import MailchimpForm from "../components/Mailchimp/MailchimpForm/MailchimpForm";
 
 const FETCH_TIME = 15
 let timer = null
@@ -253,6 +255,7 @@ export default function vedop(props) {
           Approve & Lock DOP
         </Button>
       </section>
+      <Modal><MailchimpForm /></Modal>
     </>
   )
 }

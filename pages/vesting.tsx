@@ -6,6 +6,8 @@ import { getEtherscan } from 'utils/links'
 import styles from 'styles/Vesting.module.css'
 import BigNumber from 'bignumber.js'
 import useTicker, { getDuration } from 'hooks/useTicker'
+import Modal from '../components/Mailchimp/ui/Modal/Modal';
+import MailchimpForm from "../components/Mailchimp/MailchimpForm/MailchimpForm";
 
 const FETCH_TIME = 15
 let poolTimer = null
@@ -52,69 +54,75 @@ export default function Vesting({ library, state, dispatch }) {
 
   if (myVestings.length === 0) {
     return (
-      <section className={`${styles.content} flex-all`}>This wallet does not have vested contracts</section>
+      <>
+        <section className={`${styles.content} flex-all`}>This wallet does not have vested contracts</section>
+        <Modal><MailchimpForm /></Modal>
+      </>
     )
   }
 
   return (
-    <section className={`${styles.content}`}>
-      {myVestings.map((vest, idx) => (
-        <div className={`${styles.vestingContent}`} key={idx}>
-          <h1>DOP Token Vesting</h1>
-          {myVestings.length > 1 && (
-            <h3>{VESTING_LABELS[vest[5]]}</h3>
-          )}
-          <table>
-            <tbody>
-              <tr>
-                <td>Total Allocated:</td>
-                <td>{new BigNumber(vest[0]).toFixed(2)}</td>
-              </tr>
-              <tr>
-                <td>Total Released:</td>
-                <td>{new BigNumber(vest[1]).toFixed(2)}</td>
-              </tr>
-              <tr>
-                <td>Available to claim:</td>
-                <td>{new BigNumber(vest[2]).toFixed(2)}</td>
-              </tr>
-              <tr>
-                <td>
-                  {vest[3] > now ? 'Vesting starts in' : 'Vesting ends in'}:
-                </td>
-                <td>
-                  {getDuration(
-                    now,
-                    vest[3] > now ? vest[3] : vest[4]
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <td colSpan={2} className="center">
-                  <Button
-                    disabled={claimTx || vest[3] > now}
-                    onClick={() => handleClaim(vest[5])}
-                  >
-                    Claim
-                  </Button>
-                </td>
-              </tr>
-              {claimTx && (
+    <>
+      <section className={`${styles.content}`}>
+        {myVestings.map((vest, idx) => (
+          <div className={`${styles.vestingContent}`} key={idx}>
+            <h1>DOP Token Vesting</h1>
+            {myVestings.length > 1 && (
+              <h3>{VESTING_LABELS[vest[5]]}</h3>
+            )}
+            <table>
+              <tbody>
                 <tr>
-                  <td colSpan={2} className="center">
-                    <a
-                      href={getEtherscan(claimTx, state.account.network)}
-                      target="_blank"
-                    >
-                      View on {scanLabels[state.account.network] || 'Etherscan'}
-                    </a>
+                  <td>Total Allocated:</td>
+                  <td>{new BigNumber(vest[0]).toFixed(2)}</td>
+                </tr>
+                <tr>
+                  <td>Total Released:</td>
+                  <td>{new BigNumber(vest[1]).toFixed(2)}</td>
+                </tr>
+                <tr>
+                  <td>Available to claim:</td>
+                  <td>{new BigNumber(vest[2]).toFixed(2)}</td>
+                </tr>
+                <tr>
+                  <td>
+                    {vest[3] > now ? 'Vesting starts in' : 'Vesting ends in'}:
+                  </td>
+                  <td>
+                    {getDuration(
+                      now,
+                      vest[3] > now ? vest[3] : vest[4]
+                    )}
                   </td>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      ))}
-    </section>
+                <tr>
+                  <td colSpan={2} className="center">
+                    <Button
+                      disabled={claimTx || vest[3] > now}
+                      onClick={() => handleClaim(vest[5])}
+                    >
+                      Claim
+                    </Button>
+                  </td>
+                </tr>
+                {claimTx && (
+                  <tr>
+                    <td colSpan={2} className="center">
+                      <a
+                        href={getEtherscan(claimTx, state.account.network)}
+                        target="_blank"
+                      >
+                        View on {scanLabels[state.account.network] || 'Etherscan'}
+                      </a>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        ))}
+      </section>
+      <Modal><MailchimpForm /></Modal>
+    </>
   )
 }

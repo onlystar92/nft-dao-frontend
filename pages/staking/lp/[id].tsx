@@ -7,6 +7,8 @@ import StakingForm from 'components/Staking/StakingForm'
 import styles from './LpStaking.module.css'
 import { getPools } from 'utils/library'
 import { abbreviateNumberSI } from 'utils/number'
+import Modal from '../../../components/Mailchimp/ui/Modal/Modal';
+import MailchimpForm from "../../../components/Mailchimp/MailchimpForm/MailchimpForm";
 
 const FETCH_TIME = 15
 let poolTimer = null
@@ -251,6 +253,10 @@ export default function LpStaking(props) {
                   </span>
                 </div>
                 <div className={`flex-column ${styles.infoWrapper}`}>
+                  <div className={styles.label}>APY</div>
+                  <div className={styles.value}>{assetInfo.apy || 0}%</div>
+                </div>
+                <div className={`flex-column ${styles.infoWrapper}`}>
                   <div className={styles.label}>Total staked</div>
                   <div className={styles.value}>
                     {new BigNumber(assetInfo.totalLpSupply)
@@ -390,6 +396,7 @@ export default function LpStaking(props) {
           Manage
         </Button>
       </section>
+      <Modal><MailchimpForm /></Modal>
     </>
   )
 }

@@ -2,7 +2,11 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 import Layout from 'layout'
 import 'styles/globals.css'
+import 'styles/sassStyles/_global.scss'
+
 import { useEffect, useState } from 'react'
+import { GHSProvider } from '../components/Mailchimp/utils/ContextProvider';
+
 
 import 'vendor/index.scss'
 import 'vendor/home.scss'
@@ -22,9 +26,11 @@ function App({ Component, router }: AppProps) {
       .catch(console.log)
   }, [])
   return markets ? (
-    <Layout router={router} networks={[1, 4]} markets={markets}>
-      <Component />
-    </Layout>
+    <GHSProvider>
+      <Layout router={router} networks={[1, 4]} markets={markets}>
+        <Component />
+      </Layout>
+    </GHSProvider>
   ) : (
     <>
       <Head>

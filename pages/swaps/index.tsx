@@ -1,4 +1,6 @@
 import styles from 'styles/Swap.module.css'
+import Modal from '../../components/Mailchimp/ui/Modal/Modal';
+import MailchimpForm from "../../components/Mailchimp/MailchimpForm/MailchimpForm";
 
 export default function Swaps(props) {
   return (
@@ -15,6 +17,7 @@ export default function Swaps(props) {
           </div>
         </div>
       </section>
+      <Modal><MailchimpForm /></Modal>
     </>
   )
 }

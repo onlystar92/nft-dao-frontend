@@ -40,7 +40,10 @@ export default function SupplyMarket({
             }`}
             className={styles.logo}
           />
-          {market.underlyingSymbol}
+          <div>
+            <div>{market.underlyingSymbol}</div>
+            <div className={styles.ltv}>{+(market.collateralFactor || 0) * 100}%</div>
+          </div>
         </div>
       </td>
       <td>

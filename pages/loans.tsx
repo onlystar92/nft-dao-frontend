@@ -10,6 +10,8 @@ import BorrowModal from 'components/Modal/BorrowModal'
 import { ZERO } from 'utils/constants'
 import { accountBalance } from 'layout'
 import styles from 'styles/Loans.module.css'
+import Modal from '../components/Mailchimp/ui/Modal/Modal';
+import MailchimpForm from "../components/Mailchimp/MailchimpForm/MailchimpForm";
 
 let gasInterval = null
 
@@ -507,7 +509,7 @@ export default function Loans(props) {
                 <table cellPadding={0} cellSpacing={0}>
                   <thead>
                     <tr>
-                      <th>Asset</th>
+                      <th>Asset / LTV</th>
                       <th>APY / DOP</th>
                       <th>Borrowed</th>
                       <th>% Of Limit</th>
@@ -625,6 +627,7 @@ export default function Loans(props) {
           </div>
         </div>
       </section>
+      <Modal><MailchimpForm /></Modal>
     </>
   )
 }

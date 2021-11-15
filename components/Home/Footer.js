@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
+import SubscribeButton from 'components/Mailchimp/ui/SubscribeButton/SubscribeButton'
 
 const FooterWrapper = styled.div`
   padding: 64px var(--padding-normal);
@@ -26,9 +27,21 @@ const FooterWrapper = styled.div`
     text-shadow: 0px 0px 1px;
   }
 
-  .socials a {
+  .socials {
+    display: flex;
+    width: 280px;
+    flex-direction: column;
+  }
+  
+  .socials_network {
+    display: flex;
+    align-items: center;
+    flex-direction: row !important;
+  }
+  
+  .socials_network a {
     cursor: pointer;
-    margin-right: 16px;
+    margin: 16px 10px;
   }
 
   @media screen and (max-width: 1267px) {
@@ -71,6 +84,17 @@ const Footer = () => {
           />
         </Link>
         <div className={`flex-center linkWrapper`}>
+          <a 
+            href="https://blog.drops.co/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div
+              className={router.pathname === 'https://blog.drops.co/' ? styles.activeMenu : ''}
+            >
+              Blog
+            </div>
+          </a>
           <Link href="/vesting">
             <div className={router.pathname === '/vesting' ? 'activeMenu' : ''}>
               Vesting
@@ -83,8 +107,8 @@ const Footer = () => {
             <div className="footer-content-link">Privacy policy</div>
           </Link>
         </div>
-        <div className="flex-center">
-          <div className="socials">
+        <div className={`socials`}>
+          <div className={`socials_network`}>
             <a
               href="https://twitter.com/dropsnft"
               target="_blank"
@@ -110,6 +134,7 @@ const Footer = () => {
               <img src="/assets/socials/medium.svg" alt="medium" />
             </a>
           </div>
+          <SubscribeButton />
         </div>
       </div>
     </FooterWrapper>

@@ -13,6 +13,7 @@ import { reducer, initState } from './store'
 import styles from './Layout.module.css'
 import { getMarkets } from 'pages/_app'
 import { getTokenPriceUSD } from 'utils/uniswap'
+import SubscribeButton from 'components/Mailchimp/ui/SubscribeButton/SubscribeButton'
 
 const FETCH_TIME = 15
 let balanceTimer = null
@@ -119,7 +120,7 @@ export function accountBalance(library, dispatch) {
         let totalDopBorrowEarning = new BigNumber(0)
         let TVL = new BigNumber(0)
         let netApy = new BigNumber(0)
-        const blocksPerDay = 4 * 60 * 24
+        const blocksPerDay = 60 / 13.4 * 60 * 24
         const daysPerYear = 365
 
         const toChecksumAddress =
@@ -446,7 +447,7 @@ export default function Layout({
                       Loans
                     </div>
                   </Link>
-                  <Link href="/vedop">
+                  {/* <Link href="/vedop">
                     <div
                       className={
                         router.pathname === '/vedop' ? styles.activeMenu : ''
@@ -454,7 +455,7 @@ export default function Layout({
                     >
                       veDOP
                     </div>
-                  </Link>
+                  </Link> */}
                 </div>
                 <div className={styles.mobileMenu}>
                   <div className={styles.collapseContent} id="collapse-content">
@@ -491,7 +492,7 @@ export default function Layout({
                             Loans
                           </div>
                         </Link>
-                        <Link href="/vedop">
+                        {/* <Link href="/vedop">
                           <div
                             className={
                               router.pathname === '/vedop'
@@ -501,7 +502,7 @@ export default function Layout({
                           >
                             veDOP
                           </div>
-                        </Link>
+                        </Link> */}
                       </div>
                     </Collapse>
                   </div>
@@ -560,6 +561,17 @@ export default function Layout({
                     Home
                   </div>
                 </Link>
+                <a 
+                  href="https://blog.drops.co/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div
+                    className={router.pathname === 'https://blog.drops.co/' ? styles.activeMenu : ''}
+                  >
+                    Blog
+                  </div>
+                </a>
                 <Link href="/staking">
                   <div
                     className={
@@ -578,7 +590,7 @@ export default function Layout({
                     Loans
                   </div>
                 </Link>
-                <Link href="/vedop">
+                {/* <Link href="/vedop">
                   <div
                     className={
                       router.pathname === '/vedop' ? styles.activeMenu : ''
@@ -586,7 +598,7 @@ export default function Layout({
                   >
                     veDOP
                   </div>
-                </Link>
+                </Link> */}
                 <Link href="/vesting">
                   <div
                     className={
@@ -596,9 +608,16 @@ export default function Layout({
                     Vesting
                   </div>
                 </Link>
+                <a
+                    href="https://docs.drops.co"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Docs
+                  </a>
               </div>
-              <div className="flex-center">
-                <div className={styles.socials}>
+              <div className={styles.socials}>
+                <div className={styles.socials_network}>
                   <a
                     href="https://twitter.com/dropsnft"
                     target="_blank"
@@ -624,6 +643,7 @@ export default function Layout({
                     <img src="/assets/socials/medium.svg" alt="medium" />
                   </a>
                 </div>
+                <SubscribeButton />
               </div>
             </div>
           </footer>

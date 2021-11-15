@@ -4,6 +4,8 @@ import LPFarm from 'components/Farm/LPFarm'
 import Button from 'components/Button/Button'
 import styles from 'styles/Staking.module.css'
 import { getPools } from 'utils/library'
+import Modal from '../../components/Mailchimp/ui/Modal/Modal';
+import MailchimpForm from "../../components/Mailchimp/MailchimpForm/MailchimpForm";
 
 const FETCH_TIME = 15
 let poolTimer = null
@@ -43,12 +45,12 @@ export default function Staking({ library, state, dispatch }) {
               >
                 Stake LP
               </Button>
-              <Button
+              {/* <Button
                 className={tab === 'stake_nft' ? styles.active : ''}
                 onClick={() => tab !== 'stake_nft' && setTab('stake_nft')}
               >
                 Stake NFT
-              </Button>
+              </Button> */}
             </div>
           </div>
           {tab === 'stake_lp' && (
@@ -135,6 +137,7 @@ export default function Staking({ library, state, dispatch }) {
           )}
         </div>
       </section>
+      <Modal><MailchimpForm /></Modal>
     </>
   )
 }

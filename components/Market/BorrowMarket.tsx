@@ -39,7 +39,7 @@ export default function BorrowMarket({
             }`}
             className={styles.logo}
           />
-          {market.underlyingSymbol}
+          <div>{market.underlyingSymbol}</div>
         </div>
       </td>
       <td>
