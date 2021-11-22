@@ -120,7 +120,6 @@
 .linkWrapper a {
   outline: none;
   color: var(--color-white);
-  margin-right: var(--padding-normal);
 }
 
 .linkWrapper div {

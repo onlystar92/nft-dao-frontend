@@ -599,15 +599,6 @@ export default function Layout({
                     veDOP
                   </div>
                 </Link> */}
-                <Link href="/vesting">
-                  <div
-                    className={
-                      router.pathname === '/vesting' ? styles.activeMenu : ''
-                    }
-                  >
-                    Vesting
-                  </div>
-                </Link>
                 <a
                     href="https://docs.drops.co"
                     target="_blank"
