@@ -33,6 +33,7 @@ export default function Loans(props) {
       totalCash,
       totalBorrow,
       TVL,
+      MarketBorrowed,
       netAPY,
     },
     dispatch,
@@ -331,7 +332,7 @@ export default function Loans(props) {
               />
             </div>
           )}
-          <Balance {...{ TVL, totalCash, totalBorrow, netAPY }} />
+          <Balance {...{ TVL, MarketBorrowed, totalCash, totalBorrow, netAPY }} />
         </div>
       </section>
       <section className={`${styles.content} flex flex-start justify-center`}>
@@ -340,7 +341,7 @@ export default function Loans(props) {
             <div className={`bold ${styles.supplyTitle}`}>
               Supply
               {totalSupply ? (
-                <span>${new BigNumber(totalSupply).toFormat(6)}</span>
+                <span>${new BigNumber(totalSupply).toFormat(2)}</span>
               ) : (
                 ''
               )}
@@ -350,7 +351,7 @@ export default function Loans(props) {
                 <table cellPadding={0} cellSpacing={0}>
                   <thead>
                     <tr>
-                      <th>Asset</th>
+                      <th>Asset / LTV</th>
                       <th>APY / DOP</th>
                       <th>Supplied</th>
                       <th>Collateral</th>
@@ -499,7 +500,7 @@ export default function Loans(props) {
             <div className={`bold ${styles.borrowTitle}`}>
               Borrow
               {totalBorrow ? (
-                <span>${new BigNumber(totalBorrow).toFormat(6)}</span>
+                <span>${new BigNumber(totalBorrow).toFormat(2)}</span>
               ) : (
                 ''
               )}
@@ -509,7 +510,7 @@ export default function Loans(props) {
                 <table cellPadding={0} cellSpacing={0}>
                   <thead>
                     <tr>
-                      <th>Asset / LTV</th>
+                      <th>Asset</th>
                       <th>APY / DOP</th>
                       <th>Borrowed</th>
                       <th>% Of Limit</th>

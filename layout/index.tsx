@@ -38,7 +38,6 @@ export function accountBalance(library, dispatch) {
   if (!addresses[library.wallet.network]) {
     return
   }
-  // const dopMarket = library.markets.find((m) => m.underlyingSymbol === 'DOP')
   Promise.all([
     getTokenPriceUSD(addresses[1].Comp),
     library.methods.Comptroller.getAssetsIn(account),
@@ -119,6 +118,7 @@ export function accountBalance(library, dispatch) {
         let totalDopSupplyEarning = new BigNumber(0)
         let totalDopBorrowEarning = new BigNumber(0)
         let TVL = new BigNumber(0)
+        let MarketBorrowed = new BigNumber(0)
         let netApy = new BigNumber(0)
         const blocksPerDay = 60 / 13.4 * 60 * 24
         const daysPerYear = 365
@@ -242,6 +242,9 @@ export function accountBalance(library, dispatch) {
           TVL = TVL.plus(
             marketSupply.times(price)
           )
+          MarketBorrowed = MarketBorrowed.plus(
+            marketBorrows.times(price)
+          )
           // TVL = TVL.plus(
           //   new BigNumber(market.origin || market.cash).times(price)
           // )
@@ -287,6 +290,7 @@ export function accountBalance(library, dispatch) {
             marketBorrowRates,
             marketDistributeApys,
             TVL,
+            MarketBorrowed,
             supplyBalances,
             borrowBalances,
             totalSupply: totalSupply.toNumber(),
@@ -599,15 +603,6 @@ export default function Layout({
                     veDOP
                   </div>
                 </Link> */}
-                <Link href="/vesting">
-                  <div
-                    className={
-                      router.pathname === '/vesting' ? styles.activeMenu : ''
-                    }
-                  >
-                    Vesting
-                  </div>
-                </Link>
                 <a
                     href="https://docs.drops.co"
                     target="_blank"
