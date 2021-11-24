@@ -4,6 +4,7 @@ import styles from './Balance.module.css'
 
 interface IBalance {
   TVL: BigNumber
+  MarketBorrowed: BigNumber
   totalCash: number
   totalBorrow: number
   netAPY: number
@@ -11,6 +12,7 @@ interface IBalance {
 
 export default function Balance({
   TVL,
+  MarketBorrowed,
   totalCash,
   totalBorrow,
   netAPY,
@@ -30,6 +32,9 @@ export default function Balance({
     <div className={styles.balance}>
       <div className={`bold ${styles.loansTitle}`}>
         Total Supply: {TVL ? `$${abbreviateNumberSI(TVL.toString(10), 2, 2)}` : ''}
+      </div>
+      <div className={`bold ${styles.loansTitle}`}>
+        Total Borrowed: {MarketBorrowed ? `$${abbreviateNumberSI(MarketBorrowed.toString(10), 2, 2)}` : ''}
       </div>
       <div className={`flex-center ${styles.info}`}>
         <div className={styles.infoWrapper}>

@@ -4,7 +4,7 @@
 
 .loansTitle {
   color: var(--color-black);
-  font-size: calc(var(--font-size-2x) * 2);
+  font-size: calc(var(--font-size-2x) * 1.5);
 }
 
 .info {
@@ -102,7 +102,7 @@
 }
 @media all and (max-width: 567px) {
   .loansTitle {
-    font-size: calc(var(--font-size-2x));
+    font-size: calc(var(--font-size-2x) / 1.5);
   }
   .info {
     display: none;

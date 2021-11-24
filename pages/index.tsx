@@ -30,7 +30,7 @@ const Section = styled.div`
 
   &.section-1 {
     position: relative;
-    min-height: 600px;
+    min-height: 690px;
     background: url("/static/images/bg/bg-1.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -324,7 +324,6 @@ const Section = styled.div`
     }
 
     img {
-      max-height: 85%;
       @media screen and (max-width: 1024px) {
         margin-left: -40px;
         margin-top: 24px;
