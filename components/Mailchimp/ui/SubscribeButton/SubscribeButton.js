@@ -6,6 +6,10 @@ import { useGHStContext } from '../../utils/ContextProvider';
 const ButtonWrapper = styled.div`
   color: white;
   font-size: 14px;
+  .sub_btn {
+    border:1px solid #EEE; 
+    background:white;
+  }
 `
 
 const SubscribeButton = props => {
@@ -18,13 +22,7 @@ const SubscribeButton = props => {
   return (
     <ButtonWrapper>
      <div>
-       <p>Subscribe to the newsletter to hear about Drops Loans updates and events.</p>
-       <br />
-       <PrimaryCTAButton
-          handleClick={mailchimpModalHandler}
-          label="Subscribe"
-          icon={null}
-        />
+        <iframe src="https://dropsdao.substack.com/embed" width="480" height="320" className="sub_btn" frameBorder="0" scrolling="no"></iframe>
      </div>
     </ButtonWrapper>
   );
