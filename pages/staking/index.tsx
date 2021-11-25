@@ -137,7 +137,7 @@ export default function Staking({ library, state, dispatch }) {
           )}
         </div>
       </section>
-      <Modal><MailchimpForm /></Modal>
+      {/* <Modal><MailchimpForm /></Modal> */}
     </>
   )
 }
