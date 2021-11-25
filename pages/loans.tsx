@@ -628,7 +628,6 @@ export default function Loans(props) {
           </div>
         </div>
       </section>
-      <Modal><MailchimpForm /></Modal>
     </>
   )
 }
