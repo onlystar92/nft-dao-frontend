@@ -328,6 +328,12 @@ const Section = styled.div`
         margin-left: -40px;
         margin-top: 24px;
       }
+      @media screen and (max-width: 768px) {
+        width: 350px;
+      }
+      @media screen and (max-width: 568px) {
+        width: 300px;
+      }
     }
   }
 
