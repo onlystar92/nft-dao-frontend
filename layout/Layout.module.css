@@ -172,6 +172,9 @@
   .linkWrapper div:not(:last-child) {
     margin-bottom: var(--padding-normal);
   }
+  .linkWrapper a {
+    margin-bottom: var(--padding-normal);
+  }
 }
 
 @media all and (max-width: 767px) {

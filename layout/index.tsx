@@ -120,7 +120,7 @@ export function accountBalance(library, dispatch) {
         let TVL = new BigNumber(0)
         let MarketBorrowed = new BigNumber(0)
         let netApy = new BigNumber(0)
-        const blocksPerDay = 60 / 13.4 * 60 * 24
+        const blocksPerDay = (60 / 13.4) * 60 * 24
         const daysPerYear = 365
 
         const toChecksumAddress =
@@ -239,12 +239,8 @@ export function accountBalance(library, dispatch) {
                       .minus(1)
                   )
                   .toString(10)
-          TVL = TVL.plus(
-            marketSupply.times(price)
-          )
-          MarketBorrowed = MarketBorrowed.plus(
-            marketBorrows.times(price)
-          )
+          TVL = TVL.plus(marketSupply.times(price))
+          MarketBorrowed = MarketBorrowed.plus(marketBorrows.times(price))
           // TVL = TVL.plus(
           //   new BigNumber(market.origin || market.cash).times(price)
           // )
@@ -318,7 +314,9 @@ export function updateMarketCash(library, callback) {
           const dTokenMethods = library.methods.DToken(library.DToken(market))
           return Promise.all([
             Promise.resolve(market),
-            dTokenMethods ? dTokenMethods.getCash() : Promise.resolve(market.cash),
+            dTokenMethods
+              ? dTokenMethods.getCash()
+              : Promise.resolve(market.cash),
           ])
         })
       )
@@ -550,13 +548,6 @@ export default function Layout({
           )}
           <footer className={styles.footer}>
             <div className="flex-center justify-between limited">
-              <Link href="/">
-                <img
-                  className={`${styles.logo} cursor`}
-                  src="/logo_white.png"
-                  alt="Drops Loans"
-                />
-              </Link>
               <div className={`flex-center ${styles.linkWrapper}`}>
                 <Link href="/">
                   <div
@@ -565,16 +556,12 @@ export default function Layout({
                     Home
                   </div>
                 </Link>
-                <a 
-                  href="https://blog.drops.co/"
+                <a
+                  href="https://dropsnft.medium.com"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <div
-                    className={router.pathname === 'https://blog.drops.co/' ? styles.activeMenu : ''}
-                  >
-                    Blog
-                  </div>
+                  <div>Blog</div>
                 </a>
                 <Link href="/staking">
                   <div
@@ -604,12 +591,12 @@ export default function Layout({
                   </div>
                 </Link> */}
                 <a
-                    href="https://docs.drops.co"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Docs
-                  </a>
+                  href="https://docs.drops.co"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Docs
+                </a>
               </div>
               <div className={styles.socials}>
                 <div className={styles.socials_network}>
