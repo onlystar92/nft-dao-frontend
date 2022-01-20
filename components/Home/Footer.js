@@ -84,7 +84,7 @@ const Footer = () => {
           />
         </Link>
         <div className={`flex-center linkWrapper`}>
-          <a 
+          {/* <a 
             href="https://blog.drops.co/"
             target="_blank"
             rel="noopener noreferrer"
@@ -94,7 +94,7 @@ const Footer = () => {
             >
               Blog
             </div>
-          </a>
+          </a> */}
           <Link href="/vesting">
             <div className={router.pathname === '/vesting' ? 'activeMenu' : ''}>
               Vesting

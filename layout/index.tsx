@@ -565,7 +565,7 @@ export default function Layout({
                     Home
                   </div>
                 </Link>
-                <a 
+                {/* <a 
                   href="https://blog.drops.co/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -575,7 +575,7 @@ export default function Layout({
                   >
                     Blog
                   </div>
-                </a>
+                </a> */}
                 <Link href="/staking">
                   <div
                     className={
