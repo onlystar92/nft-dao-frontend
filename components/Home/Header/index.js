@@ -13,6 +13,7 @@ const HeaderWrapper = styled.div`
     width: 100%;
     height: auto;
     display: flex;
+    background: rgba(0, 0, 0, 0);
     padding: 52px 10vw 22px 10vw;
     justify-content: space-between;
   }
@@ -92,13 +93,21 @@ const Header = () => {
 
   function scrollFunction() {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      document.querySelector(".navbar").style.background = "rgba(0, 0, 0, 0.7)";
-      document.querySelector(".navbar").style.padding = "22px 10vw";
-      document.querySelector(".hamburger").style.top = "40px";
+      if (document.querySelector(".navbar")) {
+        document.querySelector(".navbar").style.background = "rgba(0, 0, 0, 0.7)";
+        document.querySelector(".navbar").style.padding = "22px 10vw";
+      }
+      if (document.querySelector(".hamburger")) {
+        document.querySelector(".hamburger").style.top = "40px";
+      }
     } else {
-      document.querySelector(".navbar").style.background = "";
-      document.querySelector(".navbar").style.padding = "52px 10vw 22px 10vw";
-      document.querySelector(".hamburger").style.top = "60px";
+      if (document.querySelector(".navbar")) {
+        document.querySelector(".navbar").style.background = "rgba(0, 0, 0, 0)";
+        document.querySelector(".navbar").style.padding = "52px 10vw 22px 10vw";
+      }
+      if (document.querySelector(".hamburger")) {
+        document.querySelector(".hamburger").style.top = "60px";
+      }
     }
   }
 

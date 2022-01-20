@@ -13,7 +13,7 @@ const FooterWrapper = styled.div`
   display: flex;
   flex-direction: column;
   .sublink {
-    width: 500px;
+    width: 400px;
     margin: auto;
     display: flex;
     flex-direction: row;
@@ -73,7 +73,7 @@ const Footer = () => {
   return (
     <FooterWrapper>
       <div className="sublink">
-        <a 
+        {/* <a 
           href="https://blog.drops.co/"
           target="_blank"
           rel="noopener noreferrer"
@@ -81,7 +81,7 @@ const Footer = () => {
           <div className="link">
             Blog
           </div>
-        </a>
+        </a> */}
         <Link href="/vesting">
           <div className="link">Vesting</div>
         </Link>

@@ -134,7 +134,6 @@ const Footer = () => {
               <img src="/assets/socials/medium.svg" alt="medium" />
             </a>
           </div>
-          <SubscribeButton />
         </div>
       </div>
     </FooterWrapper>
