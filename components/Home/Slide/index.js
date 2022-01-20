@@ -82,7 +82,10 @@ const SlideWrapper = styled.div`
   }
   @media all and (max-width: 768px) {
     flex-direction: column-reverse;
-    padding-top: 120px;
+    padding-top: 70px;
+    .market {
+      margin: 20px 0;
+    }
     .main_img {
       width: 100%;
       margin: auto;

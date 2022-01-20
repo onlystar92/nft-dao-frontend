@@ -71,14 +71,14 @@ const HeaderWrapper = styled.div`
   }
   @media all and (max-width: 768px) {
     .logo {
-      width: 150px;
+      width: 120px;
     }
     .nav_item {
       display: none;
     }
     .hamburger {
       display: block;
-      top: 33px;
+      top: 50px;
     }
     .hamburgo_menu {
       display: block;
@@ -103,10 +103,10 @@ const Header = () => {
     } else {
       if (document.querySelector(".navbar")) {
         document.querySelector(".navbar").style.background = "rgba(0, 0, 0, 0)";
-        document.querySelector(".navbar").style.padding = "52px 10vw 22px 10vw";
+        document.querySelector(".navbar").style.padding = "42px 10vw 22px 10vw";
       }
       if (document.querySelector(".hamburger")) {
-        document.querySelector(".hamburger").style.top = "60px";
+        document.querySelector(".hamburger").style.top = "50px";
       }
     }
   }
@@ -121,12 +121,12 @@ const Header = () => {
         <ul>
           <li className="nav_item">
             <Link href="/staking">
-            Staking
+              Staking
             </Link>
           </li>
           <li className="nav_item">
             <Link href="/loans">
-            Lending Pool
+              Lending Pool
             </Link>
           </li>
         </ul>
@@ -134,12 +134,12 @@ const Header = () => {
         <div className="hamburgo_menu"> 
           <ul>
             <li>
-              <Link href="/staking">
+              <Link href="/">
               Staking
               </Link>
             </li>
             <li>
-              <Link href="/loans">
+              <Link href="/">
               Lending Pool
               </Link>
             </li>
