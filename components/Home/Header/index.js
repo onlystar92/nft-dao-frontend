@@ -120,12 +120,12 @@ const Header = () => {
         <a href="/"><img className="logo" src="assets/home/logo.png" alt="logo" /></a>
         <ul>
           <li className="nav_item">
-            <Link href="/">
+            <Link href="/staking">
             Staking
             </Link>
           </li>
           <li className="nav_item">
-            <Link href="/">
+            <Link href="/loans">
             Lending Pool
             </Link>
           </li>
@@ -134,12 +134,12 @@ const Header = () => {
         <div className="hamburgo_menu"> 
           <ul>
             <li>
-              <Link href="/">
+              <Link href="/staking">
               Staking
               </Link>
             </li>
             <li>
-              <Link href="/">
+              <Link href="/loans">
               Lending Pool
               </Link>
             </li>
