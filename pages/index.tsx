@@ -8,7 +8,7 @@ import Dop from 'components/Home/Dop'
 import Money from 'components/Home/Money'
 import HowItWorks from 'components/Home/HowItWorks'
 import Partners from 'components/Home/Partners'
-import Join from 'components/home/Join'
+import Join from 'components/Home/Join'
 import Footer from 'components/Home/Footer/index'
 import ScrollAnimation from 'react-animate-on-scroll';
 
