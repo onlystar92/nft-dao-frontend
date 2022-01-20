@@ -229,6 +229,13 @@ button {
   padding: var(--padding-narrow) var(--padding-normal);
 }
 
+.wraped {
+  max-width: 1360px;
+  width: 100%;
+  margin: auto;
+  padding: var(--padding-narrow) var(--padding-normal);
+}
+
 .font-small {
   font-size: 75%;
 }
@@ -257,7 +264,7 @@ button {
 }
 
 @media all and (max-width: 567px) {
-  .limited {
+  .limited, .wraped {
     width: 100%;
     padding: var(--padding-normal) calc(var(--padding-normal) * 3 / 4);
   }
@@ -266,7 +273,7 @@ button {
   body {
     font-size: var(--font-size-small);
   }
-  .limited {
+  .limited, .wraped {
     width: 100%;
     padding: var(--padding-normal) calc(var(--padding-normal) * 3 / 4);
   }
@@ -281,7 +288,7 @@ button {
   body {
     font-size: var(--font-size-2x);
   }
-  .limited {
+  .limited, .wraped {
     padding: calc(var(--padding-normal) * 1.5);
   }
 }
@@ -289,7 +296,7 @@ button {
   body {
     font-size: var(--font-size-3x);
   }
-  .limited {
+  .limited, .wraped {
     max-width: 2600px;
   }
 }
