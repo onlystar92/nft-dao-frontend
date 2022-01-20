@@ -16,4 +16,11 @@
   cursor: not-allowed;
 }
 
+@media all and (max-width: 768px) {
+  .button {
+    font-size: 20px;
+    padding: 18px 40px;
+  }
+}
+
 

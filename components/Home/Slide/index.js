@@ -85,9 +85,12 @@ const SlideWrapper = styled.div`
     padding-top: 70px;
     .market {
       margin: 20px 0;
+      text-align: center;
+      font-size: 28px;
+      line-height: 32px;
     }
     .main_img {
-      width: 100%;
+      width: 67%;
       margin: auto;
     }
     .content_area {
@@ -106,9 +109,6 @@ const SlideWrapper = styled.div`
     .launch_btn {
       margin: auto;
     } 
-    .market {
-      text-align: center;
-    }
   }
   
 `
