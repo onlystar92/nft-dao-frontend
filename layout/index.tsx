@@ -406,6 +406,7 @@ export default function Layout({
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Drops DAO - permissionless NFT loans">
         <link
           href="https://necolas.github.io/normalize.css/latest/normalize.css"
           rel="stylesheet"
