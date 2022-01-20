@@ -18,7 +18,7 @@ const FooterWrapper = styled.div`
     display: flex;
     flex-direction: row;
     color: white;
-    justify-content: space-between;
+    justify-content: space-around;
     .link:hover {
       cursor: pointer;
       color: grey;
@@ -85,12 +85,12 @@ const Footer = () => {
         <Link href="/vesting">
           <div className="link">Vesting</div>
         </Link>
-        <Link href="/">
+        {/* <Link href="/">
           <div className="link">Terms of Use</div>
         </Link>
         <Link href="/">
           <div className="link">Privacy policy</div>
-        </Link>
+        </Link> */}
       </div>
       <div className="socials">
         <a
@@ -121,7 +121,7 @@ const Footer = () => {
           </div>
         </a>
         <a
-          href="/"
+          href="https://dropsnft.medium.com/"
           target="_blank"
           rel="noopener noreferrer"
         >

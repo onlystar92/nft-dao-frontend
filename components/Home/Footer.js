@@ -100,12 +100,12 @@ const Footer = () => {
               Vesting
             </div>
           </Link>
-          <Link href="/">
+          {/* <Link href="/">
             <div className="footer-content-link">Terms of Use</div>
           </Link>
           <Link href="/">
             <div className="footer-content-link">Privacy policy</div>
-          </Link>
+          </Link> */}
         </div>
         <div className={`socials`}>
           <div className={`socials_network`}>
@@ -130,7 +130,7 @@ const Footer = () => {
             >
               <img src="/assets/socials/discord.svg" alt="discord" />
             </a>
-            <a href="/" target="_blank">
+            <a href="https://dropsnft.medium.com/" target="_blank">
               <img src="/assets/socials/medium.svg" alt="medium" />
             </a>
           </div>

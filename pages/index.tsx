@@ -22,22 +22,22 @@ export default function Home() {
   return (
     <Section>
       <Header />
-      <ScrollAnimation animateIn="rotateInDownRight">
+      <ScrollAnimation animateIn="fadeIn" animateOnce="true">
         <Slide />
       </ScrollAnimation>
-      <ScrollAnimation animateIn="bounceInRight">
+      <ScrollAnimation animateIn="fadeIn" animateOnce="true">
         <Dop />
       </ScrollAnimation>
-      <ScrollAnimation animateIn="fadeIn">
+      <ScrollAnimation animateIn="fadeIn" animateOnce="true">
         <HowItWorks />
       </ScrollAnimation>
-      <ScrollAnimation animateIn="slideInLeft">
+      <ScrollAnimation animateIn="fadeIn" animateOnce="true">
         <Money />
       </ScrollAnimation>
-      <ScrollAnimation animateIn="zoomIn">
+      <ScrollAnimation animateIn="fadeIn" animateOnce="true">
         <Join />
       </ScrollAnimation>
-      <ScrollAnimation animateIn="fadeIn">
+      <ScrollAnimation animateIn="fadeIn" animateOnce="true">
         <Partners />
       </ScrollAnimation>
       <Footer />
