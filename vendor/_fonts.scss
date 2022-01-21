@@ -2,6 +2,11 @@
 
 /** Montserrat Thin **/
 @font-face {
+    font-family: "lilgrotesk";
+    src: url("/static/fonts/lilgrotesk-bold.otf") format('opentype');
+}
+
+@font-face {
     font-family: "Montserrat";
     font-weight: 100;
     font-style: normal;

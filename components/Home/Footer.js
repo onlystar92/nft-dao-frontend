@@ -84,7 +84,7 @@ const Footer = () => {
           />
         </Link>
         <div className={`flex-center linkWrapper`}>
-          <a 
+          {/* <a 
             href="https://blog.drops.co/"
             target="_blank"
             rel="noopener noreferrer"
@@ -94,18 +94,18 @@ const Footer = () => {
             >
               Blog
             </div>
-          </a>
+          </a> */}
           <Link href="/vesting">
             <div className={router.pathname === '/vesting' ? 'activeMenu' : ''}>
               Vesting
             </div>
           </Link>
-          <Link href="/">
+          {/* <Link href="/">
             <div className="footer-content-link">Terms of Use</div>
           </Link>
           <Link href="/">
             <div className="footer-content-link">Privacy policy</div>
-          </Link>
+          </Link> */}
         </div>
         <div className={`socials`}>
           <div className={`socials_network`}>
@@ -130,11 +130,10 @@ const Footer = () => {
             >
               <img src="/assets/socials/discord.svg" alt="discord" />
             </a>
-            <a href="/" target="_blank">
+            <a href="https://dropsnft.medium.com/" target="_blank">
               <img src="/assets/socials/medium.svg" alt="medium" />
             </a>
           </div>
-          {/* <SubscribeButton /> */}
         </div>
       </div>
     </FooterWrapper>

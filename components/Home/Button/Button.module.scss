@@ -1,0 +1,26 @@
+.button {
+  padding: 20px 45px;
+  font-size: 25px;
+  font-weight: 500;
+  color: white;
+  background-image: url('/assets/home/button.png');
+  background-size: cover;
+  transition: 0.5s;
+  &:hover {
+    background-image: url('/assets/home/hover-button.png');
+  }
+}
+
+.button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+@media all and (max-width: 768px) {
+  .button {
+    font-size: 20px;
+    padding: 18px 40px;
+  }
+}
+
+
