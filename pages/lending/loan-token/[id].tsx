@@ -10,6 +10,8 @@ import BorrowModal from 'components/Modal/BorrowModal'
 import { ZERO } from 'utils/constants'
 import { accountBalance } from 'layout'
 import styles from 'styles/Loans.module.css'
+import Modal from 'components/Mailchimp/ui/Modal/Modal';
+import MailchimpForm from 'components/Mailchimp/MailchimpForm/MailchimpForm'
 
 let gasInterval = null
 
