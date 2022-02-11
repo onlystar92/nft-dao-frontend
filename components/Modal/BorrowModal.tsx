@@ -18,6 +18,7 @@ interface IBorrowModal {
   walletBalance: string
   borrowLimit: number
   totalBorrow: number
+  theme: string
   borrowLimitUsed: number
   borrowRatePerBlock: number
   allowed: boolean
@@ -44,6 +45,7 @@ export default function BorrowModal({
   borrowLimitUsed,
   borrowRatePerBlock,
   totalBorrow,
+  theme,
   allowed,
   distributeApy,
   disabled,
@@ -110,12 +112,13 @@ export default function BorrowModal({
   return (
     <Modal
       show={!!market}
+      theme={theme}
       onRequestClose={onClose}
       closeOnEscape={closeOnEscape}
       loading={pending}
     >
       {pending ? (
-        <TxLoader hash={pending ? disabled : ''} />
+        <TxLoader hash={pending ? disabled : ''} theme={theme} />
       ) : (
         <>
           {market && (
@@ -128,27 +131,27 @@ export default function BorrowModal({
                 }`}
                 alt="asset"
               />
-              <div className={`bold ${styles.name}`}>
+              <div className={`bold ${styles.name} ${theme === 'dark' ? styles.darkName : ''}`}>
                 {market.underlyingName}
               </div>
             </div>
           )}
-          <div className={styles.tabs}>
+          <div className={`${styles.tabs} ${theme === 'dark' ? styles.tabsActive : ''}`}>
             <Button
-              className={tab === 'borrow' ? styles.active : ''}
+              className={tab === 'borrow' ? `${styles.active} ${theme === 'dark' ? styles.darkActive : ''}` : ''}
               onClick={() => tab !== 'borrow' && setTab('borrow')}
             >
               Borrow
             </Button>
             <Button
-              className={tab === 'repay' ? styles.active : ''}
+              className={tab === 'repay' ? `${styles.active} ${theme === 'dark' ? styles.darkActive : ''}` : ''}
               onClick={() => tab !== 'repay' && setTab('repay')}
             >
               Repay
             </Button>
           </div>
           {market && (
-            <form onSubmit={handleSubmit} className={styles.form}>
+            <form onSubmit={handleSubmit} className={`${styles.form} ${theme === 'dark' ? styles.darkForm : ''}`}>
               {tab === 'borrow' && (
                 <>
                   <div className={styles.field}>
@@ -216,6 +219,7 @@ export default function BorrowModal({
                       .toLowerCase()}.${
                       market.underlyingSymbol === 'DOP' ? 'png' : 'svg'
                     }`}
+                    theme={theme}
                     apy={new BigNumber(borrowRatePerBlock * blocksPerDay + 1)
                       .pow(daysPerYear)
                       .minus(1)
@@ -308,6 +312,7 @@ export default function BorrowModal({
                       market.underlyingSymbol === 'DOP' ? 'png' : 'svg'
                     }`}
                     isBorrowLimitInfo={allowed}
+                    theme={theme}
                     apy={new BigNumber(borrowRatePerBlock * blocksPerDay + 1)
                       .pow(daysPerYear)
                       .minus(1)

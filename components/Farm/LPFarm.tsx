@@ -8,6 +8,7 @@ interface ILPFarm {
   farm: any
   dopPrice: number
   isStaked: boolean
+  theme?: string
   library?: any
 }
 
@@ -15,6 +16,7 @@ export default function LPFarm({
   farm,
   dopPrice,
   isStaked,
+  theme,
   library
 }: ILPFarm) {
   const fromWei = (value, decimals = 18) =>
@@ -22,7 +24,7 @@ export default function LPFarm({
 
   return (
     <tr
-      className={styles.farm}
+      className={`${styles.farm} ${theme === 'dark' ? styles.darkFarm : ''}`}
     >
       <td>
         <div className="flex-center">

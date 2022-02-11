@@ -45,17 +45,22 @@
 .noMarkets {
   padding: var(--padding-narrow);
 }
-
+.darkNoMarkets {
+  color: white;
+}
 .supplyTitle,
 .borrowTitle {
   font-size: var(--font-size-2x);
   color: var(--color-black);
   margin-bottom: 16px;
 }
-
+.darkSupplyTitle,
+.darkBorrowTitle {
+  color: var(--color-white);
+}
 .supplyTitle > span{
   margin-left: 16px;
-  color: var(--color-blue);
+  color: #2E69FF;
 }
 
 .borrowTitle {
@@ -67,6 +72,9 @@
   color: var(--color-red);
 }
 
+.darkBorrowTitle > span {
+  color: #D95252;
+}
 @media all and (max-width: 767px) {
   .container {
     flex-direction: column;

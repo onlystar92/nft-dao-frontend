@@ -3,10 +3,6 @@
   min-height: 100vh;
 }
 
-.darkMain {
-  background-color: #1C1C1E;
-}
-
 .global {
   text-transform: capitalize;
   background: var(--color-primary);
@@ -25,10 +21,6 @@
   transition: all 0.2s;
   background: var(--color-white);
   box-shadow: var(--header-shadow);
-}
-
-.darkHeader {
-  background: var(--color-black);
 }
 
 .ReactCollapse--collapse {
@@ -64,16 +56,11 @@
 }
 
 .invalidNetwork {
-  height: 100%;
-  flex: 1;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 200%;
-}
-
-.invalidNetwork ul li {
-  font-size: 80%;
 }
 
 .menu a {
@@ -86,10 +73,6 @@
   margin-right: var(--padding-wide);
 }
 
-.darkMenu div {
-  color: var(--color-white);
-}
-
 .menu div:hover,
 .menu a:hover,
 .activeMenu {
@@ -98,29 +81,21 @@
 
 .hamburger {
   display: none;
-  margin-left: 20px;
+  margin-left: 26px;
+  margin-right: 20px;
 }
 
 .mobileMenu {
   display: none;
 }
 
-.themeMode {
-  cursor: pointer;
-  margin-left: 12px;
-}
-
 .collapseContent {
   position: absolute;
   width: 100%;
-  top: 92px;
+  top: 120px;
   left: 0;
   z-index: calc(var(--z-top) + 1);
   background-color: var(--color-white);
-}
-
-.darkCollapseContent {
-  background-color: var(--color-black); 
 }
 
 .menuContent {
@@ -133,10 +108,6 @@
   margin-bottom: var(--padding-narrow);
 }
 
-.darkMenuContent div {
-  color: var(--color-white);
-}
-
 .footer {
   padding: 64px var(--padding-normal);
   background-color: var(--color-black);
@@ -144,7 +115,6 @@
 
 .linkWrapper a {
   outline: none;
-  color: var(--color-white);
 }
 
 .linkWrapper div {
@@ -159,21 +129,9 @@
   text-shadow: 0px 0px 1px;
 }
 
-.socials {
-  display: flex;
-  width: 280px;
-  flex-direction: column;
-}
-
-.socials_network {
-  display: flex;
-  align-items: center;
-  flex-direction: row !important;
-}
-
-.socials_network a {
+.socials a {
   cursor: pointer;
-  margin: 16px 10px;
+  margin-right: 16px;
 }
 
 @media screen and (max-width: 1267px) {
@@ -185,11 +143,15 @@
   }
 }
 
+.menu div:not(:last-child) {
+  margin-right: var(--padding-wide);
+}
+
+.menu div:last-child {
+  margin-right: 60px;
+}
+
 @media all and (max-width: 992px) {
-  .menu div {
-    cursor: pointer;
-    margin-right: var(--padding-narrow);
-  }
   .linkWrapper {
     flex-direction: column;
     align-items: flex-start !important;

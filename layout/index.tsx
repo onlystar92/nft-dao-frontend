@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Collapse } from 'react-collapse'
 import useWallet from 'hooks/useWallet'
+import useDarkMode from 'hooks/useDarkMode'
 import Account from 'components/Account/Account'
 import { toNumber } from 'utils/common'
 import { addresses, ZERO } from 'utils/constants'
@@ -13,7 +14,6 @@ import { reducer, initState } from './store'
 import styles from './Layout.module.css'
 import { getMarkets } from 'pages/_app'
 import { getTokenPriceUSD } from 'utils/uniswap'
-import SubscribeButton from 'components/Mailchimp/ui/SubscribeButton/SubscribeButton'
 
 const FETCH_TIME = 15
 let balanceTimer = null
@@ -345,6 +345,7 @@ export default function Layout({
   const router = useRouter()
   const [state, dispatch] = useReducer(reducer, initState)
   const [loading, connectWallet, library] = useWallet(dispatch, markets)
+  const [theme, toggleTheme] = useDarkMode()
   const [restored, setRestored] = useState(false)
   const [isCollapse, setIsCollapse] = useState(false)
   const netMarkets = (library && markets[library.wallet.network]) || []
@@ -422,18 +423,30 @@ export default function Layout({
       {route === '/' ? (
         children
       ) : (
-        <main className={`${styles.main} flex-column justify-between`}>
-          <header className={styles.header}>
+        <main
+          className={`${styles.main} ${
+            theme === 'dark' ? styles.darkMain : ''
+          } flex-column justify-between`}
+        >
+          <header
+            className={`${styles.header} ${
+              theme === 'dark' ? styles.darkHeader : ''
+            }`}
+          >
             <div className="flex-center justify-between limited">
               <Link href="/">
                 <img
                   className={`${styles.logo} cursor`}
-                  src="/logo.png"
+                  src={theme === 'dark' ? "/logo-dark.png" : "/logo.png"} 
                   alt="Drops Loans"
                 />
               </Link>
               <div className="flex-center">
-                <div className={`flex ${styles.menu}`}>
+                <div
+                  className={`flex ${styles.menu} ${
+                    theme === 'dark' ? styles.darkMenu : ''
+                  }`}
+                >
                   <Link href="/staking">
                     <div
                       className={
@@ -443,13 +456,13 @@ export default function Layout({
                       Staking
                     </div>
                   </Link>
-                  <Link href="/loans">
+                  <Link href="/lending">
                     <div
                       className={
-                        router.pathname === '/loans' ? styles.activeMenu : ''
+                        router.pathname === '/lending' ? styles.activeMenu : ''
                       }
                     >
-                      Loans
+                      Lending Pools
                     </div>
                   </Link>
                   {/* <Link href="/vedop">
@@ -463,9 +476,18 @@ export default function Layout({
                   </Link> */}
                 </div>
                 <div className={styles.mobileMenu}>
-                  <div className={styles.collapseContent} id="collapse-content">
+                  <div
+                    className={`${styles.collapseContent} ${
+                      theme === 'dark' ? styles.darkCollapseContent : ''
+                    }`}
+                    id="collapse-content"
+                  >
                     <Collapse isOpened={isCollapse}>
-                      <div className={`${styles.menuContent} flex-all`}>
+                      <div
+                        className={`${styles.menuContent} ${
+                          theme === 'dark' ? styles.darkMenuContent : ''
+                        } flex-all`}
+                      >
                         <Link href="/">
                           <div
                             className={
@@ -486,15 +508,15 @@ export default function Layout({
                             Staking
                           </div>
                         </Link>
-                        <Link href="/loans">
+                        <Link href="/lending">
                           <div
                             className={
-                              router.pathname === '/loans'
+                              router.pathname === '/lending'
                                 ? styles.activeMenu
                                 : ''
                             }
                           >
-                            Loans
+                            Lending Pools
                           </div>
                         </Link>
                         {/* <Link href="/vedop">
@@ -516,11 +538,26 @@ export default function Layout({
                   library={library}
                   {...state}
                   loading={loading}
+                  theme={theme}
                   dispatch={dispatch}
                   connectWallet={connectWallet}
                 />
                 <img
-                  src="/assets/menu.svg"
+                  className={styles.themeMode}
+                  src={
+                    !theme || theme === 'light'
+                      ? '/assets/moon.png'
+                      : '/assets/sun.png'
+                  }
+                  alt="theme"
+                  onClick={toggleTheme}
+                />
+                <img
+                  src={
+                    theme === 'dark'
+                      ? '/assets/darkMenu.svg'
+                      : '/assets/menu.svg'
+                  }
                   className={`${styles.hamburger} cursor`}
                   alt="menu"
                   onClick={() => setIsCollapse(!isCollapse)}
@@ -533,6 +570,7 @@ export default function Layout({
               state,
               dispatch,
               library,
+              theme,
               markets: netMarkets,
               networks,
             })
@@ -586,13 +624,13 @@ export default function Layout({
                     Staking
                   </div>
                 </Link>
-                <Link href="/loans">
+                <Link href="/lending">
                   <div
                     className={
-                      router.pathname === '/loans' ? styles.activeMenu : ''
+                      router.pathname === '/lending' ? styles.activeMenu : ''
                     }
                   >
-                    Loans
+                    Lending Pools
                   </div>
                 </Link>
                 {/* <Link href="/vedop">

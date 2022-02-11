@@ -10,7 +10,7 @@ import MailchimpForm from "../../components/Mailchimp/MailchimpForm/MailchimpFor
 const FETCH_TIME = 15
 let poolTimer = null
 
-export default function Staking({ library, state, dispatch }) {
+export default function Staking({ library, theme, state, dispatch }) {
   const [tab, setTab] = useState('stake_lp')
   const myStaked = state.pools.filter((farm) => Number(farm.amount) !== 0)
   const availalbeFarms = state.pools.filter((farm) => Number(farm.amount) === 0)
@@ -32,15 +32,15 @@ export default function Staking({ library, state, dispatch }) {
     <>
       <section className={styles.header}>
         <div className={`limited`}>
-          <div className={`bold ${styles.stakingTitle}`}>Staking</div>
+          <div className={`bold ${styles.stakingTitle} ${theme === 'dark' ? styles.darkStakingTitle : ''}`}>Staking</div>
         </div>
       </section>
       <section className={`${styles.content} flex flex-start justify-center`}>
         <div className={`${styles.container} limited flex flex-column`}>
           <div className="full">
-            <div className={styles.tabs}>
+            <div className={`${styles.tabs} ${theme === 'dark' ? styles.darkTabs : ''}`}>
               <Button
-                className={tab === 'stake_lp' ? styles.active : ''}
+                className={tab === 'stake_lp' ? `${styles.active} ${theme === 'dark' ? styles.darkActive : ''}` : ''}
                 onClick={() => tab !== 'stake_lp' && setTab('stake_lp')}
               >
                 Stake LP
@@ -60,6 +60,7 @@ export default function Staking({ library, state, dispatch }) {
                   labels={{
                     title: myStaked.length > 0 ? 'My staked positions' : '',
                   }}
+                  theme={theme}
                   noBorder
                 >
                   <table cellPadding={0} cellSpacing={0}>
@@ -95,6 +96,7 @@ export default function Staking({ library, state, dispatch }) {
                       ? 'Available to stake'
                       : '',
                 }}
+                theme={theme}
                 noBorder
               >
                 {availalbeFarms.length > 0 && (
@@ -116,6 +118,7 @@ export default function Staking({ library, state, dispatch }) {
                           farm={farm}
                           dopPrice={state.dopPrice}
                           library={library}
+                          theme={theme}
                           isStaked={false}
                         />
                       ))}

@@ -24,6 +24,10 @@
   margin-bottom: 40px !important;
 }
 
+.darkLoader p {
+  color: var(--color-white);
+}
+
 .loader img {
   width: 50%;
   max-width: 100px;

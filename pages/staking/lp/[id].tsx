@@ -14,7 +14,7 @@ const FETCH_TIME = 15
 let poolTimer = null
 
 export default function LpStaking(props) {
-  const { state, dispatch, library } = props
+  const { state, dispatch, theme, library } = props
 
   const { transactions, requests, pools } = state
 
@@ -187,7 +187,7 @@ export default function LpStaking(props) {
           </a>
         </div>
       </section>
-      <section className={`${styles.content} flex flex-start justify-center`}>
+      <section className={`${styles.content} ${theme === 'dark' ? styles.darkContent : ''} flex flex-start justify-center`}>
         <div className={`${styles.container} limited flex`}>
           <div className={styles.assetInfo}>
             <div className={`flex-center ${styles.assetTitle}`}>
@@ -376,6 +376,7 @@ export default function LpStaking(props) {
             <StakingForm
               market={assetInfo}
               network={network}
+              theme={theme}
               allowed={Number(assetInfo.allowance) > 0}
               pending={assetInfo && requests.stake === assetInfo.symbol}
               disabled={assetInfo && transactionMap[0][assetInfo.symbol]}

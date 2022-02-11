@@ -22,6 +22,43 @@
   padding: 40px;
 }
 
+.darkWrapper {
+  background: #1C1C1E;
+  box-shadow: 0px 16px 40px rgba(0, 0, 0, 0.08);
+}
+
+.nftModalWrap {
+  max-width: unset;
+  width: 772px;
+}
+
+.nftModalWrap .nftName {
+  font-weight: bold;
+  font-size: 32px;
+  color: #000000;
+  margin-bottom: 40px;
+}
+
+.nftConfirmBtnWrap {
+  margin-top: 40px;
+}
+
+.nftConfirmBtnWrap button {
+  width: 109px;
+  height: 40px;
+  background: #1A1A1A;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 16px;
+  color: #FFFFFF;
+}
+
+.totalSelectedNft {
+  font-weight: 500;
+  font-size: 16px;
+  color: #0047FF;
+}
+
 .closeBtn {
   position: absolute;
   right: 16px;
@@ -70,13 +107,19 @@
   overflow: hidden;
 }
 
+.darkName {
+  color: var(--color-white);
+}
+
 .tabs {
   display: flex;
   width: 100%;
   margin-bottom: 40px;
   border-bottom: 2px solid var(--color-divider);
 }
-
+.tabsActive {
+  border-bottom: 2px solid #404040;
+}
 .tabs button {
   background-color: transparent;
   font-size: var(--font-size-normal);
@@ -96,6 +139,11 @@ button.active {
   border-bottom: 2px solid var(--color-black);
 }
 
+button.darkActive {
+  color: #5C8AFF;
+  border-bottom: 2px solid #5C8AFF;
+}
+
 .inputWrapper {
   background: var(--color-gray-1);
   border-radius: 8px;
@@ -112,8 +160,20 @@ button.active {
   font-size: var(--font-size-2x);
   line-height: 32px;
 }
+.darkForm .inputWrapper {
+  background: #242426;
+}
+.darkForm .inputWrapper input {
+  color: white;
+}
+
+.darkForm .info span {
+  color: white;
+}
+
 .maxBtn,
-.safeMaxBtn {
+.safeMaxBtn,
+.nftBtn {
   background: var(--color-white);
   box-shadow: var(--modal-shadow);
   border-radius: 4px;
@@ -126,12 +186,21 @@ button.active {
   white-space: nowrap;
 }
 
+.darkForm .maxBtn, .safeMaxBtn, .nftBtn {
+  background: #404040;
+  color: white;
+}
+
 .safeMaxBtn {
   min-width: 120px;
 }
 
 .form p {
   margin-bottom: var(--padding-narrow);
+}
+
+.darkForm p {
+  color: white;
 }
 
 .form button {
@@ -143,6 +212,10 @@ button.active {
   font-size: 20px;
   color: var(--color-white);
   margin-top: 16px;
+}
+
+.darkForm button {
+  background: #2E69FF;
 }
 
 .form button img {

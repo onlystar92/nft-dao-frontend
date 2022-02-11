@@ -125,7 +125,7 @@ const Header = () => {
             </Link>
           </li>
           <li className="nav_item">
-            <Link href="/loans">
+            <Link href="/lending">
               Lending Pool
             </Link>
           </li>
@@ -134,12 +134,12 @@ const Header = () => {
         <div className="hamburgo_menu"> 
           <ul>
             <li>
-              <Link href="/">
+              <Link href="/staking">
               Staking
               </Link>
             </li>
             <li>
-              <Link href="/">
+              <Link href="/lending">
               Lending Pool
               </Link>
             </li>

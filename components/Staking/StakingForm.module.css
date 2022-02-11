@@ -7,6 +7,10 @@
   padding: 40px;
 }
 
+.darkStakingForm {
+  background: #1C1C1E;
+}
+
 .closeBtn {
   display: none;
   position: absolute;
@@ -20,7 +24,9 @@
   margin-bottom: 32px;
   border-bottom: 2px solid var(--color-divider);
 }
-
+.darkStakingForm .tabs {
+  border-bottom: 2px solid #404040;
+}
 .tabs button {
   background-color: transparent;
   font-size: var(--font-size-normal);
@@ -40,10 +46,18 @@ button.active {
   border-bottom: 2px solid var(--color-black);
 }
 
+.darkStakingForm button.active {
+  color: #5C8AFF;
+  border-bottom: 2px solid #5C8AFF;
+}
+
 .inputWrapper {
   background: var(--color-gray-1);
   border-radius: 8px;
   padding: 8px 8px 8px 16px;
+}
+.darkStakingForm .inputWrapper {
+  background: #242426;
 }
 .inputWrapper input {
   width: 100%;
@@ -56,6 +70,10 @@ button.active {
   font-size: var(--font-size-2x);
   line-height: 32px;
 }
+.darkStakingForm .inputWrapper input {
+  color: white;
+}
+
 .maxBtn,
 .safeMaxBtn {
   background: var(--color-white);
@@ -69,7 +87,10 @@ button.active {
   cursor: pointer;
   white-space: nowrap;
 }
-
+.darkStakingForm .maxBtn, .safeMaxBtn {
+  background: #404040;
+  color: white;
+}
 .form p {
   margin-bottom: var(--padding-narrow);
 }
@@ -86,6 +107,10 @@ button.active {
   font-weight: 500;
   font-size: 20px;
   color: var(--color-white);
+}
+
+.darkStakingForm .form button {
+  background: #2E69FF;
 }
 
 .field {
@@ -119,6 +144,10 @@ button.active {
   margin-bottom: 40px;
 }
 
+.darkStakingForm .claimValue {
+  color: var(--color-white);
+}
+
 .claimPoint {
   padding-top: 8px;
   padding-bottom: 32px;
@@ -134,7 +163,9 @@ button.active {
   font-size: var(--font-size-normal);
   color: var(--color-black);
 }
-
+.darkStakingForm span {
+  color: white !important;
+}
 @media all and (max-width: 1024px) {
   .closeBtn {
     display: block;

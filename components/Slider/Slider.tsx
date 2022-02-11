@@ -3,10 +3,11 @@ import styles from './Slider.module.css'
 
 interface ISlider {
   value: boolean
+  theme?: string
   onChange?: Function
 }
 
-export default function Slider({ value, onChange }: ISlider) {
+export default function Slider({ value, theme, onChange }: ISlider) {
   const [checked, setChecked] = useState(false)
   const handleCheck = (e) => {
     e.stopPropagation()
@@ -22,7 +23,7 @@ export default function Slider({ value, onChange }: ISlider) {
       className={`${styles.slider} ${checked ? styles.checked : ''}`}
       onClick={handleCheck}
     >
-      <span className={styles.bar}>
+      <span className={`${styles.bar} ${theme === 'dark' ? styles.darkBar : ''}`}>
       </span>
     </div>
   )

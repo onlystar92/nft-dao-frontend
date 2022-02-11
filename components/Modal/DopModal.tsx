@@ -11,6 +11,7 @@ interface IDopModal {
   rewardBalance: number
   price: number
   disabled: string
+  theme: string
   onSubmit: Function
   onClose: Function
   closeOnEscape?: boolean
@@ -23,6 +24,7 @@ export default function DopModal({
   rewardBalance,
   price,
   disabled,
+  theme,
   onSubmit,
   onClose,
   closeOnEscape,
@@ -35,16 +37,17 @@ export default function DopModal({
   return (
     <Modal
       show={!!isOpen}
+      theme={theme}
       onRequestClose={onClose}
       closeOnEscape={closeOnEscape}
       loading={pending}
     >
       {pending ? (
-        <TxLoader hash={pending ? disabled : ''} />
+        <TxLoader hash={pending ? disabled : ''} theme={theme} />
       ) : (
         <>
           {isOpen && (
-            <div className={styles.form}>
+            <div className={`${styles.form} ${theme === 'dark' ? styles.darkForm : ''}`}>
               <div className={`${styles.info} flex justify-between`}>
                 <div className="flex-center">
                   <img src="/assets/token.png" alt="asset" />

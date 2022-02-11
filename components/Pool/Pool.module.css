@@ -41,7 +41,9 @@
   color: var(--color-gray);
   font-size: var(--font-size-small);
 }
-
+.darkUsdPrice {
+  color: var(--color-white);
+}
 .btn {
   width: 98px;
   height: 40px;
@@ -49,10 +51,11 @@
   color: var(--color-white);
   border-radius: 8px;
 }
-.darkFarm .btn {
+
+.darkBtn {
   background: #2E69FF;
-  color: white;
 }
+
 @media all and (max-width: 567px) {
   .mobileLabel {
     display: block;

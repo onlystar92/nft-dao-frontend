@@ -8,6 +8,7 @@ interface ICollateralModal {
   pending: boolean
   market: any
   disabled: string
+  theme: string
   onSubmit: Function
   onClose: Function
   closeOnEscape?: boolean
@@ -17,6 +18,7 @@ export default function CollateralModal({
   pending,
   market,
   disabled,
+  theme,
   onSubmit,
   onClose,
   closeOnEscape,
@@ -30,14 +32,15 @@ export default function CollateralModal({
   return (
     <Modal
       show={!!market}
+      theme={theme}
       onRequestClose={onClose}
       closeOnEscape={closeOnEscape}
       loading={pending}
     >
       {pending ? (
-        <TxLoader hash={pending ? disabled : ''} />
+        <TxLoader hash={pending ? disabled : ''} theme={theme} />
       ) : (
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={handleSubmit} className={`${styles.form} ${theme === 'dark' ? styles.darkForm : ''}`}>
           {market && (
             <div className={`flex-center ${styles.assetName}`}>
               <img
@@ -48,7 +51,7 @@ export default function CollateralModal({
                 }`}
                 alt="asset"
               />
-              <div className={`bold ${styles.name}`}>{market.underlyingName}</div>
+              <div className={`bold ${styles.name} ${theme === 'dark' ? styles.darkName : ''}`}>{market.underlyingName}</div>
             </div>
           )}
           <p>

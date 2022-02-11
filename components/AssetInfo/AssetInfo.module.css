@@ -9,6 +9,15 @@
   padding: 16px 0px;
 }
 
+.darkAssetInfo .apySection {
+  border-top: 1px solid #1A1A1A;
+  border-bottom: 1px solid #1A1A1A;
+}
+
+.darkAssetInfo span {
+  color: white;
+}
+
 .borrowSection {
   padding: 16px 0px;
 }

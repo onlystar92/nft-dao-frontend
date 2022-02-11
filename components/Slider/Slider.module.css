@@ -33,6 +33,9 @@
   justify-content: space-around;
 }
 
+.darkBar {
+  background: #2E69FF;
+}
 .checked .bar {
   right: 2px;
   left: unset;
