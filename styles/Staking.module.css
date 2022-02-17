@@ -67,7 +67,9 @@ button.darkActive {
 .noFarms {
   padding: var(--padding-narrow);
 }
-
+.darkNoFarms {
+  color: white;
+}
 @media all and (max-width: 767px) {
   .container {
     flex-direction: column;

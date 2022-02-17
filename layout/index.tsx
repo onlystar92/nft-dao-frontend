@@ -575,7 +575,7 @@ export default function Layout({
               networks,
             })
           ) : (
-            <div className={styles.invalidNetwork}>
+            <div className={`${styles.invalidNetwork} ${theme === 'dark' ? styles.darkInvalidNetwork : ''}`}>
               <div className="center flex-column flex-center">
                 Please connect to following networks
                 <br />

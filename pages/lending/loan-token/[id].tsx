@@ -354,7 +354,7 @@ export default function Loans(props) {
               )}
             </div>
             {mySupplies.length > 0 && (
-              <Table classes={{ title: 'first' }} theme={theme} labels={{}}>
+              <Table classes={{ title: 'first' }} theme={theme} labels={{}} isBackground>
                 <table cellPadding={0} cellSpacing={0}>
                   <thead>
                     <tr>
@@ -401,6 +401,7 @@ export default function Loans(props) {
               labels={{
                 title: mySupplies.length > 0 ? 'Available to supply' : '',
               }}
+              isBackground
             >
               <table cellPadding={0} cellSpacing={0}>
                 <thead>
@@ -442,7 +443,7 @@ export default function Loans(props) {
               </table>
               {markets.filter((m) => +supplyBalances[m.underlyingAddress] === 0)
                 .length === 0 && (
-                <p className={`${styles.noMarkets} center`}>No Markets</p>
+                <p className={`${styles.noMarkets} ${theme === 'dark' ? styles.darkNoMarkets : ''} center`}>No Markets</p>
               )}
               <CollateralModal
                 network={network}
@@ -522,7 +523,7 @@ export default function Loans(props) {
               )}
             </div>
             {myBorrows.length > 0 && (
-              <Table classes={{ title: 'second' }} theme={theme} labels={{}}>
+              <Table classes={{ title: 'second' }} theme={theme} labels={{}} isBackground>
                 <table cellPadding={0} cellSpacing={0}>
                   <thead>
                     <tr>
@@ -567,6 +568,7 @@ export default function Loans(props) {
               labels={{
                 title: myBorrows.length > 0 ? 'Available to borrow' : '',
               }}
+              isBackground
             >
               <table cellPadding={0} cellSpacing={0}>
                 <thead>

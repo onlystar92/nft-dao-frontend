@@ -137,7 +137,7 @@ const Slide = () => {
         {/* <p className="market">Market size:<br /> $5,000,000</p> */}
         <p className="market">Loans market:<br /> ${new BigNumber(status.totalSupply || 0).toFormat(0)}</p>
         <div className="btn_div">
-          <a className="launch_btn" href="/loans">
+          <a className="launch_btn" href="/lending">
             <Button>Launch App</Button>
           </a>
         </div>

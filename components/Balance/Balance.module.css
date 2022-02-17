@@ -80,7 +80,9 @@
   border-radius: 5px;
   background: var(--color-divider);
 }
-
+.darkBar {
+  background: #1A1A1A;
+}
 .bar_red {
   background: var(--color-red);
 }

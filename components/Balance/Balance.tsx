@@ -66,7 +66,7 @@ export default function Balance({
           <div className={styles.status}>
             <div className={`flex-center ${styles.progress}`}>
               <span
-                className={`${styles.bar}`}
+                className={`${styles.bar} ${theme === 'dark' ? styles.darkBar : ''}`}
                 style={{ width: `${100 - Math.min(borrowPercent, 100)}%` }}
               />
               <div

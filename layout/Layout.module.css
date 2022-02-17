@@ -75,7 +75,12 @@
 .invalidNetwork ul li {
   font-size: 80%;
 }
-
+.darkInvalidNetwork {
+  color: white;
+}
+.darkInvalidNetwork ul li {
+  color: white;
+}
 .menu a {
   outline: none;
 }

@@ -11,6 +11,7 @@ interface ITable {
   theme?: string
   classes?: Properties
   noBorder?: Boolean
+  isBackground?: Boolean
   onLoad?: Function
 }
 
@@ -20,6 +21,7 @@ export default function Table({
   labels,
   theme,
   noBorder,
+  isBackground,
   onLoad,
 }: ITable) {
 
@@ -37,7 +39,7 @@ export default function Table({
           {labels.title}
         </div>
       )}
-      <div className={`${styles.tableContent} ${theme === 'dark' ? styles.darkTableContent : ''} ${noBorder ? styles.noBorder : ''}`}>
+      <div className={`${styles.tableContent} ${theme === 'dark' ? styles.darkTableContent : ''} ${noBorder ? styles.noBorder : ''} ${theme === 'dark' && isBackground ? styles.backgroundTableContent : ''}`}>
         {children}
       </div>
     </div>

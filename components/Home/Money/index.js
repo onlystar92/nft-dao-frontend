@@ -138,7 +138,7 @@ const Slide = () => {
           <img src="assets/home/Convex.png"></img>
         </div>
         <div className="btn_div">
-          <a className="btn" href="/loans">
+          <a className="btn" href="/lending">
             <Button>Launch App</Button>
           </a>
         </div>

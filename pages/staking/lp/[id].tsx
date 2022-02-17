@@ -167,7 +167,7 @@ export default function LpStaking(props) {
       <section className={styles.header}>
         <div className={`limited flex-center justify-between`}>
           <Link href="/staking">
-            <img className="cursor" src="/left-arrow.svg" alt="arrow" />
+            <img className="cursor" src={theme === 'dark' ? "/left-arrow-dark.png" : "/left-arrow.svg"} alt="arrow" />
           </Link>
           <a
             href={

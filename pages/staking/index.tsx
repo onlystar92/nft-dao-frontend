@@ -61,7 +61,7 @@ export default function Staking({ library, theme, state, dispatch }) {
                     title: myStaked.length > 0 ? 'My staked positions' : '',
                   }}
                   theme={theme}
-                  noBorder
+                  isBackground
                 >
                   <table cellPadding={0} cellSpacing={0}>
                     <thead>
@@ -97,7 +97,7 @@ export default function Staking({ library, theme, state, dispatch }) {
                       : '',
                 }}
                 theme={theme}
-                noBorder
+                isBackground
               >
                 {availalbeFarms.length > 0 && (
                   <table cellPadding={0} cellSpacing={0}>
@@ -126,7 +126,7 @@ export default function Staking({ library, theme, state, dispatch }) {
                   </table>
                 )}
                 {myStaked.length === 0 && availalbeFarms.length === 0 && (
-                  <p className={`${styles.noFarms} center`}>
+                  <p className={`${styles.noFarms} ${theme === 'dark' ? styles.darkNoFarms : ''} center`}>
                     No Available Farming
                   </p>
                 )}
