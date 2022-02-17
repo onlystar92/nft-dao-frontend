@@ -11,6 +11,7 @@ interface IStakingForm {
   pending: boolean
   market: any
   disabled: string
+  theme?: string
   allowed: boolean
   onSubmit: Function
   onClose?: Function
@@ -26,6 +27,7 @@ export default function StakingForm({
   pending,
   market,
   disabled,
+  theme,
   allowed,
   onSubmit,
   onClose,
@@ -66,12 +68,12 @@ export default function StakingForm({
   }, [tab])
 
   return (
-    <div className={styles.stakingForm} onMouseDown={e => e.stopPropagation()}>
+    <div className={`${styles.stakingForm} ${theme === 'dark' ? styles.darkStakingForm : ''}`} onMouseDown={e => e.stopPropagation()}>
       {pending ? (
-        <TxLoader hash={pending ? disabled : ''} network={network} />
+        <TxLoader hash={pending ? disabled : ''} network={network} theme={theme} />
       ) : (
           <>
-            <img className={`cursor ${styles.closeBtn}`} src="/assets/close.svg" alt="close" onClick={() => onClose()} />
+            <img className={`cursor ${styles.closeBtn}`} src={theme === 'dark' ? "/assets/dark-close.png" : "/assets/close.svg"} alt="close" onClick={() => onClose()} />
             <div className={styles.tabs}>
               <Button
                 className={tab === 'stake' ? styles.active : ''}

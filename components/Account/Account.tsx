@@ -15,6 +15,7 @@ interface IAccount {
   transactions: any
   requests: any
   loading: boolean
+  theme: string
   account: TMap
   balance: string
   rewardBalance: string
@@ -30,6 +31,7 @@ export default function Account({
   transactions,
   requests,
   loading = false,
+  theme,
   account,
   balance,
   rewardBalance,
@@ -105,7 +107,7 @@ export default function Account({
     <div className={styles.account}>
       {!account.address ? (
         <Button
-          className={`cursor ${styles.connectBtn}`}
+          className={`cursor ${styles.connectBtn} ${theme === 'dark' ? styles.darkConnectBtn : ''}`}
           onClick={() => {
             setIsClicked(true)
             connectWallet(true)
@@ -114,7 +116,7 @@ export default function Account({
           {isClicked ? 'No account' : 'Connect wallet'}
         </Button>
       ) : (
-        <div className={styles.info}>
+        <div className={`${styles.info} ${theme === 'dark' ? styles.darkInfo : ''}`}>
           {!loading && (
             <div className="flex-center cursor">
               <BCRAvatar
@@ -154,6 +156,7 @@ export default function Account({
         balance={Number(dopBalance)}
         rewardBalance={Number(rewardBalance)}
         price={dopPrice}
+        theme={theme}
         disabled={isOpen && transactionMap[0].claim}
         onSubmit={handleClaimDop}
         onClose={() => setIsOpen(false)}

@@ -10,8 +10,8 @@ import BorrowModal from 'components/Modal/BorrowModal'
 import { ZERO } from 'utils/constants'
 import { accountBalance } from 'layout'
 import styles from 'styles/Loans.module.css'
-import Modal from '../components/Mailchimp/ui/Modal/Modal';
-import MailchimpForm from "../components/Mailchimp/MailchimpForm/MailchimpForm";
+import Modal from 'components/Mailchimp/ui/Modal/Modal';
+import MailchimpForm from 'components/Mailchimp/MailchimpForm/MailchimpForm'
 
 let gasInterval = null
 
@@ -36,6 +36,7 @@ export default function Loans(props) {
       MarketBorrowed,
       netAPY,
     },
+    theme,
     dispatch,
     library,
     markets,
@@ -332,13 +333,19 @@ export default function Loans(props) {
               />
             </div>
           )}
-          <Balance {...{ TVL, MarketBorrowed, totalCash, totalBorrow, netAPY }} />
+          <Balance
+            {...{ TVL, MarketBorrowed, totalCash, totalBorrow, netAPY, theme }}
+          />
         </div>
       </section>
       <section className={`${styles.content} flex flex-start justify-center`}>
         <div className={`${styles.container} limited flex`}>
           <div className="full">
-            <div className={`bold ${styles.supplyTitle}`}>
+            <div
+              className={`bold ${styles.supplyTitle} ${
+                theme === 'dark' ? styles.darkSupplyTitle : ''
+              }`}
+            >
               Supply
               {totalSupply ? (
                 <span>${new BigNumber(totalSupply).toFormat(2)}</span>
@@ -347,7 +354,7 @@ export default function Loans(props) {
               )}
             </div>
             {mySupplies.length > 0 && (
-              <Table classes={{ title: 'first' }} labels={{}}>
+              <Table classes={{ title: 'first' }} theme={theme} labels={{}} isBackground>
                 <table cellPadding={0} cellSpacing={0}>
                   <thead>
                     <tr>
@@ -365,6 +372,7 @@ export default function Loans(props) {
                           key={market.id}
                           market={market}
                           assetsIn={assetsIn}
+                          theme={theme}
                           balance={
                             supplyBalances[market.underlyingAddress] || '0'
                           }
@@ -389,9 +397,11 @@ export default function Loans(props) {
             )}
             <Table
               classes={{ title: 'first' }}
+              theme={theme}
               labels={{
                 title: mySupplies.length > 0 ? 'Available to supply' : '',
               }}
+              isBackground
             >
               <table cellPadding={0} cellSpacing={0}>
                 <thead>
@@ -410,6 +420,7 @@ export default function Loans(props) {
                         key={market.id}
                         market={market}
                         assetsIn={assetsIn}
+                        theme={theme}
                         balance={
                           marketBalances[market.underlyingAddress] || '0'
                         }
@@ -432,12 +443,13 @@ export default function Loans(props) {
               </table>
               {markets.filter((m) => +supplyBalances[m.underlyingAddress] === 0)
                 .length === 0 && (
-                <p className={`${styles.noMarkets} center`}>No Markets</p>
+                <p className={`${styles.noMarkets} ${theme === 'dark' ? styles.darkNoMarkets : ''} center`}>No Markets</p>
               )}
               <CollateralModal
                 network={network}
                 pending={enterMarket && requests.supply === enterMarket.id}
                 market={enterMarket}
+                theme={theme}
                 disabled={
                   (enterMarket && transactionMap[0][enterMarket.id]) ||
                   (enterMarket &&
@@ -464,6 +476,7 @@ export default function Loans(props) {
                 pending={supply && requests.supply === supply.id}
                 market={supply}
                 assetsIn={assetsIn}
+                theme={theme}
                 balance={
                   (supply && marketBalances[supply.underlyingAddress]) || '0'
                 }
@@ -497,7 +510,11 @@ export default function Loans(props) {
             </Table>
           </div>
           <div className="full">
-            <div className={`bold ${styles.borrowTitle}`}>
+            <div
+              className={`bold ${styles.borrowTitle} ${
+                theme === 'dark' ? styles.darkBorrowTitle : ''
+              }`}
+            >
               Borrow
               {totalBorrow ? (
                 <span>${new BigNumber(totalBorrow).toFormat(2)}</span>
@@ -506,7 +523,7 @@ export default function Loans(props) {
               )}
             </div>
             {myBorrows.length > 0 && (
-              <Table classes={{ title: 'second' }} labels={{}}>
+              <Table classes={{ title: 'second' }} theme={theme} labels={{}} isBackground>
                 <table cellPadding={0} cellSpacing={0}>
                   <thead>
                     <tr>
@@ -524,6 +541,7 @@ export default function Loans(props) {
                           isMyMarkets={true}
                           key={market.id}
                           market={market}
+                          theme={theme}
                           totalCash={totalCash}
                           borrowRatePerBlock={fromWei(
                             marketBorrowRates[market.underlyingAddress],
@@ -546,9 +564,11 @@ export default function Loans(props) {
             )}
             <Table
               classes={{ title: 'second' }}
+              theme={theme}
               labels={{
                 title: myBorrows.length > 0 ? 'Available to borrow' : '',
               }}
+              isBackground
             >
               <table cellPadding={0} cellSpacing={0}>
                 <thead>
@@ -566,6 +586,7 @@ export default function Loans(props) {
                       <BorrowMarket
                         key={market.id}
                         market={market}
+                        theme={theme}
                         borrowRatePerBlock={fromWei(
                           marketBorrowRates[market.underlyingAddress],
                           18
@@ -585,7 +606,7 @@ export default function Loans(props) {
               </table>
               {markets.filter((m) => +borrowBalances[m.underlyingAddress] === 0)
                 .length === 0 && (
-                <p className={`${styles.noMarkets} center`}>No Markets</p>
+                <p className={`${styles.noMarkets} ${theme === 'dark' ? styles.darkNoMarkets : ''} center`}>No Markets</p>
               )}
               <BorrowModal
                 network={network}
@@ -597,6 +618,7 @@ export default function Loans(props) {
                 walletBalance={
                   (borrow && marketBalances[borrow.underlyingAddress]) || '0'
                 }
+                theme={theme}
                 totalBorrow={totalBorrow}
                 borrowLimit={
                   borrow &&

@@ -12,6 +12,11 @@
   outline: none;
 }
 
+.account .darkConnectBtn {
+  background: var(--color-white);
+  color: var(--color-black);
+}
+
 .info {
   display: flex;
   align-items: center;
@@ -21,6 +26,11 @@
   border-radius: 40px;
   border: 1px solid var(--color-divider);
   min-height: 46px;
+}
+
+.darkInfo {
+  background-color: #0F0F12;
+  border: none;
 }
 
 .info a {
@@ -42,4 +52,11 @@
 .info span {
   color: var(--color-gray);
   font-weight: normal;
+}
+
+.darkInfo p {
+  color: #FFFFFF;
+}
+.darkInfo span {
+  color: #7D7D7D;
 }

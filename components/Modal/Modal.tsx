@@ -7,6 +7,7 @@ interface IModal {
   loading?: boolean
   children: ReactNode | ReactNodeArray
   show: boolean
+  theme?: string
   onRequestClose?: Function
   closeOnEscape?: boolean
   extra?: ReactNode | ReactNodeArray
@@ -17,6 +18,7 @@ export default function Modal({
   loading = false,
   children,
   show,
+  theme,
   onRequestClose,
   closeOnEscape = true,
   extra = null,
@@ -35,14 +37,15 @@ export default function Modal({
   if (!loaded) return null
   return ReactDOM.createPortal(
     <div
-      className={`${styles.overlay} ${show ? styles.show : styles.hide}`}
+      className={`${styles.overlay} ${show ? styles.show : styles.hide} ${theme === 'dark' ? styles.darkOverlay : ''}`}
       onMouseDown={() => onRequestClose && onRequestClose()}
     >
-      <div className={styles.wrapper} onMouseDown={e => e.stopPropagation()}>
-        <img className={`${styles.closeBtn} cursor`} src="/assets/close.svg" alt="close" onClick={() => onRequestClose && onRequestClose()} />
+      <div className={`${styles.wrapper} ${className} ${theme === 'dark' ? styles.darkWrapper : ''}`} onMouseDown={e => e.stopPropagation()}>
+        <img className={`${styles.closeBtn} cursor`} src={theme === 'dark' ? "/assets/dark-close.png" : "/assets/close.svg"} alt="close" onClick={() => onRequestClose && onRequestClose()} />
         <Table
+          theme={theme}
           classes={{
-            table: `${styles.table} ${className}`,
+            table: `${styles.table}`,
             content: loading ? styles.loading : styles.content,
           }}
         >

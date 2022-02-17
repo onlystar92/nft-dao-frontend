@@ -23,6 +23,7 @@ class MyDocument extends Document {
       <Html>
         <Head>
           {/* Global site tag (gtag.js) - Google Analytics */}
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"></link>
           <script
             async
             src="https://www.googletagmanager.com/gtag/js?id=G-PG6496DWYE"

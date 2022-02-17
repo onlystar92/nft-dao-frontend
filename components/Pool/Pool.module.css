@@ -1,0 +1,63 @@
+.farm{
+  cursor: pointer;
+}
+
+.farm td > div {
+  word-break: break-all;
+}
+
+.farm td p {
+  word-break: break-all;
+}
+
+.assetIcon {
+  margin-right: 32px;
+}
+
+.logo {
+  width: calc(var(--padding-normal) * 2);
+  text-align: center;
+  height: calc(var(--padding-normal) * 2);
+  border-radius: 50%;
+  background-color: var(--color-lightgray);
+}
+
+.firstAsset {
+  z-index: 1;
+}
+
+.secondAsset {
+  position: absolute;
+  left: 40px;
+}
+
+.mobileLabel {
+  display: none;
+  font-size: var(--font-size-normal);
+  color: var(--color-gray);
+}
+
+.usdPrice {
+  color: var(--color-gray);
+  font-size: var(--font-size-small);
+}
+.darkUsdPrice {
+  color: var(--color-white);
+}
+.btn {
+  width: 98px;
+  height: 40px;
+  background: var(--color-black1);
+  color: var(--color-white);
+  border-radius: 8px;
+}
+
+.darkBtn {
+  background: #2E69FF;
+}
+
+@media all and (max-width: 567px) {
+  .mobileLabel {
+    display: block;
+  } 
+}

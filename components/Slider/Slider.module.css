@@ -10,7 +10,7 @@
 }
 
 .checked {
-  background: var(--color-black);
+  background: #1A1A1A;
 }
 
 .bar {
@@ -33,6 +33,9 @@
   justify-content: space-around;
 }
 
+.darkBar {
+  background: #2E69FF;
+}
 .checked .bar {
   right: 2px;
   left: unset;

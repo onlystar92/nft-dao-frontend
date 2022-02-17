@@ -3,6 +3,10 @@
   min-height: 100vh;
 }
 
+.darkMain {
+  background-color: #1C1C1E;
+}
+
 .global {
   text-transform: capitalize;
   background: var(--color-primary);
@@ -21,6 +25,10 @@
   transition: all 0.2s;
   background: var(--color-white);
   box-shadow: var(--header-shadow);
+}
+
+.darkHeader {
+  background: var(--color-black);
 }
 
 .ReactCollapse--collapse {
@@ -67,7 +75,12 @@
 .invalidNetwork ul li {
   font-size: 80%;
 }
-
+.darkInvalidNetwork {
+  color: white;
+}
+.darkInvalidNetwork ul li {
+  color: white;
+}
 .menu a {
   outline: none;
 }
@@ -78,6 +91,10 @@
   margin-right: var(--padding-wide);
 }
 
+.darkMenu div {
+  color: var(--color-white);
+}
+
 .menu div:hover,
 .menu a:hover,
 .activeMenu {
@@ -86,11 +103,16 @@
 
 .hamburger {
   display: none;
-  margin-left: 26px;
+  margin-left: 20px;
 }
 
 .mobileMenu {
   display: none;
+}
+
+.themeMode {
+  cursor: pointer;
+  margin-left: 12px;
 }
 
 .collapseContent {
@@ -102,6 +124,10 @@
   background-color: var(--color-white);
 }
 
+.darkCollapseContent {
+  background-color: var(--color-black); 
+}
+
 .menuContent {
   position: relative;
   padding: var(--padding-normal) 0;
@@ -110,6 +136,10 @@
 .menuContent div {
   cursor: pointer;
   margin-bottom: var(--padding-narrow);
+}
+
+.darkMenuContent div {
+  color: var(--color-white);
 }
 
 .footer {

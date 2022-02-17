@@ -10,6 +10,7 @@ interface IBorrowMarket {
   borrowRatePerBlock: number
   onBorrow: Function
   distributeApy: number
+  theme?: string
 }
 
 export default function BorrowMarket({
@@ -20,13 +21,14 @@ export default function BorrowMarket({
   borrowRatePerBlock,
   onBorrow,
   distributeApy,
+  theme,
 }: IBorrowMarket) {
   const blocksPerDay = 4 * 60 * 24
   const daysPerYear = 365
 
   return (
     <tr
-      className={`${styles.market} ${styles.supply}`}
+      className={`${styles.market} ${styles.supply} ${theme === 'dark' ? styles.darkMarket : ''}`}
       onClick={() => onBorrow()}
     >
       <td>
@@ -57,7 +59,7 @@ export default function BorrowMarket({
           )}
           %
         </p>
-        <p className={styles.balanceUsd}>
+        <p className={`${styles.balanceUsd}`}>
           <img src="/assets/token.png" />
           &nbsp;{toShow(new BigNumber(distributeApy), 2)}%
         </p>
@@ -66,7 +68,7 @@ export default function BorrowMarket({
         <p>
           {abbreviateNumberSI(Number(balance), 2, 2)} {market.underlyingSymbol}
         </p>
-        <p className={styles.balanceUsd}>
+        <p className={`${styles.balanceUsd}`}>
           $
           {abbreviateNumberSI(
             Number(balance) * market.underlyingPriceUSD,

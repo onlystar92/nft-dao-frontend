@@ -8,8 +8,10 @@ interface Properties {
 interface ITable {
   children: ReactNode | ReactNodeArray
   labels?: Properties
+  theme?: string
   classes?: Properties
   noBorder?: Boolean
+  isBackground?: Boolean
   onLoad?: Function
 }
 
@@ -17,7 +19,9 @@ export default function Table({
   children,
   classes = {},
   labels,
+  theme,
   noBorder,
+  isBackground,
   onLoad,
 }: ITable) {
 
@@ -27,15 +31,15 @@ export default function Table({
 
   return (
     <div
-      className={`${styles.table} ${classes.title === 'second' ? `${styles.second}` : ``} ${classes.title === 'first' ? `${styles.first}` : ``} ${classes.table || ''}`}
+      className={`${styles.table} ${theme === 'dark' ? styles.darkTable : ''} ${classes.title === 'second' ? `${styles.second}` : ``} ${classes.title === 'first' ? `${styles.first}` : ``} ${classes.table || ''}`}
       onMouseDown={(e) => e.stopPropagation()}
     >
       {labels && labels.title && (
-        <div className={`${styles.tableTitle} bold`}>
+        <div className={`${styles.tableTitle} ${theme === 'dark' ? styles.darkTableTitle : ''} bold`}>
           {labels.title}
         </div>
       )}
-      <div className={`${styles.tableContent} ${noBorder ? styles.noBorder : ''}`}>
+      <div className={`${styles.tableContent} ${theme === 'dark' ? styles.darkTableContent : ''} ${noBorder ? styles.noBorder : ''} ${theme === 'dark' && isBackground ? styles.backgroundTableContent : ''}`}>
         {children}
       </div>
     </div>

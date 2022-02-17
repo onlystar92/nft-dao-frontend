@@ -4,6 +4,7 @@ import styles from './AssetInfo.module.css'
 interface IAssetInfo {
   infoType: string
   assetUrl: string
+  theme?: string
   isBorrowLimitInfo?: boolean
   apy?: string
   borrowBalance?: number
@@ -15,6 +16,7 @@ interface IAssetInfo {
 export default function AssetInfo({
   infoType = 'supply',
   assetUrl,
+  theme,
   isBorrowLimitInfo = true,
   apy = '0',
   borrowBalance = 0,
@@ -23,7 +25,7 @@ export default function AssetInfo({
   distributeApy,
 }: IAssetInfo) {
   return (
-    <div className={styles.assetInfo}>
+    <div className={`${styles.assetInfo} ${theme === 'dark' ? styles.darkAssetInfo : ''}`}>
       <div className={styles.apySection}>
         <div className={`${styles.info} flex justify-between`}>
           <div className="flex-center">

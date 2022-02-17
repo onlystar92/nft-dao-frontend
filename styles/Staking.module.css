@@ -18,7 +18,9 @@
   color: var(--color-black);
   font-size: calc(var(--font-size-2x) * 2);
 }
-
+.darkStakingTitle {
+  color: var(--color-white);
+}
 .content {
   position: relative;
   flex: 1;
@@ -37,7 +39,9 @@
   margin-bottom: 40px;
   border-bottom: 2px solid var(--color-divider);
 }
-
+.darkTabs {
+  border-bottom: 2px solid #404040;
+}
 .tabs button {
   background-color: transparent;
   font-size: var(--font-size-normal);
@@ -56,11 +60,16 @@ button.active {
   color: var(--color-black);
   border-bottom: 2px solid var(--color-black);
 }
-
+button.darkActive {
+  color: #5C8AFF;
+  border-bottom: 2px solid #5C8AFF;
+}
 .noFarms {
   padding: var(--padding-narrow);
 }
-
+.darkNoFarms {
+  color: white;
+}
 @media all and (max-width: 767px) {
   .container {
     flex-direction: column;

@@ -11,6 +11,7 @@ interface ISupplyMarket {
   onSupply: Function
   onEnterMarket: Function
   distributeApy: number
+  theme: string
 }
 
 export default function SupplyMarket({
@@ -21,13 +22,14 @@ export default function SupplyMarket({
   onSupply,
   onEnterMarket,
   distributeApy,
+  theme
 }: ISupplyMarket) {
   const assetIn = assetsIn.some((item) => item.toLowerCase() === market.id)
   const blocksPerDay = 4 * 60 * 24
   const daysPerYear = 365
   return (
     <tr
-      className={`${styles.market} ${styles.supply}`}
+      className={`${styles.market} ${styles.supply} ${theme === 'dark' ? styles.darkMarket : ''}`}
       onClick={() => onSupply()}
     >
       <td>
@@ -61,7 +63,7 @@ export default function SupplyMarket({
           )}
           %
         </p>
-        <p className={styles.balanceUsd}>
+        <p className={`${styles.balanceUsd}`}>
           <img src="/assets/token.png" />
           &nbsp;{toShow(new BigNumber(distributeApy), 2)}%
         </p>
@@ -73,7 +75,7 @@ export default function SupplyMarket({
             {abbreviateNumberSI(Number(balance), 2, 2)}{' '}
             {market.underlyingSymbol}
           </p>
-          <p className={styles.balanceUsd}>
+          <p className={`${styles.balanceUsd}`}>
             $
             {abbreviateNumberSI(
               Number(balance) * market.underlyingPriceUSD,
@@ -87,7 +89,7 @@ export default function SupplyMarket({
       <td>
         <span className={styles.mobileLabel}>Collateral</span>
         {market.collateralFactor !== '0' && (
-          <Slider value={assetIn} onChange={() => onEnterMarket(assetIn)} />
+          <Slider value={assetIn} theme={theme} onChange={() => onEnterMarket(assetIn)} />
         )}
       </td>
     </tr>

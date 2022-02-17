@@ -37,7 +37,7 @@ function App({ Component, router }: AppProps) {
         <title>Drops Loans</title>
       </Head>
       <div className="fill flex-center justify-center">
-        <img src="/assets/loading.gif" style={{ width: 50 }} />
+        <img src="/assets/new_logo.png" style={{ width: 50 }} />
       </div>
     </>
   )

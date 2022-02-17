@@ -4,6 +4,7 @@ import { TMap } from 'types'
 import Button from 'components/Button/Button'
 import AssetInfo from 'components/AssetInfo/AssetInfo'
 import TxLoader from 'components/TxLoader/TxLoader'
+import NFTModal from 'components/Modal/NFTModal'
 import { abbreviateNumberSI } from 'utils/number'
 import Modal from './Modal'
 import styles from './Modal.module.css'
@@ -23,9 +24,11 @@ interface ISupplyModal {
   totalBorrow: number
   totalSupply: number
   assetsIn: string[]
+  theme?: string
   allowed: boolean
   distributeApy: string
   disabled: string
+  isNFT?: boolean
   onSubmit: Function
   onClose: Function
   closeOnEscape?: boolean
@@ -48,15 +51,18 @@ export default function SupplyModal({
   totalBorrow,
   totalSupply,
   assetsIn,
+  theme,
   allowed,
   distributeApy,
   disabled,
+  isNFT,
   onSubmit,
   onClose,
   closeOnEscape,
 }: ISupplyModal) {
   const [tab, setTab] = useState('supply')
   const [form, setForm] = useState<TMap>(defaults)
+  const [nfts, setNfts] = useState(null)
   const { supplyAmount, withdrawAmount } = form
   const blocksPerDay = 4 * 60 * 24
   const daysPerYear = 365
@@ -120,15 +126,21 @@ export default function SupplyModal({
     }
   }, [market])
 
+  const handleEnterNFT = () => {}
+  const handleOpenNftModal = () => {
+    setNfts([1, 2, 3])
+  }
+
   return (
     <Modal
       show={!!market}
+      theme={theme}
       onRequestClose={onClose}
       closeOnEscape={closeOnEscape}
       loading={pending}
     >
       {pending ? (
-        <TxLoader hash={pending ? disabled : ''} />
+        <TxLoader hash={pending ? disabled : ''} theme={theme} />
       ) : (
         <>
           {market && (
@@ -141,27 +153,27 @@ export default function SupplyModal({
                 }`}
                 alt="asset"
               />
-              <div className={`bold ${styles.name}`}>
+              <div className={`bold ${styles.name} ${theme === 'dark' ? styles.darkName : ''}`}>
                 {market.underlyingName}
               </div>
             </div>
           )}
-          <div className={styles.tabs}>
+          <div className={`${styles.tabs} ${theme === 'dark' ? styles.tabsActive : ''}`}>
             <Button
-              className={tab === 'supply' ? styles.active : ''}
+              className={tab === 'supply' ? `${styles.active} ${theme === 'dark' ? styles.darkActive : ''}` : ''}
               onClick={() => tab !== 'supply' && setTab('supply')}
             >
               Supply
             </Button>
             <Button
-              className={tab === 'withdraw' ? styles.active : ''}
+              className={tab === 'withdraw' ? `${styles.active} ${theme === 'dark' ? styles.darkActive : ''}` : ''}
               onClick={() => tab !== 'withdraw' && setTab('withdraw')}
             >
               Withdraw
             </Button>
           </div>
           {market && (
-            <form onSubmit={handleSubmit} className={styles.form}>
+            <form onSubmit={handleSubmit} className={`${styles.form} ${theme === 'dark' ? styles.darkForm : ''}`}>
               {tab === 'supply' && (
                 <>
                   {allowed ? (
@@ -174,17 +186,21 @@ export default function SupplyModal({
                           value={supplyAmount}
                           onChange={handleInput}
                         />
-                        <div
-                          className={styles.maxBtn}
-                          onClick={() =>
-                            setForm({
-                              ...form,
-                              supplyAmount: maxSupply,
-                            })
-                          }
-                        >
-                          MAX
-                        </div>
+                        {!isNFT ? (
+                          <div
+                            className={styles.maxBtn}
+                            onClick={() =>
+                              setForm({
+                                ...form,
+                                supplyAmount: maxSupply,
+                              })
+                            }
+                          >
+                            MAX
+                          </div>
+                        ) : (
+                          <div className={styles.nftBtn} onClick={handleOpenNftModal}>NFT</div>
+                        )}
                       </div>
                       <label
                         className="flex-center justify-between"
@@ -224,6 +240,7 @@ export default function SupplyModal({
                       .toLowerCase()}.${
                       market.underlyingSymbol === 'DOP' ? 'png' : 'svg'
                     }`}
+                    theme={theme}
                     isBorrowLimitInfo={allowed}
                     borrowLimit={borrowLimit}
                     borrowLimitUsed={borrowLimitUsed}
@@ -259,7 +276,7 @@ export default function SupplyModal({
               {tab === 'withdraw' && (
                 <>
                   <div className={styles.field}>
-                    <div className={`${styles.inputWrapper} flex-center`}>
+                    <div className={`${styles.inputWrapper} ${theme === 'dark' ? styles.darkInputWrapper : ''} flex-center`}>
                       <input
                         id="withdrawAmount"
                         name="withdrawAmount"
@@ -315,6 +332,7 @@ export default function SupplyModal({
                       .toLowerCase()}.${
                       market.underlyingSymbol === 'DOP' ? 'png' : 'svg'
                     }`}
+                    theme={theme}
                     apy={new BigNumber(supplyRatePerBlock * blocksPerDay + 1)
                       .pow(daysPerYear)
                       .minus(1)
@@ -348,6 +366,11 @@ export default function SupplyModal({
           )}
         </>
       )}
+      <NFTModal
+        nfts={nfts}
+        onConfirm={handleEnterNFT}
+        onClose={() => setNfts(null)}
+      />
     </Modal>
   )
 }
