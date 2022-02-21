@@ -25,7 +25,7 @@ export default function AssetInfo({
   distributeApy,
 }: IAssetInfo) {
   return (
-    <div className={`${styles.assetInfo} ${theme === 'dark' ? styles.darkAssetInfo : ''}`}>
+    <div className={`${styles.assetInfo} ${(!theme || theme === 'dark') ? styles.darkAssetInfo : ''}`}>
       <div className={styles.apySection}>
         <div className={`${styles.info} flex justify-between`}>
           <div className="flex-center">

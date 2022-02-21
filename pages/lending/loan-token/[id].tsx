@@ -343,7 +343,7 @@ export default function Loans(props) {
           <div className="full">
             <div
               className={`bold ${styles.supplyTitle} ${
-                theme === 'dark' ? styles.darkSupplyTitle : ''
+                (!theme || theme === 'dark') ? styles.darkSupplyTitle : ''
               }`}
             >
               Supply
@@ -443,7 +443,7 @@ export default function Loans(props) {
               </table>
               {markets.filter((m) => +supplyBalances[m.underlyingAddress] === 0)
                 .length === 0 && (
-                <p className={`${styles.noMarkets} ${theme === 'dark' ? styles.darkNoMarkets : ''} center`}>No Markets</p>
+                <p className={`${styles.noMarkets} ${(!theme || theme === 'dark') ? styles.darkNoMarkets : ''} center`}>No Markets</p>
               )}
               <CollateralModal
                 network={network}
@@ -512,7 +512,7 @@ export default function Loans(props) {
           <div className="full">
             <div
               className={`bold ${styles.borrowTitle} ${
-                theme === 'dark' ? styles.darkBorrowTitle : ''
+                (!theme || theme === 'dark') ? styles.darkBorrowTitle : ''
               }`}
             >
               Borrow
@@ -606,7 +606,7 @@ export default function Loans(props) {
               </table>
               {markets.filter((m) => +borrowBalances[m.underlyingAddress] === 0)
                 .length === 0 && (
-                <p className={`${styles.noMarkets} ${theme === 'dark' ? styles.darkNoMarkets : ''} center`}>No Markets</p>
+                <p className={`${styles.noMarkets} ${(!theme || theme === 'dark') ? styles.darkNoMarkets : ''} center`}>No Markets</p>
               )}
               <BorrowModal
                 network={network}

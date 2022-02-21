@@ -153,27 +153,27 @@ export default function SupplyModal({
                 }`}
                 alt="asset"
               />
-              <div className={`bold ${styles.name} ${theme === 'dark' ? styles.darkName : ''}`}>
+              <div className={`bold ${styles.name} ${(!theme || theme === 'dark') ? styles.darkName : ''}`}>
                 {market.underlyingName}
               </div>
             </div>
           )}
-          <div className={`${styles.tabs} ${theme === 'dark' ? styles.tabsActive : ''}`}>
+          <div className={`${styles.tabs} ${(!theme || theme === 'dark') ? styles.tabsActive : ''}`}>
             <Button
-              className={tab === 'supply' ? `${styles.active} ${theme === 'dark' ? styles.darkActive : ''}` : ''}
+              className={tab === 'supply' ? `${styles.active} ${(!theme || theme === 'dark') ? styles.darkActive : ''}` : ''}
               onClick={() => tab !== 'supply' && setTab('supply')}
             >
               Supply
             </Button>
             <Button
-              className={tab === 'withdraw' ? `${styles.active} ${theme === 'dark' ? styles.darkActive : ''}` : ''}
+              className={tab === 'withdraw' ? `${styles.active} ${(!theme || theme === 'dark') ? styles.darkActive : ''}` : ''}
               onClick={() => tab !== 'withdraw' && setTab('withdraw')}
             >
               Withdraw
             </Button>
           </div>
           {market && (
-            <form onSubmit={handleSubmit} className={`${styles.form} ${theme === 'dark' ? styles.darkForm : ''}`}>
+            <form onSubmit={handleSubmit} className={`${styles.form} ${(!theme || theme === 'dark') ? styles.darkForm : ''}`}>
               {tab === 'supply' && (
                 <>
                   {allowed ? (
@@ -276,7 +276,7 @@ export default function SupplyModal({
               {tab === 'withdraw' && (
                 <>
                   <div className={styles.field}>
-                    <div className={`${styles.inputWrapper} ${theme === 'dark' ? styles.darkInputWrapper : ''} flex-center`}>
+                    <div className={`${styles.inputWrapper} ${(!theme || theme === 'dark') ? styles.darkInputWrapper : ''} flex-center`}>
                       <input
                         id="withdrawAmount"
                         name="withdrawAmount"

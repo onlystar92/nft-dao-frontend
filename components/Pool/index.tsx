@@ -49,7 +49,7 @@ export default function Pool({
       </td>
       <td>
         <span className={styles.mobileLabel}>Available to borrow</span>
-        <span className={`${styles.usdPrice} ${theme === 'dark' ? styles.darkUsdPrice : ''}`}>
+        <span className={`${styles.usdPrice} ${(!theme || theme === 'dark') ? styles.darkUsdPrice : ''}`}>
           ${abbreviateNumberSI(new BigNumber(farm.availableToBorrow).toString(10), 2, 2)}
         </span>
       </td>
@@ -64,7 +64,7 @@ export default function Pool({
       </td> */}
       <td>
         <Link href={lendingType === 'token' ? `/lending/loan-token/${farm.id}` : `/lending/loan-nft/${farm.id}`}>
-          <Button className={`${styles.btn} ${theme === 'dark' ? styles.darkBtn : ''}`}>
+          <Button className={`${styles.btn} ${(!theme || theme === 'dark') ? styles.darkBtn : ''}`}>
             Select
           </Button>
         </Link>

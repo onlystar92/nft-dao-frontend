@@ -23,7 +23,7 @@ export default function Slider({ value, theme, onChange }: ISlider) {
       className={`${styles.slider} ${checked ? styles.checked : ''}`}
       onClick={handleCheck}
     >
-      <span className={`${styles.bar} ${theme === 'dark' ? styles.darkBar : ''}`}>
+      <span className={`${styles.bar} ${(!theme || theme === 'dark') ? styles.darkBar : ''}`}>
       </span>
     </div>
   )

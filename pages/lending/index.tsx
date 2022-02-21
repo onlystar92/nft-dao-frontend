@@ -42,27 +42,27 @@ export default function Lending({ library, state, theme, dispatch }) {
     <>
       <section className={styles.header}>
         <div className={`limited`}>
-          <div className={`bold ${styles.lendingTitle} ${theme === 'dark' ? styles.darkLendingTitle : ''}`}>Lending Pools</div>
+          <div className={`bold ${styles.lendingTitle} ${(!theme || theme === 'dark') ? styles.darkLendingTitle : ''}`}>Lending Pools</div>
         </div>
       </section>
       <section className={`${styles.content} flex flex-start justify-center`}>
         <div className={`${styles.container} limited flex flex-column`}>
           <div className="full">
-            <div className={`${styles.tabs} ${theme === 'dark' ? styles.darkTabs : ''}`}>
+            <div className={`${styles.tabs} ${(!theme || theme === 'dark') ? styles.darkTabs : ''}`}>
               <Button
-                className={tab === 'All' ? `${styles.active} ${theme === 'dark' ? styles.darkActive : ''}` : ''}
+                className={tab === 'All' ? `${styles.active} ${(!theme || theme === 'dark') ? styles.darkActive : ''}` : ''}
                 onClick={() => tab !== 'All' && setTab('All')}
               >
                 All
               </Button>
               <Button
-                className={tab === 'NFT' ? `${styles.active} ${theme === 'dark' ? styles.darkActive : ''}` : ''}
+                className={tab === 'NFT' ? `${styles.active} ${(!theme || theme === 'dark') ? styles.darkActive : ''}` : ''}
                 onClick={() => tab !== 'NFT' && setTab('NFT')}
               >
                 NFT
               </Button>
               <Button
-                className={tab === 'Tokens' ? `${styles.active} ${theme === 'dark' ? styles.darkActive : ''}` : ''}
+                className={tab === 'Tokens' ? `${styles.active} ${(!theme || theme === 'dark') ? styles.darkActive : ''}` : ''}
                 onClick={() => tab !== 'Tokens' && setTab('Tokens')}
               >
                 Tokens
@@ -79,7 +79,7 @@ export default function Lending({ library, state, theme, dispatch }) {
                   theme={theme}
                   noBorder
                 >
-                  <div style={{ color: theme === 'dark' ? 'white' : 'black' }}>Coming soon</div>
+                  <div style={{ color: (!theme || theme === 'dark') ? 'white' : 'black' }}>Coming soon</div>
                   {/* <table cellPadding={0} cellSpacing={0}>
                     <thead>
                       <tr>

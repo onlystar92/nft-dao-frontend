@@ -18,7 +18,7 @@ export const scanLabels = {
 export default function TxLoader({ hash, network, theme }: ITxLoader) {
   const text = hash ? 'Transaction pending...' : 'Waiting confirmation...'
   return (
-    <div className={`${styles.loader} ${theme === 'dark' ? styles.darkLoader : ''}`}>
+    <div className={`${styles.loader} ${(!theme || theme === 'dark') ? styles.darkLoader : ''}`}>
       <div className={`flex-all ${styles.loadingAnimation}`}>
         <img src="/assets/clock.svg" />
       </div>

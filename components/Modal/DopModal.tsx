@@ -47,7 +47,7 @@ export default function DopModal({
       ) : (
         <>
           {isOpen && (
-            <div className={`${styles.form} ${theme === 'dark' ? styles.darkForm : ''}`}>
+            <div className={`${styles.form} ${(!theme || theme === 'dark') ? styles.darkForm : ''}`}>
               <div className={`${styles.info} flex justify-between`}>
                 <div className="flex-center">
                   <img src="/assets/token.png" alt="asset" />

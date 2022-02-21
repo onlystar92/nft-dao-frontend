@@ -37,11 +37,11 @@ export default function Modal({
   if (!loaded) return null
   return ReactDOM.createPortal(
     <div
-      className={`${styles.overlay} ${show ? styles.show : styles.hide} ${theme === 'dark' ? styles.darkOverlay : ''}`}
+      className={`${styles.overlay} ${show ? styles.show : styles.hide} ${(!theme || theme === 'dark') ? styles.darkOverlay : ''}`}
       onMouseDown={() => onRequestClose && onRequestClose()}
     >
-      <div className={`${styles.wrapper} ${className} ${theme === 'dark' ? styles.darkWrapper : ''}`} onMouseDown={e => e.stopPropagation()}>
-        <img className={`${styles.closeBtn} cursor`} src={theme === 'dark' ? "/assets/dark-close.png" : "/assets/close.svg"} alt="close" onClick={() => onRequestClose && onRequestClose()} />
+      <div className={`${styles.wrapper} ${className} ${(!theme || theme === 'dark') ? styles.darkWrapper : ''}`} onMouseDown={e => e.stopPropagation()}>
+        <img className={`${styles.closeBtn} cursor`} src={(!theme || theme === 'dark') ? "/assets/dark-close.png" : "/assets/close.svg"} alt="close" onClick={() => onRequestClose && onRequestClose()} />
         <Table
           theme={theme}
           classes={{

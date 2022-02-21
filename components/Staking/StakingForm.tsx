@@ -68,12 +68,12 @@ export default function StakingForm({
   }, [tab])
 
   return (
-    <div className={`${styles.stakingForm} ${theme === 'dark' ? styles.darkStakingForm : ''}`} onMouseDown={e => e.stopPropagation()}>
+    <div className={`${styles.stakingForm} ${(!theme || theme === 'dark') ? styles.darkStakingForm : ''}`} onMouseDown={e => e.stopPropagation()}>
       {pending ? (
         <TxLoader hash={pending ? disabled : ''} network={network} theme={theme} />
       ) : (
           <>
-            <img className={`cursor ${styles.closeBtn}`} src={theme === 'dark' ? "/assets/dark-close.png" : "/assets/close.svg"} alt="close" onClick={() => onClose()} />
+            <img className={`cursor ${styles.closeBtn}`} src={(!theme || theme === 'dark') ? "/assets/dark-close.png" : "/assets/close.svg"} alt="close" onClick={() => onClose()} />
             <div className={styles.tabs}>
               <Button
                 className={tab === 'stake' ? styles.active : ''}

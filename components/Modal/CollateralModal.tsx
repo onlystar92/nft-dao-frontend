@@ -40,7 +40,7 @@ export default function CollateralModal({
       {pending ? (
         <TxLoader hash={pending ? disabled : ''} theme={theme} />
       ) : (
-        <form onSubmit={handleSubmit} className={`${styles.form} ${theme === 'dark' ? styles.darkForm : ''}`}>
+        <form onSubmit={handleSubmit} className={`${styles.form} ${(!theme || theme === 'dark') ? styles.darkForm : ''}`}>
           {market && (
             <div className={`flex-center ${styles.assetName}`}>
               <img
@@ -51,7 +51,7 @@ export default function CollateralModal({
                 }`}
                 alt="asset"
               />
-              <div className={`bold ${styles.name} ${theme === 'dark' ? styles.darkName : ''}`}>{market.underlyingName}</div>
+              <div className={`bold ${styles.name} ${(!theme || theme === 'dark') ? styles.darkName : ''}`}>{market.underlyingName}</div>
             </div>
           )}
           <p>

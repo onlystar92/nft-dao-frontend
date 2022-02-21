@@ -29,7 +29,7 @@ export default function SupplyMarket({
   const daysPerYear = 365
   return (
     <tr
-      className={`${styles.market} ${styles.supply} ${theme === 'dark' ? styles.darkMarket : ''}`}
+      className={`${styles.market} ${styles.supply} ${(!theme || theme === 'dark') ? styles.darkMarket : ''}`}
       onClick={() => onSupply()}
     >
       <td>

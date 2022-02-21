@@ -32,15 +32,15 @@ export default function Staking({ library, theme, state, dispatch }) {
     <>
       <section className={styles.header}>
         <div className={`limited`}>
-          <div className={`bold ${styles.stakingTitle} ${theme === 'dark' ? styles.darkStakingTitle : ''}`}>Staking</div>
+          <div className={`bold ${styles.stakingTitle} ${(!theme || theme === 'dark') ? styles.darkStakingTitle : ''}`}>Staking</div>
         </div>
       </section>
       <section className={`${styles.content} flex flex-start justify-center`}>
         <div className={`${styles.container} limited flex flex-column`}>
           <div className="full">
-            <div className={`${styles.tabs} ${theme === 'dark' ? styles.darkTabs : ''}`}>
+            <div className={`${styles.tabs} ${(!theme || theme === 'dark') ? styles.darkTabs : ''}`}>
               <Button
-                className={tab === 'stake_lp' ? `${styles.active} ${theme === 'dark' ? styles.darkActive : ''}` : ''}
+                className={tab === 'stake_lp' ? `${styles.active} ${(!theme || theme === 'dark') ? styles.darkActive : ''}` : ''}
                 onClick={() => tab !== 'stake_lp' && setTab('stake_lp')}
               >
                 Stake LP
@@ -126,7 +126,7 @@ export default function Staking({ library, theme, state, dispatch }) {
                   </table>
                 )}
                 {myStaked.length === 0 && availalbeFarms.length === 0 && (
-                  <p className={`${styles.noFarms} ${theme === 'dark' ? styles.darkNoFarms : ''} center`}>
+                  <p className={`${styles.noFarms} ${(!theme || theme === 'dark') ? styles.darkNoFarms : ''} center`}>
                     No Available Farming
                   </p>
                 )}
