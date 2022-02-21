@@ -11,6 +11,7 @@
 }
 
 .assetIcon {
+  position: relative;
   margin-right: 32px;
 }
 
@@ -28,7 +29,8 @@
 
 .secondAsset {
   position: absolute;
-  left: 40px;
+  left: 12px;
+  z-index: 101;
 }
 
 .mobileLabel {

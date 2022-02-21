@@ -128,7 +128,7 @@ export default function StakingForm({
                     )}
                     {!allowed && (
                       <p className={styles.enableMsg}>
-                        To Stake {market.type === 'LP' ? 'LP' : market.symbol} token to the drops, you need to enable it first.
+                        To stake tokens, you need to approve them first
                       </p>
                     )}
                     <div className="flex">
