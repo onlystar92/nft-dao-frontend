@@ -117,7 +117,7 @@ const Slide = () => {
   const [status, setStatus] = useState({ totalSupply : 0 });
 
   const getStatus = async() => {
-    const res = await fetch('https://drops.co/status');
+    const res = await fetch('/status');
     const data = await res.json();
     setStatus(data);
   }

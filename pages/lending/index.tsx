@@ -25,7 +25,7 @@ export default function Lending({ library, state, theme, dispatch }) {
   const [tokenPools, setTokenPools] = useState([])
 
   const getStatus = async() => {
-    const res = await fetch('https://drops.co/status')
+    const res = await fetch('/status')
     const data = await res.json()
     const _tokenPools = [{
       id: 1,
