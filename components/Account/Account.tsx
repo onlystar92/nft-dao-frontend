@@ -107,7 +107,7 @@ export default function Account({
     <div className={styles.account}>
       {!account.address ? (
         <Button
-          className={`cursor ${styles.connectBtn} ${theme === 'dark' ? styles.darkConnectBtn : ''}`}
+          className={`cursor ${styles.connectBtn} ${(!theme || theme === 'dark') ? styles.darkConnectBtn : ''}`}
           onClick={() => {
             setIsClicked(true)
             connectWallet(true)
@@ -116,7 +116,7 @@ export default function Account({
           {isClicked ? 'No account' : 'Connect wallet'}
         </Button>
       ) : (
-        <div className={`${styles.info} ${theme === 'dark' ? styles.darkInfo : ''}`}>
+        <div className={`${styles.info} ${(!theme || theme === 'dark') ? styles.darkInfo : ''}`}>
           {!loading && (
             <div className="flex-center cursor">
               <BCRAvatar

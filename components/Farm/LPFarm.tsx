@@ -24,7 +24,7 @@ export default function LPFarm({
 
   return (
     <tr
-      className={`${styles.farm} ${theme === 'dark' ? styles.darkFarm : ''}`}
+      className={`${styles.farm} ${(!theme || theme === 'dark') ? styles.darkFarm : ''}`}
     >
       <td>
         <div className="flex-center">

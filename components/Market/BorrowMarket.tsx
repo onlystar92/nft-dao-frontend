@@ -28,7 +28,7 @@ export default function BorrowMarket({
 
   return (
     <tr
-      className={`${styles.market} ${styles.supply} ${theme === 'dark' ? styles.darkMarket : ''}`}
+      className={`${styles.market} ${styles.supply} ${(!theme || theme === 'dark') ? styles.darkMarket : ''}`}
       onClick={() => onBorrow()}
     >
       <td>

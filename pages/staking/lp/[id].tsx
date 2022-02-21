@@ -167,7 +167,7 @@ export default function LpStaking(props) {
       <section className={styles.header}>
         <div className={`limited flex-center justify-between`}>
           <Link href="/staking">
-            <img className="cursor" src={theme === 'dark' ? "/left-arrow-dark.png" : "/left-arrow.svg"} alt="arrow" />
+            <img className="cursor" src={(!theme || theme === 'dark') ? "/left-arrow-dark.png" : "/left-arrow.svg"} alt="arrow" />
           </Link>
           <a
             href={
@@ -179,15 +179,15 @@ export default function LpStaking(props) {
             rel="noreferrer"
           >
             <Button
-              className={`flex-center bold ${styles.lpLinkBtn} ${styles.mobileLpLinkBtn}`}
+              className={`flex-center bold ${styles.lpLinkBtn} ${styles.mobileLpLinkBtn} ${(!theme || theme === 'dark') ? styles.darkLpLinkBtn : ""}`}
             >
               Get {assetInfo.type === 'LP' ? 'LP' : assetInfo.symbol}{' '}
-              <img src="/link.svg" />
+              <img src={(!theme || theme === 'dark') ? "/link-dark.svg" : "/link.svg"} alt="link" />
             </Button>
           </a>
         </div>
       </section>
-      <section className={`${styles.content} ${theme === 'dark' ? styles.darkContent : ''} flex flex-start justify-center`}>
+      <section className={`${styles.content} ${(!theme || theme === 'dark') ? styles.darkContent : ''} flex flex-start justify-center`}>
         <div className={`${styles.container} limited flex`}>
           <div className={styles.assetInfo}>
             <div className={`flex-center ${styles.assetTitle}`}>
@@ -215,9 +215,9 @@ export default function LpStaking(props) {
                 target="_blank"
                 rel="noreferrer"
               >
-                <Button className={`flex-center bold ${styles.lpLinkBtn}`}>
+                <Button className={`flex-center bold ${styles.lpLinkBtn} ${(!theme || theme === 'dark') ? styles.darkLpLinkBtn : ""}`}>
                   Get {assetInfo.type === 'LP' ? 'LP' : assetInfo.symbol}{' '}
-                  <img src="/link.svg" />
+                  <img src={(!theme || theme === 'dark') ? "/link-dark.svg" : "/link.svg"} alt="link" />
                 </Button>
               </a>
             </div>
@@ -387,7 +387,7 @@ export default function LpStaking(props) {
         </div>
       </section>
       <section
-        className={`flex-center justify-between ${styles.stakingManage}`}
+        className={`flex-center justify-between ${styles.stakingManage} ${(!theme || theme === 'dark') ? styles.darkStakingManage : ''}`}
       >
         <div>Staking</div>
         <Button

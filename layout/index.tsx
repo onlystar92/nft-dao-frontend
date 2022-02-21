@@ -425,26 +425,26 @@ export default function Layout({
       ) : (
         <main
           className={`${styles.main} ${
-            theme === 'dark' ? styles.darkMain : ''
+            (!theme || theme === 'dark') ? styles.darkMain : ''
           } flex-column justify-between`}
         >
           <header
             className={`${styles.header} ${
-              theme === 'dark' ? styles.darkHeader : ''
+              (!theme || theme === 'dark') ? styles.darkHeader : ''
             }`}
           >
             <div className="flex-center justify-between limited">
               <Link href="/">
                 <img
                   className={`${styles.logo} cursor`}
-                  src={theme === 'dark' ? "/logo-dark.png" : "/logo.png"} 
+                  src={(!theme || theme === 'dark') ? "/logo-dark.png" : "/logo.png"} 
                   alt="Drops Loans"
                 />
               </Link>
               <div className="flex-center">
                 <div
                   className={`flex ${styles.menu} ${
-                    theme === 'dark' ? styles.darkMenu : ''
+                    (!theme || theme === 'dark') ? styles.darkMenu : ''
                   }`}
                 >
                   <Link href="/staking">
@@ -478,14 +478,14 @@ export default function Layout({
                 <div className={styles.mobileMenu}>
                   <div
                     className={`${styles.collapseContent} ${
-                      theme === 'dark' ? styles.darkCollapseContent : ''
+                      (!theme || theme === 'dark') ? styles.darkCollapseContent : ''
                     }`}
                     id="collapse-content"
                   >
                     <Collapse isOpened={isCollapse}>
                       <div
                         className={`${styles.menuContent} ${
-                          theme === 'dark' ? styles.darkMenuContent : ''
+                          (!theme || theme === 'dark') ? styles.darkMenuContent : ''
                         } flex-all`}
                       >
                         <Link href="/">
@@ -545,16 +545,16 @@ export default function Layout({
                 <img
                   className={styles.themeMode}
                   src={
-                    !theme || theme === 'light'
-                      ? '/assets/moon.png'
-                      : '/assets/sun.png'
+                    (!theme || theme === 'dark')
+                      ? '/assets/sun.png'
+                      : '/assets/moon.png'
                   }
                   alt="theme"
                   onClick={toggleTheme}
                 />
                 <img
                   src={
-                    theme === 'dark'
+                    (!theme || theme === 'dark')
                       ? '/assets/darkMenu.svg'
                       : '/assets/menu.svg'
                   }
@@ -575,7 +575,7 @@ export default function Layout({
               networks,
             })
           ) : (
-            <div className={`${styles.invalidNetwork} ${theme === 'dark' ? styles.darkInvalidNetwork : ''}`}>
+            <div className={`${styles.invalidNetwork} ${(!theme || theme === 'dark') ? styles.darkInvalidNetwork : ''}`}>
               <div className="center flex-column flex-center">
                 Please connect to following networks
                 <br />

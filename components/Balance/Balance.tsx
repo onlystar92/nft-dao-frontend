@@ -32,21 +32,21 @@ export default function Balance({
 
   return (
     <div className={styles.balance}>
-      <div className={`bold ${styles.loansTitle} ${theme === 'dark' ? styles.darkLoansTitle : ''}`}>
+      <div className={`bold ${styles.loansTitle} ${(!theme || theme === 'dark') ? styles.darkLoansTitle : ''}`}>
         Total Supply:{' '}
         {TVL ? `$${abbreviateNumberSI(TVL.toString(10), 2, 2)}` : ''}
       </div>
-      <div className={`bold ${styles.loansTitle} ${theme === 'dark' ? styles.darkLoansTitle : ''}`}>
+      <div className={`bold ${styles.loansTitle} ${(!theme || theme === 'dark') ? styles.darkLoansTitle : ''}`}>
         Total Borrowed:{' '}
         {MarketBorrowed
           ? `$${abbreviateNumberSI(MarketBorrowed.toString(10), 2, 2)}`
           : ''}
       </div>
-      <div className={`flex-center ${styles.info} ${theme === 'dark' ? styles.darkInfo : ''}`}>
-        <div className={`${styles.netApyWrapper} ${theme === 'dark' ? styles.darkNetApyWrapper : ''}`}>
+      <div className={`flex-center ${styles.info} ${(!theme || theme === 'dark') ? styles.darkInfo : ''}`}>
+        <div className={`${styles.netApyWrapper} ${(!theme || theme === 'dark') ? styles.darkNetApyWrapper : ''}`}>
           <div className={styles.infoWrapper}>
             <div className={styles.label}>Net APY</div>
-            <div className={`bold ${styles.value} ${theme === 'dark' ? styles.darkValue : ''}`}>
+            <div className={`bold ${styles.value} ${(!theme || theme === 'dark') ? styles.darkValue : ''}`}>
               {netAPY !== 0
                 ? `${
                     netAPY.toString() === 'Infinity'
@@ -59,14 +59,14 @@ export default function Balance({
           <div className={styles.divider} />
           <div className={styles.infoWrapper}>
             <div className={styles.label}>Borrow limit</div>
-            <div className={`bold ${styles.value} ${theme === 'dark' ? styles.darkValue : ''}`}>
+            <div className={`bold ${styles.value} ${(!theme || theme === 'dark') ? styles.darkValue : ''}`}>
               ${abbreviateNumberSI(totalCash, 2, 2)}
             </div>
           </div>
           <div className={styles.status}>
             <div className={`flex-center ${styles.progress}`}>
               <span
-                className={`${styles.bar} ${theme === 'dark' ? styles.darkBar : ''}`}
+                className={`${styles.bar} ${(!theme || theme === 'dark') ? styles.darkBar : ''}`}
                 style={{ width: `${100 - Math.min(borrowPercent, 100)}%` }}
               />
               <div

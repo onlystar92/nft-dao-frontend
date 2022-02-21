@@ -8,7 +8,7 @@
 }
 
 .darkStakingForm {
-  background: #1C1C1E;
+  background: #242426;
 }
 
 .closeBtn {
@@ -57,7 +57,7 @@ button.active {
   padding: 8px 8px 8px 16px;
 }
 .darkStakingForm .inputWrapper {
-  background: #242426;
+  background: #1C1C1E;
 }
 .inputWrapper input {
   width: 100%;
@@ -112,6 +112,9 @@ button.active {
 .darkStakingForm .form button {
   background: #2E69FF;
 }
+.darkStakingForm .form .enableMsg {
+  color: white;
+}
 
 .field {
   display: flex;
@@ -132,6 +135,12 @@ button.active {
   color: var(--color-black);
 }
 
+.darkStakingForm .field label span:first-child {
+  color: #7D7D7D;
+}
+.darkStakingForm .field label span:last-child {
+  color: white;
+}
 .claimLabel {
   font-size: var(--font-size-small);
   color: var(--color-gray);
@@ -154,6 +163,10 @@ button.active {
   border-top: 1px solid var(--color-divider);
 }
 
+.darkStakingForm .claimPoint {
+  border-top: 1px solid #1A1A1A;
+}
+
 .claimPoint span:first-child {
   font-size: var(--font-size-normal);
   color: var(--color-gray);
@@ -163,8 +176,8 @@ button.active {
   font-size: var(--font-size-normal);
   color: var(--color-black);
 }
-.darkStakingForm span {
-  color: white !important;
+.darkStakingForm .claimPoint span:last-child {
+  color: var(--color-white);
 }
 @media all and (max-width: 1024px) {
   .closeBtn {
