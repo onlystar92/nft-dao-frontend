@@ -406,7 +406,7 @@ export default function Loans(props) {
               <table cellPadding={0} cellSpacing={0}>
                 <thead>
                   <tr>
-                    <th>Asset</th>
+                    <th>Asset / LTV</th>
                     <th>APY / DOP</th>
                     <th>Wallet</th>
                     <th>Collateral</th>

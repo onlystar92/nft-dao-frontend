@@ -49,12 +49,17 @@ export default function Pool({
       </td>
       <td>
         <span className={styles.mobileLabel}>Available to borrow</span>
-        <span className={`${styles.usdPrice} ${(!theme || theme === 'dark') ? styles.darkUsdPrice : ''}`}>
+        <span className={`${(!theme || theme === 'dark') ? styles.darkUsdPrice : ''}`}>
           ${abbreviateNumberSI(new BigNumber(farm.availableToBorrow).toString(10), 2, 2)}
         </span>
       </td>
       <td>
         <span className={styles.mobileLabel}>Tokens</span>
+        <div className={styles.tokenList}>
+          {farm.tokens[0] && <img src={`/assets/cryptologos/${farm.tokens[0].toLowerCase()}.${farm.tokens[0] === 'DOP' ? 'png' : 'svg'}`} />}
+          {farm.tokens[1] && <img src={`/assets/cryptologos/${farm.tokens[1].toLowerCase()}.${farm.tokens[0] === 'DOP' ? 'png' : 'svg'}`} />}
+          {farm.tokens.length > 2 && <div className={styles.moreToken}>{farm.tokens.length - 2}+</div>}
+        </div>
       </td>
       {/* <td>
         <span className={styles.mobileLabel}>APY</span>

@@ -27,11 +27,13 @@ export default function Lending({ library, state, theme, dispatch }) {
   const getStatus = async() => {
     const res = await fetch('/status')
     const data = await res.json()
+    const tokenNames = Object.keys(data?.markets || []).map(key => { return key })
     const _tokenPools = [{
       id: 1,
-      name: 'Drops Loan',
-      totalSupply: data.totalSupply,
-      availableToBorrow: data.totalSupply - data.totalBorrow
+      name: 'Drops Pool',
+      totalSupply: data?.totalSupply || 0,
+      availableToBorrow: (data?.totalSupply || 0) - (data?.totalBorrow || 0),
+      tokens: tokenNames
     }]
     setTokenPools(_tokenPools)
   }
@@ -43,6 +45,9 @@ export default function Lending({ library, state, theme, dispatch }) {
       <section className={styles.header}>
         <div className={`limited`}>
           <div className={`bold ${styles.lendingTitle} ${(!theme || theme === 'dark') ? styles.darkLendingTitle : ''}`}>Lending Pools</div>
+          <div className={`flex-center justify-end ${styles.requestPoolWrap}`}>
+            <Button>Request Pool</Button>
+          </div>
         </div>
       </section>
       <section className={`${styles.content} flex flex-start justify-center`}>
