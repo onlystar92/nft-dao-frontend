@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 
 const PartnersWrapper = styled.div`
   width: 100%;
+  margin-bottom: 50px;
   background-color: #030921 !important;
   padding: 100px 0 250px 0;
   position: relative;
