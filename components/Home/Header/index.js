@@ -126,7 +126,7 @@ const Header = () => {
           </li>
           <li className="nav_item">
             <Link href="/lending">
-              Lending Pool
+              Lending Pools
             </Link>
           </li>
         </ul>
@@ -140,7 +140,7 @@ const Header = () => {
             </li>
             <li>
               <Link href="/lending">
-              Lending Pool
+              Lending Pools
               </Link>
             </li>
           </ul>
