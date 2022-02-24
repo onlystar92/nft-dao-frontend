@@ -30,7 +30,6 @@
 .secondAsset {
   position: absolute;
   left: 12px;
-  z-index: 101;
 }
 
 .mobileLabel {

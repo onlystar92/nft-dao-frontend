@@ -19,11 +19,11 @@
   font-size: calc(var(--font-size-2x) * 2);
 }
 .requestPoolWrap button {
+  height: 40px;
   background: #2E69FF;
-  border-radius: 30px;
+  border-radius: 8px;
   color: white;
-  padding: 10px 20px;
-  font-weight: 500;
+  padding: 0px 20px;
 }
 .darkLendingTitle {
   color: var(--color-white);

@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js'
 import Link from 'next/link'
 import styles from './Pool.module.css'
 import Button from 'components/Button/Button'
-import { abbreviateNumberSI } from "utils/number"
+import { abbreviateNumberSI } from 'utils/number'
 
 interface ILPFarm {
   lendingType?: string
@@ -11,19 +11,14 @@ interface ILPFarm {
   library?: any
 }
 
-export default function Pool({
-  lendingType,
-  farm,
-  theme,
-  library
-}: ILPFarm) {
+export default function Pool({ lendingType, farm, theme, library }: ILPFarm) {
   const fromWei = (value, decimals = 18) =>
-    decimals < 18 ? new BigNumber(value).div(10 ** decimals).toFixed(decimals, 0) : library.web3.utils.fromWei(value)
+    decimals < 18
+      ? new BigNumber(value).div(10 ** decimals).toFixed(decimals, 0)
+      : library.web3.utils.fromWei(value)
 
   return (
-    <tr
-      className={styles.farm}
-    >
+    <tr className={styles.farm}>
       <td>
         <div className="flex-center">
           {/* <div className={`flex-center ${styles.assetIcon}`}>
@@ -45,20 +40,46 @@ export default function Pool({
       </td>
       <td>
         <span className={styles.mobileLabel}>Total supply</span>
-        <span>${abbreviateNumberSI(new BigNumber(farm.totalSupply).toString(10), 2, 2)}</span>
+        <span>
+          $
+          {abbreviateNumberSI(
+            new BigNumber(farm.totalSupply).toString(10),
+            2,
+            2
+          )}
+        </span>
       </td>
       <td>
         <span className={styles.mobileLabel}>Available to borrow</span>
-        <span className={`${(!theme || theme === 'dark') ? styles.darkUsdPrice : ''}`}>
-          ${abbreviateNumberSI(new BigNumber(farm.availableToBorrow).toString(10), 2, 2)}
+        <span
+          className={`${!theme || theme === 'dark' ? styles.darkUsdPrice : ''}`}
+        >
+          $
+          {abbreviateNumberSI(
+            new BigNumber(farm.availableToBorrow).toString(10),
+            2,
+            2
+          )}
         </span>
       </td>
       <td>
         <span className={styles.mobileLabel}>Tokens</span>
         <div className={styles.tokenList}>
-          {farm.tokens[0] && <img src={`/assets/cryptologos/${farm.tokens[0].toLowerCase()}.${farm.tokens[0] === 'DOP' ? 'png' : 'svg'}`} />}
-          {farm.tokens[1] && <img src={`/assets/cryptologos/${farm.tokens[1].toLowerCase()}.${farm.tokens[0] === 'DOP' ? 'png' : 'svg'}`} />}
-          {farm.tokens.length > 2 && <div className={styles.moreToken}>{farm.tokens.length - 2}+</div>}
+          {farm.tokens.map((t, idx) => {
+            if (idx < 7) {
+              return (
+                <img
+                  src={`/assets/cryptologos/${t.toLowerCase()}.${
+                    t === 'DOP' ? 'png' : 'svg'
+                  }`}
+                  style={{ marginLeft: idx !== 0 ? -12 : 0, zIndex: 100 - idx }}
+                />
+              )
+            }
+          })}
+          {farm.tokens.length > 7 && (
+            <div className={styles.moreToken}>{farm.tokens.length - 7}+</div>
+          )}
         </div>
       </td>
       {/* <td>
@@ -68,8 +89,18 @@ export default function Pool({
         </p>
       </td> */}
       <td>
-        <Link href={lendingType === 'token' ? `/lending/loan-token/${farm.id}` : `/lending/loan-nft/${farm.id}`}>
-          <Button className={`${styles.btn} ${(!theme || theme === 'dark') ? styles.darkBtn : ''}`}>
+        <Link
+          href={
+            lendingType === 'token'
+              ? `/lending/loan-token/${farm.id}`
+              : `/lending/loan-nft/${farm.id}`
+          }
+        >
+          <Button
+            className={`${styles.btn} ${
+              !theme || theme === 'dark' ? styles.darkBtn : ''
+            }`}
+          >
             Select
           </Button>
         </Link>
