@@ -6,27 +6,22 @@ import SubscribeButton from 'components/Mailchimp/ui/SubscribeButton/SubscribeBu
 const FooterWrapper = styled.div`
   padding: 64px var(--padding-normal);
   background-color: var(--color-black);
-
   .logo {
     height: 24px;
   }
-
   .linkWrapper a {
     outline: none;
   }
-
   .linkWrapper div {
     cursor: pointer;
     color: var(--color-white);
     margin-right: var(--padding-normal);
   }
-
   .linkWrapper div:hover,
   .linkWrapper a:hover,
   .activeMenu {
     text-shadow: 0px 0px 1px;
   }
-
   .socials {
     display: flex;
     width: 280px;
@@ -43,19 +38,16 @@ const FooterWrapper = styled.div`
     cursor: pointer;
     margin: 16px 10px;
   }
-
   @media screen and (max-width: 1267px) {
     & > .limited {
       flex-direction: column;
       align-items: flex-start;
     }
     padding: 28px var(--padding-normal);
-
     .linkWrapper {
       margin: 38px 0px;
     }
   }
-
   @media all and (max-width: 992px) {
     .menu div {
       cursor: pointer;
@@ -84,28 +76,34 @@ const Footer = () => {
           />
         </Link>
         <div className={`flex-center linkWrapper`}>
-          {/* <a 
-            href="https://blog.drops.co/"
+          <Link href="/staking">
+            <div
+              className={
+                router.pathname === '/staking' ? styles.activeMenu : ''
+              }
+            >
+              Staking
+            </div>
+          </Link>
+          <Link href="/lending">
+            <div
+              className={
+                router.pathname === '/lending' ? styles.activeMenu : ''
+              }
+            >
+              Lending Pools
+            </div>
+          </Link>
+          <a
+            href="https://docs.drops.co"
             target="_blank"
-            rel="noopener noreferrer"
           >
             <div
-              className={router.pathname === 'https://blog.drops.co/' ? styles.activeMenu : ''}
+              className={router.pathname === 'https://docs.drops.co' ? styles.activeMenu : ''}
             >
-              Blog
-            </div>
-          </a> */}
-          <Link href="/vesting">
-            <div className={router.pathname === '/vesting' ? 'activeMenu' : ''}>
-              Vesting
-            </div>
-          </Link>
-          {/* <Link href="/">
-            <div className="footer-content-link">Terms of Use</div>
-          </Link>
-          <Link href="/">
-            <div className="footer-content-link">Privacy policy</div>
-          </Link> */}
+              Docs
+            </div>          
+          </a>
         </div>
         <div className={`socials`}>
           <div className={`socials_network`}>
@@ -130,10 +128,11 @@ const Footer = () => {
             >
               <img src="/assets/socials/discord.svg" alt="discord" />
             </a>
-            <a href="https://dropsnft.medium.com/" target="_blank">
+            <a href="/" target="_blank">
               <img src="/assets/socials/medium.svg" alt="medium" />
             </a>
           </div>
+          {/* <SubscribeButton /> */}
         </div>
       </div>
     </FooterWrapper>
