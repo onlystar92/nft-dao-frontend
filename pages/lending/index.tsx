@@ -46,7 +46,12 @@ export default function Lending({ library, state, theme, dispatch }) {
         <div className={`limited`}>
           <div className={`bold ${styles.lendingTitle} ${(!theme || theme === 'dark') ? styles.darkLendingTitle : ''}`}>Lending Pools</div>
           <div className={`flex-center justify-end ${styles.requestPoolWrap}`}>
-            <Button>Request Pool</Button>
+            <a
+              href="https://bit.ly/33Qz3d4"
+              target="_blank"
+            >
+              <Button>Request Pool</Button>
+            </a>
           </div>
         </div>
       </section>

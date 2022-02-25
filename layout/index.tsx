@@ -420,7 +420,7 @@ export default function Layout({
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {route === '/' || route === '/us' ? (
+      {route === '/' || route === '/about-us' ? (
         children
       ) : (
         <main
@@ -519,10 +519,10 @@ export default function Layout({
                             Lending Pools
                           </div>
                         </Link>
-                        <Link href="/us">
+                        <Link href="/about-us">
                           <div
                             className={
-                              router.pathname === '/us' ? styles.activeMenu : ''
+                              router.pathname === '/about-us' ? styles.activeMenu : ''
                             }
                           >
                             About us
@@ -642,10 +642,10 @@ export default function Layout({
                     Lending Pools
                   </div>
                 </Link>
-                <Link href="/us">
+                <Link href="/about-us">
                   <div
                     className={
-                      router.pathname === '/us' ? styles.activeMenu : ''
+                      router.pathname === '/about-us' ? styles.activeMenu : ''
                     }
                   >
                     About us

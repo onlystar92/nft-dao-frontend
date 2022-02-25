@@ -11,6 +11,7 @@ const HeaderWrapper = styled.div`
   color: white !important;
   .logo {
     cursor: pointer;
+    height: 55px;
   }
   .navbar {  
     width: 100%;
@@ -60,7 +61,7 @@ const HeaderWrapper = styled.div`
   }
   @media (min-width: 769px) and (max-width: 1024px) {
     .logo {
-      width: 200px;
+      height: 45px;
     }
     .nav_item {
       display: none;
@@ -74,7 +75,7 @@ const HeaderWrapper = styled.div`
   }
   @media all and (max-width: 768px) {
     .logo {
-      width: 120px;
+      height: 40px;
     }
     .nav_item {
       display: none;
