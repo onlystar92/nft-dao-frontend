@@ -33,7 +33,7 @@ const SlideWrapper = styled.div`
   .title {
     font-weight: 700;
     font-family: 'Luxfont';
-    font-size: 56px;
+    font-size: 64px;
     line-height: 64px;
     color: white;
     margin-top: 20px;
@@ -62,7 +62,7 @@ const SlideWrapper = styled.div`
       font-size: 22px;
     }
     .title {
-      font-size: 48px;
+      font-size: 54px;
     }
   }
   @media (min-width: 769px) and (max-width: 1024px) {
@@ -73,7 +73,7 @@ const SlideWrapper = styled.div`
       margin: auto;
     }
     .title {
-      font-size: 40px;
+      font-size: 48px;
       line-height: 45px;
     }
     .subtitle {
@@ -103,7 +103,7 @@ const SlideWrapper = styled.div`
       line-height: 25px;
     }
     .title {
-      font-size: 30px;
+      font-size: 40px;
       line-height: 32px;
     }
     .launch_btn {
@@ -129,7 +129,7 @@ const Slide = () => {
   return (
     <SlideWrapper className="limited">
       <div className="content_area">
-        <h2 className="title">INSTANT LOANS FOR JPEG, NFT AND METAVERSE ASSETS</h2>
+        <h1 className="title">INSTANT LOANS FOR JPEG, NFT AND METAVERSE ASSETS</h1>
         {/* <div className="title_img">
           <img src="assets/home/text/slide_title.png" />
         </div> */}

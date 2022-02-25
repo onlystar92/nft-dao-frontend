@@ -108,7 +108,7 @@ const Us = () => {
     <UsWrapper className="wraped">
       <img src="/assets/about/about.png"></img>
       <div className="content_area">
-        <h2 className="title">ABOUT US</h2>
+        <h1 className="title">ABOUT US</h1>
         <p className="subtitle">Drops DAO is a DeFi lending platform allowing users to leverage their NFTs and digital assets as collateral to seamlessly borrow crypto via lending pools. We’re building permissionless, trustless, and multi-chain infrastructure needed to help drive metaverse financet forward, taking NFTs to the next level beyond artwork. We aspire to empower users across the metaverse to easily and conveniently access on-chain liquidity, paving the way forward in the NFT x DeFi field.</p>
       </div>
     </UsWrapper>
