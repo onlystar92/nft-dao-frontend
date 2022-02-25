@@ -29,7 +29,7 @@ const TeamsWrapper = styled.div`
   .title {
     font-weight: 700;
     color: white;
-    font-family: 'lilgrotesk';
+    font-family: 'Luxfont';
     font-size: 72px;
     text-align: center;
     margin: 70px 0;

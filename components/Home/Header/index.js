@@ -9,6 +9,9 @@ const HeaderWrapper = styled.div`
   position: fixed;
   z-index: 1000;
   color: white !important;
+  .logo {
+    cursor: pointer;
+  }
   .navbar {  
     width: 100%;
     height: auto;
@@ -117,7 +120,9 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <div className="navbar">
-        <a href="/"><img className="logo" src="/assets/home/logo.png" alt="logo" /></a>
+        <Link href="/">
+          <img className="logo" src="/assets/home/logo.png" alt="logo" />
+        </Link>
         <ul>
           <li className="nav_item">
             <Link href="/staking">

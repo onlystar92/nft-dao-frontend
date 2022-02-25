@@ -68,7 +68,7 @@ const HowWorksWrapper = styled.div`
   }
   .title {
     width: 40%;
-    font-family: 'lilgrotesk';
+    font-family: 'Luxfont';
     font-weight: 700;
     font-size: 56px;
     line-height: 64px;

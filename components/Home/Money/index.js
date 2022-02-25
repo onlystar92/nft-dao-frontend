@@ -37,7 +37,7 @@ const MoneyWrapper = styled.div`
   }
   .title {
     font-weight: 700;
-    font-family: 'lilgrotesk';
+    font-family: 'Luxfont';
     font-size: 56px;
     line-height: 64px;
     color: white;

@@ -38,7 +38,7 @@ const UsWrapper = styled.div`
   }
   .title {
     font-weight: 700;
-    font-family: 'lilgrotesk';
+    font-family: 'Luxfont';
     font-size: 72px;
     line-height: 64px;
     color: white;

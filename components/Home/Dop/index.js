@@ -10,7 +10,7 @@ const DopWrapper = styled.div`
   }
   .dop {
     width: 55%;
-    font-family: 'lilgrotesk';
+    font-family: 'Luxfont';
     font-weight: 700;
     font-size: 50px;
     color: white;
