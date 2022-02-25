@@ -234,3 +234,80 @@ export const dataPartner = [
     url: 'https://solv.finance',
   },
 ]
+
+
+export const dataTeams = [
+  {
+    image: '/assets/team/darius.png',
+    name: 'Darius Kozlovskis',
+    role: 'Founder',
+    social1: '/assets/socials/twitter.png',
+    social2: '/assets/socials/linkdin.png'
+  },
+  {
+    image: '/assets/team/nikita.png',
+    name: 'Nikita Ufimcev',
+    role: 'Co-founder',
+    social1: '/assets/socials/linkdin.png'
+  },
+  {
+    image: '/assets/team/levan.png',
+    name: 'Levan Kikilashvili',
+    role: 'CTO',
+    social1: '/assets/socials/github.png'
+  },
+  {
+    image: '/assets/team/vakhtangi.png',
+    name: 'Vakhtangi Gigauri',
+    role: 'Loans Lead',
+    social1: '/assets/socials/github.png'
+  },
+  {
+    image: '/assets/team/stephon.png',
+    name: 'Stephon Binh',
+    role: 'Oracle Lead',
+    social1: '/assets/socials/github.png'
+  },
+  {
+    image: '/assets/team/Denis.png',
+    name: 'Denis Vasilev',
+    role: 'Full-stack dev',
+    social1: '/assets/socials/github.png'
+  },
+  {
+    image: '/assets/team/popa.png',
+    name: 'Popa Antonio Tudor',
+    role: 'Full-stack dev',
+    social1: '/assets/socials/github.png'
+  },
+  {
+    image: '/assets/team/dario.png',
+    name: 'Dario Corbelli',
+    role: 'Full-stack dev',
+    social1: '/assets/socials/github.png'
+  },
+  {
+    image: '/assets/team/wang.png',
+    name: 'Wang LongHong',
+    role: 'Full-stack dev',
+    social1: '/assets/socials/github.png'
+  },
+  {
+    image: '/assets/team/chang.png',
+    name: 'Chang Han',
+    role: 'Full-stack dev',
+    social1: '/assets/socials/github.png'
+  },
+  {
+    image: '/assets/team/elis.png',
+    name: 'Elis Yurtsever',
+    role: 'Art director',
+    social1: '/assets/socials/linkdin.png'
+  },
+  {
+    image: '/assets/team/tristan.png',
+    name: 'Tristan Lane',
+    role: 'Content writer',
+    social1: '/assets/socials/twitter.png'
+  },
+]

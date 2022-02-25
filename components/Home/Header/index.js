@@ -117,7 +117,7 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <div className="navbar">
-        <a href="/"><img className="logo" src="assets/home/logo.png" alt="logo" /></a>
+        <a href="/"><img className="logo" src="/assets/home/logo.png" alt="logo" /></a>
         <ul>
           <li className="nav_item">
             <Link href="/staking">
@@ -152,7 +152,7 @@ const Header = () => {
           status == false ?
           setStatus(true) : setStatus(false)
         }}
-      ><img src="assets/home/hamburgo.png" className="hamburger" /></a>
+      ><img src="/assets/home/hamburgo.png" className="hamburger" /></a>
     </HeaderWrapper>
   )
 }

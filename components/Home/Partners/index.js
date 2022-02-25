@@ -135,10 +135,10 @@ const PartnersWrapper = styled.div`
 const Partners = () => {
   return (
     <PartnersWrapper>
-      {/* <p className="title">PARTNERS</p> */}
-      <div className="title_img">
+      <h2 className="title">PARTNERS</h2>
+      {/* <div className="title_img">
         <img src="assets/home/text/partner_title.png" />
-      </div>
+      </div> */}
       <div className="content_area limited">
         <img src="assets/home/partners/fodl.png" />
         <img src="assets/home/partners/enjin.png" />

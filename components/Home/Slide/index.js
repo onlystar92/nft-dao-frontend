@@ -129,10 +129,10 @@ const Slide = () => {
   return (
     <SlideWrapper className="limited">
       <div className="content_area">
-        {/* <p className="title">INSTANT LOANS FOR JPEG, NFT AND METAVERSE ASSETS</p> */}
-        <div className="title_img">
+        <h2 className="title">INSTANT LOANS FOR JPEG, NFT AND METAVERSE ASSETS</h2>
+        {/* <div className="title_img">
           <img src="assets/home/text/slide_title.png" />
-        </div>
+        </div> */}
         <p className="subtitle">Use NFTs as collateral to obtain loans through lending pools.</p>
         {/* <p className="market">Market size:<br /> $5,000,000</p> */}
         <p className="market">Loans market:<br /> ${new BigNumber(status.totalSupply || 0).toFormat(0)}</p>
