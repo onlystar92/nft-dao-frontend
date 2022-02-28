@@ -11,30 +11,29 @@ const HeaderWrapper = styled.div`
   color: white !important;
   .logo {
     cursor: pointer;
-    height: 55px;
+    height: 25px;
+  }
+  .h70 {
+    height: 70px;
   }
   .navbar {  
     width: 100%;
-    height: auto;
-    display: flex;
     background: rgba(0, 0, 0, 0);
-    padding: 52px 10vw 22px 10vw;
-    justify-content: space-between;
   }
   .nav_item {
     display: inline-block;
     padding: 0 40px 8px 40px;
     font-style: normal;
-    font-weight: 600;
-    font-size: 18px;
+    font-weight: 500;
+    font-size: 16px;
     line-height: 20px;
     transition: 0.3s;
   }
   .hamburger {
     position: absolute;
     z-index: 1001;
-    top: 65px;
-    right: 10vw;
+    top: 27px;
+    right: 8vw;
     display: none;
   }
   .hamburgo_menu {
@@ -60,9 +59,6 @@ const HeaderWrapper = styled.div`
     }
   }
   @media (min-width: 769px) and (max-width: 1024px) {
-    .logo {
-      height: 45px;
-    }
     .nav_item {
       display: none;
     }
@@ -74,15 +70,11 @@ const HeaderWrapper = styled.div`
     }
   }
   @media all and (max-width: 768px) {
-    .logo {
-      height: 40px;
-    }
     .nav_item {
       display: none;
     }
     .hamburger {
       display: block;
-      top: 50px;
     }
     .hamburgo_menu {
       display: block;
@@ -99,18 +91,10 @@ const Header = () => {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
       if (document.querySelector(".navbar")) {
         document.querySelector(".navbar").style.background = "rgba(0, 0, 0, 0.7)";
-        document.querySelector(".navbar").style.padding = "22px 10vw";
-      }
-      if (document.querySelector(".hamburger")) {
-        document.querySelector(".hamburger").style.top = "40px";
       }
     } else {
       if (document.querySelector(".navbar")) {
         document.querySelector(".navbar").style.background = "rgba(0, 0, 0, 0)";
-        document.querySelector(".navbar").style.padding = "42px 10vw 22px 10vw";
-      }
-      if (document.querySelector(".hamburger")) {
-        document.querySelector(".hamburger").style.top = "50px";
       }
     }
   }
@@ -121,37 +105,39 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <div className="navbar">
-        <Link href="/">
-          <img className="logo" src="/assets/home/logo.png" alt="logo" />
-        </Link>
-        <ul>
-          <li className="nav_item">
-            <Link href="/staking">
-              Staking
-            </Link>
-          </li>
-          <li className="nav_item">
-            <Link href="/lending">
-              Lending Pools
-            </Link>
-          </li>
-        </ul>
-        {status == true &&
-        <div className="hamburgo_menu"> 
+        <div className="flex-center justify-between limited h70">
+          <Link href="/">
+            <img className="logo" src="/assets/home/logo.png" alt="logo" />
+          </Link>
           <ul>
-            <li>
+            <li className="nav_item">
               <Link href="/staking">
-              Staking
+                Staking
               </Link>
             </li>
-            <li>
+            <li className="nav_item">
               <Link href="/lending">
-              Lending Pools
+                Lending Pools
               </Link>
             </li>
           </ul>
+          {status == true &&
+          <div className="hamburgo_menu"> 
+            <ul>
+              <li>
+                <Link href="/staking">
+                Staking
+                </Link>
+              </li>
+              <li>
+                <Link href="/lending">
+                Lending Pools
+                </Link>
+              </li>
+            </ul>
+          </div>
+          }
         </div>
-        }
       </div>
       <a 
          onClick={() => {
