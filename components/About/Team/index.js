@@ -140,8 +140,20 @@ const Teams = () => {
             <p className="member_name">{data.name}</p>
             <p className="member_role">{data.role}</p>
             <div className="social">
-              <img src={data.social1} />
-              {data.social2 && <img src={data.social2} />}
+              <a
+                href={data.social1_link}
+                target="_blank"
+              >
+                <img src={data.social1} />
+              </a>
+              {data.social2 && 
+              <a
+                href={data.social2_link}
+                target="_blank"
+              >
+                <img src={data.social2} />
+              </a>
+              }
             </div>
           </div>
         ))}

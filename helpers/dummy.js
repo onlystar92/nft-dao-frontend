@@ -242,72 +242,85 @@ export const dataTeams = [
     name: 'Darius Kozlovskis',
     role: 'Founder',
     social1: '/assets/socials/twitter.png',
-    social2: '/assets/socials/linkdin.png'
+    social2: '/assets/socials/linkdin.png',
+    social1_link: 'https://twitter.com/0xdarius',
+    social2_link: 'https://www.linkedin.com/in/dariuskozlovskis/'
   },
   {
     image: '/assets/team/nikita.png',
     name: 'Nikita Ufimcev',
     role: 'Co-founder',
-    social1: '/assets/socials/linkdin.png'
+    social1: '/assets/socials/linkdin.png',
+    social1_link: 'https://www.linkedin.com/in/nikita-ufimcev-8425b64a/'
   },
   {
     image: '/assets/team/levan.png',
     name: 'Levan Kikilashvili',
     role: 'CTO',
-    social1: '/assets/socials/github.png'
+    social1: '/assets/socials/github.png',
+    social1_link: 'https://github.com/levan-k'
   },
   {
     image: '/assets/team/vakhtangi.png',
     name: 'Vakhtangi Gigauri',
     role: 'Loans Lead',
-    social1: '/assets/socials/github.png'
+    social1: '/assets/socials/github.png',
+    social1_link: 'https://github.com/vaxo-gg'
   },
   {
     image: '/assets/team/stephon.png',
     name: 'Stephon Binh',
     role: 'Oracle Lead',
-    social1: '/assets/socials/github.png'
+    social1: '/assets/socials/github.png',
+    social1_link: 'https://github.com/conlot-crypto'
   },
   {
     image: '/assets/team/Denis.png',
     name: 'Denis Vasilev',
     role: 'Full-stack dev',
-    social1: '/assets/socials/github.png'
+    social1: '/assets/socials/github.png',
+    social1_link: 'https://github.com/cruzfernan'
   },
   {
     image: '/assets/team/popa.png',
     name: 'Popa Antonio Tudor',
     role: 'Full-stack dev',
-    social1: '/assets/socials/github.png'
+    social1: '/assets/socials/github.png',
+    social1_link: 'https://github.com/freelife2010'
   },
   {
     image: '/assets/team/dario.png',
     name: 'Dario Corbelli',
     role: 'Full-stack dev',
-    social1: '/assets/socials/github.png'
+    social1: '/assets/socials/github.png',
+    social1_link: 'https://github.com/wdev733'
   },
   {
     image: '/assets/team/wang.png',
     name: 'Wang LongHong',
     role: 'Full-stack dev',
-    social1: '/assets/socials/github.png'
+    social1: '/assets/socials/github.png',
+    social1_link: 'https://github.com/cryptomaster130'
   },
   {
     image: '/assets/team/chang.png',
     name: 'Chang Han',
     role: 'Full-stack dev',
-    social1: '/assets/socials/github.png'
+    social1: '/assets/socials/github.png',
+    social1_link: 'https://github.com/falcon-721'
   },
   {
     image: '/assets/team/elis.png',
     name: 'Elis Yurtsever',
     role: 'Art director',
-    social1: '/assets/socials/linkdin.png'
+    social1: '/assets/socials/linkdin.png',
+    social1_link: 'https://www.linkedin.com/in/elis-yurtsever-a7006035/'
   },
   {
     image: '/assets/team/tristan.png',
     name: 'Tristan Lane',
     role: 'Content writer',
-    social1: '/assets/socials/twitter.png'
+    social1: '/assets/socials/twitter.png',
+    social1_link: 'https://twitter.com/TRLcrypto'
   },
 ]
