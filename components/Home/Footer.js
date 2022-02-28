@@ -118,7 +118,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img src="/assets/socials/ twitter.svg" alt="twitter" />
+              <img src="/assets/socials/twitter.svg" alt="twitter" />
             </a>
             <a
               href="https://t.me/drops_nft"
