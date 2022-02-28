@@ -7,6 +7,23 @@
 }
 
 @font-face {
+    font-family: "Luxfont";
+    src: url("/static/fonts/Luxfont.otf") format('opentype');
+}
+
+@font-face {
+    font-family: "Kodchasan";
+    font-weight: 300;
+    font-style: normal;
+    src: url("/static/fonts/Kodchasan-Medium.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: "VCR-MONO";
+    src: url("/static/fonts/VCR_OSD_MONO.ttf") format('truetype');
+}
+
+@font-face {
     font-family: "Montserrat";
     font-weight: 100;
     font-style: normal;

@@ -94,6 +94,12 @@ const Footer = () => {
               Lending Pools
             </div>
           </Link>
+          <Link href="/about-us">
+            <div
+            >
+              About us
+            </div>
+          </Link>
           <a
             href="https://docs.drops.co"
             target="_blank"

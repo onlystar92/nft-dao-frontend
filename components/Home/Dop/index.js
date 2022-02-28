@@ -10,7 +10,7 @@ const DopWrapper = styled.div`
   }
   .dop {
     width: 55%;
-    font-family: 'lilgrotesk';
+    font-family: 'Luxfont';
     font-weight: 700;
     font-size: 50px;
     color: white;
@@ -101,8 +101,8 @@ const Dop = () => {
     <DopWrapper>
       <div className="limited available">
         <div className="dop">
-          {/* <p>DOP AVAILABLE ON:</p> */}
-          <img src="assets/home/text/dop_title.png" />
+          <p>DOP AVAILABLE ON:</p>
+          {/* <img src="assets/home/text/dop_title.png" /> */}
         </div>
         <div className="organ">
           <img src="assets/home/uniswap.png" />

@@ -68,7 +68,7 @@ const HowWorksWrapper = styled.div`
   }
   .title {
     width: 40%;
-    font-family: 'lilgrotesk';
+    font-family: 'Luxfont';
     font-weight: 700;
     font-size: 56px;
     line-height: 64px;
@@ -218,10 +218,10 @@ const HowWorksWrapper = styled.div`
 const HowItWorks = () => {
   return (
     <HowWorksWrapper className="wraped">
-      {/* <p className="title">HOW DO NFT LOANS WORK?</p> */}
-      <div className="title_img">
+      <h2 className="title">HOW DO NFT LOANS WORK?</h2>
+      {/* <div className="title_img">
         <img src="assets/home/text/howWorks_title.png" />
-      </div>
+      </div> */}
       <div className="content_area">
         <div className="item">
           <div className="card_img">

@@ -22,7 +22,7 @@ const JoinWrapper = styled.div`
   }
   .title {
     font-weight: 700;
-    font-family: 'lilgrotesk';
+    font-family: 'Luxfont';
     font-size: 56px;
     line-height: 64px;
     color: white;
@@ -108,10 +108,10 @@ const JoinWrapper = styled.div`
 const Join = () => {
   return (
     <JoinWrapper>
-      {/* <p className="title">JOIN DROPS FAM</p> */}
-      <div className="title_img">
+      <h2 className="title">JOIN DROPS FAM</h2>
+      {/* <div className="title_img">
         <img src="assets/home/text/join_title.png" />
-      </div>
+      </div> */}
       <div className="social">
         <a
           href="https://twitter.com/dropsnft"
