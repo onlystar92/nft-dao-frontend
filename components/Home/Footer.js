@@ -134,7 +134,7 @@ const Footer = () => {
             >
               <img src="/assets/socials/discord.svg" alt="discord" />
             </a>
-            <a href="/" target="_blank">
+            <a href="https://dropsnft.medium.com/" target="_blank">
               <img src="/assets/socials/medium.svg" alt="medium" />
             </a>
           </div>
