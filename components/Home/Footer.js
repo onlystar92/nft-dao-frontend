@@ -94,6 +94,12 @@ const Footer = () => {
               Lending Pools
             </div>
           </Link>
+          <Link href="/about-us">
+            <div
+            >
+              About us
+            </div>
+          </Link>
           <a
             href="https://docs.drops.co"
             target="_blank"
@@ -128,7 +134,7 @@ const Footer = () => {
             >
               <img src="/assets/socials/discord.svg" alt="discord" />
             </a>
-            <a href="/" target="_blank">
+            <a href="https://dropsnft.medium.com/" target="_blank">
               <img src="/assets/socials/medium.svg" alt="medium" />
             </a>
           </div>
