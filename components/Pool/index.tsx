@@ -92,8 +92,8 @@ export default function Pool({ lendingType, farm, theme, library }: ILPFarm) {
         <Link
           href={
             lendingType === 'token'
-              ? `/lending/loan-token/${farm.id}`
-              : `/lending/loan-nft/${farm.id}`
+              ? `/lending/pool/${farm.id}`
+              : `/lending/nft-pool/${farm.id}`
           }
         >
           <Button
