@@ -5,6 +5,7 @@ import Head from 'next/head'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Collapse } from 'react-collapse'
+import Multicall from '@dopex-io/web3-multicall'
 import useWallet from 'hooks/useWallet'
 import useDarkMode from 'hooks/useDarkMode'
 import Account from 'components/Account/Account'
@@ -28,7 +29,7 @@ const networkLabels = {
   97: 'Binance Testnet',
 }
 
-export function accountBalance(library, dispatch) {
+export async function accountBalance(library, dispatch) {
   if (!library || !library.initiated) return
   const account = library.wallet.address
   const fromWei = (value, decimals = 18) =>
@@ -38,52 +39,66 @@ export function accountBalance(library, dispatch) {
   if (!addresses[library.wallet.network]) {
     return
   }
+  const multicall = new Multicall({
+    chainId: library.wallet.network,
+    provider: library.web3.currentProvider,
+  })
   Promise.all([
     getTokenPriceUSD(addresses[1].Comp),
-    library.methods.Comptroller.getAssetsIn(account),
-    library.web3.eth.getBalance(account),
-    library.methods.Comp.balanceOf(account),
-    library.methods.Comp.getAllowance(account, library.addresses.VeDOP),
-    library.contracts.CompoundLens.methods
-      .getCompBalanceMetadataExt(
+    multicall.getEthBalance(account).call(),
+    multicall.aggregate([
+      library.contracts.Comptroller.methods.getAssetsIn(account),
+      library.contracts.Comp.methods.balanceOf(account),
+      library.contracts.Comp.methods.allowance(
+        account,
+        library.addresses.VeDOP
+      ),
+      library.contracts.CompoundLens.methods.getCompBalanceMetadataExt(
         library.addresses.Comp,
         library.addresses.Unitroller,
         account
-      )
-      .call(),
+      ),
+    ]),
     Promise.all(
-      library.markets.map((market) => {
+      library.markets.map(async (market) => {
         const { underlyingAddress: address } = market
+        const marketContract = library.Market(market)
+        const dTokenContract = library.DToken(market)
         const marketMethods = library.methods.Market(library.Market(market))
         const dTokenMethods = library.methods.DToken(library.DToken(market))
 
+        let mutliData1 = ['0', 0]
+        if (address !== ZERO) {
+          mutliData1 = await multicall.aggregate([
+            marketContract.methods.balanceOf(account),
+            marketContract.methods.allowance(
+              account,
+              library.web3.utils.toChecksumAddress(market.id)
+            ),
+          ])
+        }
+        const mutliData2 = await multicall.aggregate([
+          dTokenContract.methods.balanceOfUnderlying(account),
+          dTokenContract.methods.borrowBalanceCurrent(account),
+          dTokenContract.methods.supplyRatePerBlock(),
+          dTokenContract.methods.borrowRatePerBlock(),
+          library.contracts.Comptroller.methods.compSpeeds(
+            library.web3.utils.toChecksumAddress(market.id)
+          ),
+          dTokenContract.methods.totalBorrows(),
+        ])
         return marketMethods && dTokenMethods
           ? Promise.all([
-              address !== ZERO
-                ? marketMethods.getBalance(account)
-                : Promise.resolve('0'),
-              address !== ZERO
-                ? marketMethods.getAllowance(
-                    account,
-                    library.web3.utils.toChecksumAddress(market.id)
-                  )
-                : Promise.resolve(0),
-              dTokenMethods.balanceOfUnderlying(account),
-              dTokenMethods.borrowBalanceCurrent(account),
-              dTokenMethods.supplyRatePerBlock(),
-              dTokenMethods.borrowRatePerBlock(),
-              library.methods.Comptroller.compSpeeds(
-                library.web3.utils.toChecksumAddress(market.id)
-              ),
+              ...mutliData1,
+              ...mutliData2,
               Number(market.exchangeRate),
               Number(market.totalSupply),
-              dTokenMethods.totalBorrows(),
             ])
           : Promise.resolve([
               ...new Array(7).fill(['0']),
+              Number(market.totalBorrows),
               Number(market.exchangeRate),
               Number(market.totalSupply),
-              Number(market.totalBorrows),
             ])
       })
     ),
@@ -91,11 +106,8 @@ export function accountBalance(library, dispatch) {
     .then(
       ([
         dopPrice,
-        assetsIn,
         _balance,
-        _dopBalance,
-        _dopAllowance,
-        metadata,
+        [assetsIn, _dopBalance, _dopAllowance, metadata],
         _markets,
       ]) => {
         const balance = toNumber(fromWei(_balance))
@@ -120,7 +132,7 @@ export function accountBalance(library, dispatch) {
         let TVL = new BigNumber(0)
         let MarketBorrowed = new BigNumber(0)
         let netApy = new BigNumber(0)
-        const blocksPerDay = 60 / 13.4 * 60 * 24
+        const blocksPerDay = (60 / 13.4) * 60 * 24
         const daysPerYear = 365
 
         const toChecksumAddress =
@@ -200,8 +212,8 @@ export function accountBalance(library, dispatch) {
               .toString(10)
           )
 
-          const marketSupply = new BigNumber(_markets[idx][7]).times(
-            _markets[idx][8]
+          const marketSupply = new BigNumber(_markets[idx][8]).times(
+            _markets[idx][9]
           )
           const supplyDopApy =
             !compSpeed || marketSupply.isZero()
@@ -219,7 +231,7 @@ export function accountBalance(library, dispatch) {
                       .minus(1)
                   )
                   .toString(10)
-          const marketBorrows = new BigNumber(_markets[idx][9]).div(
+          const marketBorrows = new BigNumber(_markets[idx][7]).div(
             10 ** market.underlyingDecimals
           )
           const borrowDopApy =
@@ -239,12 +251,8 @@ export function accountBalance(library, dispatch) {
                       .minus(1)
                   )
                   .toString(10)
-          TVL = TVL.plus(
-            marketSupply.times(price)
-          )
-          MarketBorrowed = MarketBorrowed.plus(
-            marketBorrows.times(price)
-          )
+          TVL = TVL.plus(marketSupply.times(price))
+          MarketBorrowed = MarketBorrowed.plus(marketBorrows.times(price))
           // TVL = TVL.plus(
           //   new BigNumber(market.origin || market.cash).times(price)
           // )
@@ -318,7 +326,9 @@ export function updateMarketCash(library, callback) {
           const dTokenMethods = library.methods.DToken(library.DToken(market))
           return Promise.all([
             Promise.resolve(market),
-            dTokenMethods ? dTokenMethods.getCash() : Promise.resolve(market.cash),
+            dTokenMethods
+              ? dTokenMethods.getCash()
+              : Promise.resolve(market.cash),
           ])
         })
       )
@@ -407,7 +417,10 @@ export default function Layout({
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="description" content="Drops DAO - permissionless NFT loans" />
+        <meta
+          name="description"
+          content="Drops DAO - permissionless NFT loans"
+        />
         <link
           href="https://necolas.github.io/normalize.css/latest/normalize.css"
           rel="stylesheet"
@@ -425,26 +438,28 @@ export default function Layout({
       ) : (
         <main
           className={`${styles.main} ${
-            (!theme || theme === 'dark') ? styles.darkMain : ''
+            !theme || theme === 'dark' ? styles.darkMain : ''
           } flex-column justify-between`}
         >
           <header
             className={`${styles.header} ${
-              (!theme || theme === 'dark') ? styles.darkHeader : ''
+              !theme || theme === 'dark' ? styles.darkHeader : ''
             }`}
           >
             <div className="flex-center justify-between limited">
               <Link href="/">
                 <img
                   className={`${styles.logo} cursor`}
-                  src={(!theme || theme === 'dark') ? "/logo-dark.png" : "/logo.png"} 
+                  src={
+                    !theme || theme === 'dark' ? '/logo-dark.png' : '/logo.png'
+                  }
                   alt="Drops Loans"
                 />
               </Link>
               <div className="flex-center">
                 <div
                   className={`flex ${styles.menu} ${
-                    (!theme || theme === 'dark') ? styles.darkMenu : ''
+                    !theme || theme === 'dark' ? styles.darkMenu : ''
                   }`}
                 >
                   <Link href="/staking">
@@ -478,14 +493,18 @@ export default function Layout({
                 <div className={styles.mobileMenu}>
                   <div
                     className={`${styles.collapseContent} ${
-                      (!theme || theme === 'dark') ? styles.darkCollapseContent : ''
+                      !theme || theme === 'dark'
+                        ? styles.darkCollapseContent
+                        : ''
                     }`}
                     id="collapse-content"
                   >
                     <Collapse isOpened={isCollapse}>
                       <div
                         className={`${styles.menuContent} ${
-                          (!theme || theme === 'dark') ? styles.darkMenuContent : ''
+                          !theme || theme === 'dark'
+                            ? styles.darkMenuContent
+                            : ''
                         } flex-all`}
                       >
                         <Link href="/">
@@ -522,7 +541,9 @@ export default function Layout({
                         <Link href="/about-us">
                           <div
                             className={
-                              router.pathname === '/about-us' ? styles.activeMenu : ''
+                              router.pathname === '/about-us'
+                                ? styles.activeMenu
+                                : ''
                             }
                           >
                             About us
@@ -554,7 +575,7 @@ export default function Layout({
                 <img
                   className={styles.themeMode}
                   src={
-                    (!theme || theme === 'dark')
+                    !theme || theme === 'dark'
                       ? '/assets/sun.png'
                       : '/assets/moon.png'
                   }
@@ -563,7 +584,7 @@ export default function Layout({
                 />
                 <img
                   src={
-                    (!theme || theme === 'dark')
+                    !theme || theme === 'dark'
                       ? '/assets/darkMenu.svg'
                       : '/assets/menu.svg'
                   }
@@ -584,7 +605,11 @@ export default function Layout({
               networks,
             })
           ) : (
-            <div className={`${styles.invalidNetwork} ${(!theme || theme === 'dark') ? styles.darkInvalidNetwork : ''}`}>
+            <div
+              className={`${styles.invalidNetwork} ${
+                !theme || theme === 'dark' ? styles.darkInvalidNetwork : ''
+              }`}
+            >
               <div className="center flex-column flex-center">
                 Please connect to following networks
                 <br />
@@ -661,12 +686,12 @@ export default function Layout({
                   </div>
                 </Link> */}
                 <a
-                    href="https://docs.drops.co"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Docs
-                  </a>
+                  href="https://docs.drops.co"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Docs
+                </a>
               </div>
               <div className={styles.socials}>
                 <div className={styles.socials_network}>

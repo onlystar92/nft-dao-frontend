@@ -1,27 +1,28 @@
 import BigNumber from 'bignumber.js'
+import Multicall from '@dopex-io/web3-multicall'
 import { getTokenPriceUSD } from 'utils/uniswap'
 
-export function getPools(library, dispatch, dopPrice) {
-  const {
-    dopPerBlock,
-    poolLength,
-    totalAllocPoint,
-    poolInfo,
-    userInfo,
-    pendingDop,
-  } = library.methods.MasterChef
+export async function getPools(library, dispatch, dopPrice) {
   const { LpToken, Market } = library.methods
   const account = library.wallet.address
-
   const blocksPerDay = 4 * 60 * 24
   const daysPerYear = 365
 
+  const multicall = new Multicall({
+    chainId: library.wallet.network,
+    provider: library.web3.currentProvider,
+  })
   const fromWei = (value, decimals = 18) =>
     decimals < 18
       ? new BigNumber(value).div(10 ** decimals).toFixed(decimals, 0)
       : library.web3.utils.fromWei(value)
 
-  Promise.all([poolLength(), dopPerBlock(), totalAllocPoint()])
+  const multicallData1: any = await multicall.aggregate([
+    library.contracts.MasterChef.methods.poolLength(),
+    library.contracts.MasterChef.methods.dopPerBlock(),
+    library.contracts.MasterChef.methods.totalAllocPoint(),
+  ])
+  Promise.all([...multicallData1])
     .then(([length, dops, totalAllocPt]) => {
       if (Number(length) === 0) {
         dispatch({
@@ -31,65 +32,64 @@ export function getPools(library, dispatch, dopPrice) {
         return
       }
       Promise.all(
-        new Array(Number(length))
-          .fill(0)
-          .map((_, id) =>
-            Promise.all([
-              poolInfo(id),
-              userInfo(id, account),
-              pendingDop(id, account),
-              id,
-            ])
-          )
+        new Array(Number(length)).fill(0).map(async (_, id) => {
+          const multicallData2: any = await multicall.aggregate([
+            library.contracts.MasterChef.methods.poolInfo(id),
+            library.contracts.MasterChef.methods.userInfo(id, account),
+            library.contracts.MasterChef.methods.pendingDop(id, account),
+          ])
+          return Promise.all([
+            ...multicallData2,
+            id,
+          ])
+        })
       )
         .then((poolInfos) => {
           Promise.all(
             poolInfos.map(
               (info) =>
-                new Promise((resolve, reject) => {
+                new Promise(async (resolve, reject) => {
                   const pool = library.addresses.Pools.find(
                     (pool) =>
                       pool.lpToken.toLowerCase() ===
-                      info[0].lpToken.toLowerCase()
+                      info[0][0].toLowerCase()
                   )
                   if (!pool) return resolve(null)
                   const poolType = pool.type
-                  let methods: any
-                  let requestMethos
+                  let multicallData: any
 
                   if (poolType === 'LP') {
-                    methods = LpToken(library.LPTokenContract(info[0].lpToken))
-                    requestMethos = [
-                      methods.getBalance(account),
-                      methods.totalSupply(),
-                      methods.getReserves(),
-                      methods.getToken0(),
-                      methods.getToken1(),
-                      methods.getBalance(library.addresses.MasterChef),
-                      methods.getAllowance(
-                        account,
-                        library.addresses.MasterChef
-                      ),
-                    ]
+                    multicallData = await multicall.aggregate([
+                      library.LPTokenContract(info[0][0]).methods.balanceOf(account),
+                      library.LPTokenContract(info[0][0]).methods.totalSupply(),
+                      library.LPTokenContract(info[0][0]).methods.getReserves(),
+                      library.LPTokenContract(info[0][0]).methods.token0(),
+                      library.LPTokenContract(info[0][0]).methods.token1(),
+                      library.LPTokenContract(info[0][0]).methods.balanceOf(library.addresses.MasterChef),
+                      library.LPTokenContract(info[0][0]).methods.allowance(account,
+                        library.addresses.MasterChef),
+                    ])
                   } else {
-                    methods = Market(
-                      library.ERC20TokenContract(info[0].lpToken)
-                    )
-                    requestMethos = [
-                      methods.getBalance(account),
-                      methods.totalSupply(),
-                      Promise.resolve('0'),
-                      getTokenPriceUSD(info[0].lpToken),
-                      methods.decimals(),
-                      methods.getBalance(library.addresses.MasterChef),
-                      methods.getAllowance(
-                        account,
-                        library.addresses.MasterChef
-                      ),
+                    const multicallData3 = await multicall.aggregate([
+                      library.ERC20TokenContract(info[0][0]).methods.balanceOf(account),
+                      library.ERC20TokenContract(info[0][0]).methods.totalSupply(),
+                      library.ERC20TokenContract(info[0][0]).methods.decimals(),
+                      library.ERC20TokenContract(info[0][0]).methods.balanceOf(library.addresses.MasterChef),
+                      library.ERC20TokenContract(info[0][0]).methods.allowance(account,
+                        library.addresses.MasterChef),
+                    ])
+                    multicallData = [
+                      multicallData3[0],
+                      multicallData3[1],
+                      '0',
+                      getTokenPriceUSD(info[0][0]),
+                      multicallData3[2],
+                      multicallData3[3],
+                      multicallData3[4]
                     ]
                   }
 
-                  Promise.all([...requestMethos])
+                  Promise.all([...multicallData])
                     .then(
                       ([
                         _balance,
@@ -142,7 +142,7 @@ export function getPools(library, dispatch, dopPrice) {
                                 .times(blocksPerDay)
                                 .times(daysPerYear)
                                 .times(
-                                  new BigNumber(info[0].allocPoint).div(
+                                  new BigNumber(info[0][1]).div(
                                     totalAllocPt
                                   )
                                 )
@@ -151,13 +151,16 @@ export function getPools(library, dispatch, dopPrice) {
                                 .times(100)
                                 .dp(2, 1)
                                 .toString(10)
-
                         resolve({
                           ...(library.addresses.Pools.find(
                             (pool) => pool.id === info[3]
                           ) || {}),
-                          ...info[0],
-                          ...info[1],
+                          lpToken: info[0][0],
+                          allocPoint: info[0][1],
+                          lastRewardBlock: info[0][2],
+                          accDopPerShare: info[0][3],
+                          amount: info[1][0],
+                          rewardDebt: info[1][2],
                           pendingDop: info[2],
                           balance: fromWei(_balance, tokenDecimal),
                           apy,
@@ -226,18 +229,14 @@ export function getVestingInfo(vIndex, library) {
 export function getVeDOPInfo(library, dispatch) {
   const { balanceOf, supply, locked } = library.methods.VeDOP
   const account = library.wallet.address
-  Promise.all([
-    balanceOf(account),
-    locked(account),
-    supply(),
-  ]).then((infos) => {
+  Promise.all([balanceOf(account), locked(account), supply()]).then((infos) => {
     dispatch({
       type: 'veDOPInfo',
       payload: {
         veDOPBalance: infos[0],
         lockedDOP: infos[1][0],
         lockTime: infos[1][1],
-        totalLockedDOP: infos[2]
+        totalLockedDOP: infos[2],
       },
     })
   })
