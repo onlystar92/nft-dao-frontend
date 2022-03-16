@@ -410,7 +410,7 @@ export default function Layout({
   return (
     <>
       <Head>
-        <title>Drops Loans</title>
+        <title>Drops - NFT As Collateral & Instant NFT Loans</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <meta
           name="viewport"
