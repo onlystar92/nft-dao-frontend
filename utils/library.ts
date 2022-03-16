@@ -78,17 +78,17 @@ export async function getPools(library, dispatch, dopPrice) {
                       library.ERC20TokenContract(info[0][0]).methods.allowance(account,
                         library.addresses.MasterChef),
                     ])
+                    const tokenPriceUSD = await getTokenPriceUSD(info[0][0])
                     multicallData = [
                       multicallData3[0],
                       multicallData3[1],
                       '0',
-                      getTokenPriceUSD(info[0][0]),
+                      tokenPriceUSD,
                       multicallData3[2],
                       multicallData3[3],
                       multicallData3[4]
                     ]
                   }
-
                   Promise.all([...multicallData])
                     .then(
                       ([
@@ -110,12 +110,12 @@ export async function getPools(library, dispatch, dopPrice) {
                             _token0.toLowerCase() ===
                             library.addresses.Comp.toLowerCase()
                           ) {
-                            totalLocked = new BigNumber(_reserves._reserve0)
+                            totalLocked = new BigNumber(_reserves[0])
                               .div(1e18)
                               .times(2)
                               .times(dopPrice)
                           } else {
-                            totalLocked = new BigNumber(_reserves._reserve1)
+                            totalLocked = new BigNumber(_reserves[1])
                               .div(1e18)
                               .times(2)
                               .times(dopPrice)

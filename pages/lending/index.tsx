@@ -25,7 +25,7 @@ export default function Lending({ library, state, theme, dispatch }) {
   const [tokenPools, setTokenPools] = useState([])
 
   const getStatus = async() => {
-    const res = await fetch('/status')
+    const res = await fetch('/status.json')
     const data = await res.json()
     const tokenNames = Object.keys(data?.markets || []).map(key => { return key })
     const _tokenPools = [{

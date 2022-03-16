@@ -27,7 +27,6 @@ export default function Staking({ library, theme, state, dispatch }) {
     }
     return () => poolTimer && clearInterval(poolTimer)
   }, [library, state.account.address, state.dopPrice])
-
   return (
     <>
       <section className={styles.header}>
